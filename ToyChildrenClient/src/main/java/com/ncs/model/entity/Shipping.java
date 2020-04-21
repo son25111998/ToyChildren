@@ -7,23 +7,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.context.annotation.Description;
-
 import lombok.Data;
 
 @Entity
-@Table(name = "tax", schema = "dmdc", catalog = "")
+@Table(name = "shipping", schema = "dmdc", catalog = "")
 @Data
-@Description("Thuế")
-public class Tax {
+public class Shipping {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
 	private int id;
 
 	@Column
-	private String type;
+	private String name;
 
 	@Column
-	private Double percentage;
+	private int cost;
 }

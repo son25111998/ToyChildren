@@ -10,6 +10,7 @@ public class Constants {
 	public static final int PAGE_DEFAULT = 1;
 	public static final int SIZE_DEFAULT = 20;
 	
+	public static final int ERR_CODE_FIELD = 0;
     public static final int SUCCESS_CODE = 200;
     public static final int ERR_CODE_BAD_REQUEST = 400;
     public static final int ERR_CODE_UNAUTHORIZED = 401;
@@ -18,7 +19,8 @@ public class Constants {
     public static final int ERR_CODE_METHOD_NOT_ALLOW = 405;
     public static final int CAUTION_CODE_FIELD_EXISTED = 2;
     public static final int SUCCESS_CODE_FIELD_UNEXIST = 1;
-    public static final int ERR_CODE_FIELD = 0;
+    public static final int UNKNOWN_ERROR_CODE = 500;
+    
 
 
     public static final String MSG_TEMP = "Đã xảy ra lỗi: ";
@@ -33,7 +35,7 @@ public class Constants {
     public static final String ERR_MSG_USERNAME_ALREADY_TAKEN= "Tên người dùng đã được sử dụng";
     public static final String ERR_MSG_EMAIL_ALREADY_TAKEN= "Tên người dùng đã được sử dụng";
     public static final String ERR_MSG_USER_ROLE_NOT_FOUND= "Không tìm thấy vai trò người dùng";
-
+    public static final String UNKNOWN_ERROR_MSG = "Lỗi không rõ nguyên nhân";
 
     public static final String REFERENCE_IP = "http://localhost:8081/";
 

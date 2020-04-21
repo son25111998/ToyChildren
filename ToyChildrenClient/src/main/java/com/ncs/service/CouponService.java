@@ -18,15 +18,19 @@ public class CouponService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 	
 	public ResponseData<Coupon> findByCode(String code){
+		LOGGER.info(">>>>>>>>>>>findByCode Start >>>>>>>>>>>>");
+		
 		ResponseData<Coupon> response = new ResponseData<Coupon>();
 		try {
 			response.setData(couponRepository.findByCode(code));
 		} catch (Exception e) {
 			LOGGER.error("Api get coupon by code has exception : {}", e.getMessage());
 			response.setData(null);
-			response.setCode(Constants.ERR_CODE_BAD_REQUEST);
-			response.setMessage("Phiếu giảm giá không hợp lệ");
+			response.setCode(Constants.UNKNOWN_ERROR_CODE);
+			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
 		}
+		
+		LOGGER.info(">>>>>>>>>>>findByCode End >>>>>>>>>>>>");
 		return response;
 	}
 }

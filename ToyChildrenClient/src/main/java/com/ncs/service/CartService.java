@@ -1,10 +1,11 @@
 package com.ncs.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,21 +18,29 @@ import com.ncs.repository.ProductRepository;
 public class CartService {
 	@Autowired
 	private ProductRepository productRepository;
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 
 	public ResponseData<List<CartDto>> getListCart(HttpServletRequest request) {
+		LOGGER.info(">>>>>>>>>>>getListCart Start >>>>>>>>>>>>");
+		
 		ResponseData<List<CartDto>> response = new ResponseData<>();
 		try {
 //			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute("listCartSession");
 //			response.setData(carts);
 		} catch (Exception e) {
+			LOGGER.error("Api get list cart has exception : {}", e.getMessage());
 			response.setData(null);
-			response.setCode(Constants.ERR_CODE_BAD_REQUEST);
-			response.setMessage(Constants.MSG_TEMP + Constants.ERR_MSG_BAD_REQUEST);
+			response.setCode(Constants.UNKNOWN_ERROR_CODE);
+			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
 		}
+		
+		LOGGER.info(">>>>>>>>>>>getListCart End >>>>>>>>>>>>");
 		return response;
 	}
 
 	public ResponseData<Object> addProductToCart(CartDto cart, HttpServletRequest request) {
+		LOGGER.info(">>>>>>>>>>>addProductToCart Start >>>>>>>>>>>>");
 		ResponseData<Object> response = new ResponseData<>();
 		try {
 //			boolean check = false;
@@ -59,10 +68,13 @@ public class CartService {
 //
 //			request.getSession().setAttribute("listCartSession", listCart);
 		} catch (Exception e) {
+			LOGGER.error("Api get add product to cart has exception : {}", e.getMessage());
 			response.setData(null);
-			response.setCode(Constants.ERR_CODE_BAD_REQUEST);
-			response.setMessage(Constants.MSG_TEMP + Constants.ERR_MSG_BAD_REQUEST);
+			response.setCode(Constants.UNKNOWN_ERROR_CODE);
+			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
 		}
+		
+		LOGGER.info(">>>>>>>>>>>addProductToCart Start >>>>>>>>>>>>");
 		return response;
 	}
 }

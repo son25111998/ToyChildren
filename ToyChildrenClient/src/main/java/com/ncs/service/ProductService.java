@@ -24,6 +24,8 @@ public class ProductService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 
 	public ResponseData<GetListProductOutput> getListProducts(int page, int size, String search) {
+		LOGGER.info(">>>>>>>>>>>getListProducts Start >>>>>>>>>>>>");
+		
 		ResponseData<GetListProductOutput> response = new ResponseData<>();
 		try {
 			if (StringUtils.isEmpty(page)) {
@@ -38,22 +40,26 @@ public class ProductService {
 		} catch (Exception e) {
 			LOGGER.error("Api get list product has exception : {}", e.getMessage());
 			response.setData(null);
-			response.setCode(Constants.ERR_CODE_BAD_REQUEST);
-			response.setMessage(Constants.MSG_TEMP + Constants.ERR_MSG_BAD_REQUEST);
+			response.setCode(Constants.UNKNOWN_ERROR_CODE);
+			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
 		}
+		LOGGER.info(">>>>>>>>>>>getListProducts End >>>>>>>>>>>>");
 		return response;
 	}
 
 	public ResponseData<Product> getProductInfo(int productId) {
+		LOGGER.info(">>>>>>>>>>>getProductInfo Start >>>>>>>>>>>>");
 		ResponseData<Product> response = new ResponseData<>();
 		try {
 			response.setData(productRepository.findById(productId).get());
 		} catch (Exception e) {
 			LOGGER.error("Api get product detail has exception : {}", e.getMessage());
 			response.setData(null);
-			response.setCode(Constants.ERR_CODE_BAD_REQUEST);
-			response.setMessage(Constants.MSG_TEMP + Constants.ERR_MSG_BAD_REQUEST);
+			response.setCode(Constants.UNKNOWN_ERROR_CODE);
+			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
 		}
+		
+		LOGGER.info(">>>>>>>>>>>getProductInfo End >>>>>>>>>>>>");
 		return response;
 	}
 }

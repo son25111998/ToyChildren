@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ncs.common.constants.Constants;
 import com.ncs.common.util.Result;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * Response data form
@@ -17,10 +15,8 @@ import lombok.Setter;
  * @param <T>
  */
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class ResponseData<T> {
 
 	/** the response code */

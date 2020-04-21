@@ -5,25 +5,31 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.springframework.context.annotation.Description;
 
 import lombok.Data;
 
 @Entity
-@Table(name = "tax", schema = "dmdc", catalog = "")
+@Table(name = "order_detail", schema = "dmdc", catalog = "")
 @Data
-@Description("Thuế")
-public class Tax {
+public class OrderDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
 	private int id;
 
 	@Column
-	private String type;
+	private String attribute;
 
 	@Column
-	private Double percentage;
+	private int quantity;
+
+	@ManyToOne
+	@JoinColumn(name = "ORDER_ID")
+	private Order order;
+
+	@ManyToOne
+	@JoinColumn(name = "PRODUCT_ID")
+	private Product product;
 }

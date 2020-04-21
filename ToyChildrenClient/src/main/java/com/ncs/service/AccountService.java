@@ -37,6 +37,7 @@ public class AccountService {
 
 	@Transactional(rollbackOn = Exception.class)
 	public ResponseData<Customer> register(@RequestBody AccountInput input) {
+		LOGGER.info(">>>>>>>>>>>register Start >>>>>>>>>>>>");
 		ResponseData<Customer> response = new ResponseData<Customer>();
 		try {
 			Account account = new Account();
@@ -48,7 +49,10 @@ public class AccountService {
 			
 			if(!ObjectUtils.isEmpty(accountRepository.findByUsername(username))){
 				LOGGER.error("Tên đăng nhập đã tồn tại : {}", username);
-				throw new Exception("Tên đăng nhập đã tồn tại");
+				response.setData(null);
+				response.setCode(Constants.UNKNOWN_ERROR_CODE);
+				response.setMessage("Tên đăng nhập đã tồn tại");
+				return response;
 			}
 			
 			// set date account
@@ -75,9 +79,11 @@ public class AccountService {
 		} catch (Exception e) {
 			LOGGER.error("Api account register has exception : {}",e.getMessage());
 			response.setData(null);
-			response.setCode(Constants.ERR_CODE_BAD_REQUEST);
-			response.setMessage(e.getMessage());
+			response.setCode(Constants.UNKNOWN_ERROR_CODE);
+			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
 		}
+		
+		LOGGER.info(">>>>>>>>>>>register End >>>>>>>>>>>>");
 		return response;
 	}
 }
