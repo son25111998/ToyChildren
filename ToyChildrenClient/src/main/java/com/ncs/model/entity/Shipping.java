@@ -1,5 +1,7 @@
 package com.ncs.model.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +14,9 @@ import lombok.Data;
 @Entity
 @Table(name = "shipping", schema = "dmdc", catalog = "")
 @Data
-public class Shipping {
+public class Shipping implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;

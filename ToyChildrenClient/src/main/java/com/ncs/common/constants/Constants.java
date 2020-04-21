@@ -9,6 +9,8 @@ package com.ncs.common.constants;
 public class Constants {
 	public static final int PAGE_DEFAULT = 1;
 	public static final int SIZE_DEFAULT = 20;
+	public static final int STATUS_ACTIVE_VALUE = 1;
+	public static final int COUPON_ID_DEFAULT = 1;
 	
 	public static final int ERR_CODE_FIELD = 0;
     public static final int SUCCESS_CODE = 200;
@@ -36,7 +38,8 @@ public class Constants {
     public static final String ERR_MSG_EMAIL_ALREADY_TAKEN= "Tên người dùng đã được sử dụng";
     public static final String ERR_MSG_USER_ROLE_NOT_FOUND= "Không tìm thấy vai trò người dùng";
     public static final String UNKNOWN_ERROR_MSG = "Lỗi không rõ nguyên nhân";
-    public static final String PRODUCT_DO_NOT_EXIST = "Sản phẩm không tồn tại trong hệ thống";
+    public static final String RECORD_DO_NOT_EXIST = "không tồn tại trong hệ thống";
+    public static final String CART_EMPTY = "Không có sản phẩm nào trong giỏ hàng";
     public static final String REFERENCE_IP = "http://localhost:8081/";
 
 }

@@ -1,5 +1,6 @@
 package com.ncs.model.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,17 +17,18 @@ import lombok.Data;
 @Entity
 @Table(name = "order", schema = "dmdc", catalog = "")
 @Data
-public class Order {
+public class Order implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
 	private int id;
 
 	@Column(name = "DATE_ORDER")
 	private Date dateOrder;
 
-	@Column(name = "PAYMENT_TYPE")
-	private int paymentType;
+	@Column
+	private String payment;
 
 	@Column
 	private int status;

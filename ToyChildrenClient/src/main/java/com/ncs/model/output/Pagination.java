@@ -6,6 +6,7 @@ import lombok.Data;
 public class Pagination {
 	private int page;
 	private int size;
+	@SuppressWarnings("unused")
 	private int totalPage;
 	private Long totalRecord;
 	
