@@ -36,7 +36,7 @@ public class Constants {
     public static final String ERR_MSG_EMAIL_ALREADY_TAKEN= "Tên người dùng đã được sử dụng";
     public static final String ERR_MSG_USER_ROLE_NOT_FOUND= "Không tìm thấy vai trò người dùng";
     public static final String UNKNOWN_ERROR_MSG = "Lỗi không rõ nguyên nhân";
-
+    public static final String PRODUCT_DO_NOT_EXIST = "Sản phẩm không tồn tại trong hệ thống";
     public static final String REFERENCE_IP = "http://localhost:8081/";
 
 }

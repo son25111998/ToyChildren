@@ -50,9 +50,9 @@ public class ProductDao {
 
 			Query query = entityManager.createQuery(sql.toString()).setFirstResult((page - 1) * size)
 					.setMaxResults(size);
-			
+
 			query.setParameter("status", STATUS_ACTIVE_VALUE);
-			
+
 			// set data to parameters of query
 			if (!StringUtils.isEmpty(search)) {
 				query.setParameter("productName", "%" + search + "%");
@@ -79,16 +79,18 @@ public class ProductDao {
 			// create query DB
 			sql.append("SELECT count(*) FROM ");
 			sql.append(Product.class.getName());
-			sql.append(" p ");
+			sql.append(" p WHERE p.status = :status ");
 
 			if (!StringUtils.isEmpty(search)) {
-				sql.append(" WHERE ");
+				sql.append(" AND ");
 				if (!StringUtils.isEmpty(search)) {
 					sql.append(" p.name LIKE :productName ");
 				}
 			}
 
 			Query query = entityManager.createQuery(sql.toString());
+
+			query.setParameter("status", STATUS_ACTIVE_VALUE);
 
 			// set data to parameters of query
 			if (!StringUtils.isEmpty(search)) {

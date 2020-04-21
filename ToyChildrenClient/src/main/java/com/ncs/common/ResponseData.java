@@ -26,7 +26,7 @@ public class ResponseData<T> {
 	private String message = Constants.SUCCESS_MSG;
 
 	/** the response data */
-	private T Data;
+	private T Data = null;
 
 	/**
 	 * constructor
