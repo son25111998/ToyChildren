@@ -1,1 +1,49 @@
-<p>footer works!</p>
+<footer th:fragment="footer">
+    <div class="footer_title col-md-12 marb30">Tải ứng dụng IVY moda</div>
+    <div class="d-flex flex-row-center col-md-12 marb30">
+        <a id="app_ios" style="margin-right: 10px" href="http://ios.ivy.vn" class="link-white" target="_blank" title="Tải App IVYmoda trên App Store"> 
+            <img src="../../../../assets/images/appstore.jpg" width="140" class="img-fluid" alt=""> 
+        </a>
+        <a id="app_android" style="margin-right: 10px" href="http://android.ivy.vn" class="link-white" target="_blank" title="Tải App IVYmoda trên Google Play"> 
+            <img src="../../../../assets/images/googleplay.jpg" width="140" class="img-fluid" alt=""> 
+        </a>
+    </div>
+    <div class="footer_title col-md-12">Nhận bản tin IVY moda</div>
+    <div class="inputGroup_box col-md-12">
+        <div class="inputGroup">
+            <form enctype="application/x-www-form-urlencoded" action="https://ivymoda.com/page/subscribe" method="post" name="frm_subscribe" id="frm_subscribe">
+                <input type="text" placeholder="Nhập email của bạn..." id="txt_subscribe_email" name="email">
+                <button type="button" id="but_subscribe"><i class="fa fa-long-arrow-left fa-lg" aria-hidden="true"></i></button>
+            </form>
+        </div>
+        <div id="subscribe_error"></div>
+    </div>
+
+    <div class="clearfix"></div>
+    <ul class="list-inline">
+        <li>
+            <a href="http://online.gov.vn/HomePage/CustomWebsiteDisplay.aspx?DocId=36604" target="_blank">
+            <img src="../../../../assets/images/dathongbao.png">
+            </a>
+        </li>
+        <li><a href="https://ivymoda.com/lien-he">Liên hệ</a></li>
+        <li><a href="http://tuyendung.ivy.com.vn" target="_blank">Tuyển dụng</a></li>
+        <li><a href="https://ivymoda.com/about/gioi-thieu">Giới thiệu</a></li>
+        <li>
+            <ul class="list-inline">
+                <li><a target="_blank" href="https://www.facebook.com/thoitrangivymoda/"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a target="_blank" href="https://www.youtube.com/user/thoitrangivymoda"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+            </ul>
+        </li>
+    </ul>
+    <div class="footer_bot">
+        Công ty Cổ phần Dự Kim với số đăng ký kinh doanh: 0105777650
+        <br>Địa chỉ đăng ký: Tổ dân phố Tháp, P.Đại Mỗ, Q.Nam Từ Liêm, TP.Hà Nội, Việt Nam - 0243 205 2222
+        <br>Đặt hàng online : <b>0246 662 3434 </b>.
+        <p>
+            ©Ivymoda All rights reserved
+        </p>
+    </div>
+</footer>
+

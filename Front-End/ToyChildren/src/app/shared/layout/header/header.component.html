@@ -1,1 +1,147 @@
-<p>header works!</p>
+<nav id="topBar" class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header col-md-2 col-sm-2">
+            <a class="navbar-brand" href="/">
+                <img src="../../../../assets/images/logo.png">
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar_center">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                    <ul class="dropdown-menu" style="display: none;">
+                        <li>
+                            <a href="#" style="text-transform: uppercase"><b></b></a>
+                            <a href="/danh-muc" style="text-transform: uppercase"><b></b></a>
+                            <ul>
+                                <li><a href="/danh-muc"></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">SALE</a>
+                    <ul class="dropdown-menu" style="display: none;">
+                        <li><a href=""></a></li>
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Tin tức</a>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Thông tin</a>
+                    <ul class="dropdown-menu" style="display: none;">
+                        <li><a href="#">Tư vấn size</a></li>
+                        <li><a href="#">Chính sách điều khoản</a></li>
+                        <li><a href="#">Hướng dẫn mua hàng</a></li>
+                        <li><a href="#">Chinh sách thanh toán</a></li>
+                        <li><a href="#">Chính sách đổi trả</a></li>
+                        <li><a href="#">Chính sách bảo hành </a></li>
+                        <li><a href="#">Chính sách giao nhận vận chuyển</a></li>
+                        <li><a href="#">Hệ thống cửa hàng</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form enctype="application/x-www-form-urlencoded" method="get" th:action="/tim-kiem" name="frm_search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="key" placeholder="Tìm kiếm sản phẩm" title="tìm kiếm sản phẩm">
+                            <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit" title="tìm kiếm"> <i class="fa fa-search" aria-hidden="true"></i></button>
+                      </span>
+                        </div><!-- /input-group -->
+                    </form>
+                </li>
+                
+                   <li><a href="/dang-nhap" title="Đăng nhập"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                
+                <li><a href="/customer/info" title="Cập nhật tài khoản">Tài khoản</a></li>
+                <li><a href="/dang-xuat" title="Thoát"><i class="fa fa-sign-out"></i></a></li>
+                
+                <li class="dropdown">
+                    <a href="/gio-hang">
+                        <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                        <span></span>
+                        <span></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <h3 class="text-center"><a href="#" title="">Giỏ hàng</a></h3>
+                        <li>
+                            <ul class="list-inline clearfix">
+                                <li class="col-md-3 col-sm-4">
+                                    <a>
+                                        <img src="">
+                                    </a>
+                                </li>
+                                <li class="col-md-9 col-sm-8">
+                                    <div class="title_cartMain">
+                                        <h5><a></a></h5>
+                                    </div>
+                                    <div class="style_cartMain">
+                                        <b>Màu: </b><span></span><br>
+                                        <b>Size:</b> 
+                                        <span class="first_letter_upper"></span>
+                                        <br><b>Số lượng:</b> <span></span>                                   
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/gio-hang">...xem chi tiết</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<!--topBar scroll addClss-->
+<script type="text/javascript">
+    $(window).scroll(function() {
+        var scroll = $(window).scrollTop();
+
+        if (scroll >= 1) {
+            $("#topBar").addClass("darkHeader");
+        }else {
+            $("#topBar").removeClass("darkHeader");
+        }
+    });
+</script>
+<!--Hover fadeIn fadeOut subMenu-->
+<script type="text/javascript">
+    $('ul.navbar-right li.dropdown').hover(function() {
+        $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
+    }, function() {
+        $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
+    });
+    $('ul.navbar_center li.dropdown').hover(function() {
+        $(this).find('.dropdown-menu').stop(true, true).delay(0).fadeIn(200);
+    }, function() {
+        $(this).find('.dropdown-menu').stop(true, true).delay(0).fadeOut(200);
+    });
+</script>
+<!--Add data-toggle--->
+<script type="text/javascript">
+    $(document).ready(function() {
+        var $window = $(window);
+        //Hàm check nếu kích thước màn hình nhỏ hơn 1024 thì thực hiện
+        function checkWidth() {
+            var windowsize = $window.width();
+            if (windowsize < 1025) {
+                // '.check_data' là class thẻ mà muốn add data-toggle
+                $(".dropdown-toggle").attr("data-toggle", "dropdown");
+            
+            }
+        }
+        // Execute on load
+        checkWidth();
+        // Bind event listener
+        $(window).resize(checkWidth);
+            });
+</script>

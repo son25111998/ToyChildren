@@ -14,6 +14,7 @@ import com.ncs.model.output.Pagination;
 
 @Repository
 public class ProductDao {
+	private static final int STATUS_ACTIVE_VALUE = 1;
 	@Autowired
 	private EntityManager entityManager;
 
@@ -27,10 +28,10 @@ public class ProductDao {
 			// create query DB
 			sql.append("SELECT p FROM ");
 			sql.append(Product.class.getName());
-			sql.append(" p ");
+			sql.append(" p WHERE p.status = :status ");
 
 			if (!StringUtils.isEmpty(search)) {
-				sql.append(" WHERE ");
+				sql.append(" AND ");
 				if (!StringUtils.isEmpty(search)) {
 					sql.append(" p.name LIKE :productName ");
 				}
@@ -49,7 +50,9 @@ public class ProductDao {
 
 			Query query = entityManager.createQuery(sql.toString()).setFirstResult((page - 1) * size)
 					.setMaxResults(size);
-
+			
+			query.setParameter("status", STATUS_ACTIVE_VALUE);
+			
 			// set data to parameters of query
 			if (!StringUtils.isEmpty(search)) {
 				query.setParameter("productName", "%" + search + "%");
