@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -57,10 +59,12 @@ public class Product {
 
 	@Column
 	private Integer status;
-	
-	@Column(name = "manufacturer_id")
-	private int manufacturerId;
 
-	@Column(name = "CATEGORY_ID")
-	private int categoryId;
+	@ManyToOne
+	@JoinColumn(name = "manufacturer_id")
+	private Manufacturer manufacturer;
+
+	@ManyToOne
+	@JoinColumn(name = "CATEGORY_ID")
+	private Category category;
 }
