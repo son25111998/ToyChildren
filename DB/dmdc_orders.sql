@@ -16,34 +16,41 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `product_review`
+-- Table structure for table `orders`
 --
 
-DROP TABLE IF EXISTS `product_review`;
+DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `product_review` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `REVIEW_RATING` int(11) DEFAULT NULL,
-  `REVIEW_DATE` date DEFAULT NULL,
-  `REVIEW_CONTENT` varchar(45) DEFAULT NULL,
-  `PRODUCT_ID` int(11) NOT NULL,
-  `CUSTOMER_ID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `fk_PRODUCT_REVIEW_PRODUCT1_idx` (`PRODUCT_ID`),
-  KEY `fk_PRODUCT_REVIEW_CUSTOMER1_idx` (`CUSTOMER_ID`),
-  CONSTRAINT `fk_PRODUCT_REVIEW_CUSTOMER1` FOREIGN KEY (`CUSTOMER_ID`) REFERENCES `customer` (`ID`),
-  CONSTRAINT `fk_PRODUCT_REVIEW_PRODUCT1` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `product` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_date` date DEFAULT NULL,
+  `payment` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `coupon_id` int(11) DEFAULT NULL,
+  `shipping_id` int(11) DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `tax_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_coupon` (`coupon_id`),
+  KEY `FK_shipping` (`shipping_id`),
+  KEY `FK_customer` (`customer_id`),
+  KEY `FK_tax` (`tax_id`),
+  CONSTRAINT `FK_coupon` FOREIGN KEY (`coupon_id`) REFERENCES `coupon` (`ID`),
+  CONSTRAINT `FK_customer` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`ID`),
+  CONSTRAINT `FK_shipping` FOREIGN KEY (`shipping_id`) REFERENCES `shipping` (`ID`),
+  CONSTRAINT `FK_tax` FOREIGN KEY (`tax_id`) REFERENCES `tax` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `product_review`
+-- Dumping data for table `orders`
 --
 
-LOCK TABLES `product_review` WRITE;
-/*!40000 ALTER TABLE `product_review` DISABLE KEYS */;
-/*!40000 ALTER TABLE `product_review` ENABLE KEYS */;
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (2,'2020-04-22','test',1,1,1,1,1);
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-22 15:29:27
+-- Dump completed on 2020-04-22 15:29:30
