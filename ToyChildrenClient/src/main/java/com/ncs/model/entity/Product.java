@@ -61,7 +61,10 @@ public class Product implements Serializable {
 	private Double height;
 
 	@Column
-	private Integer status;
+	private int status;
+	
+	@Column
+	private int discount;
 
 	@ManyToOne
 	@JoinColumn(name = "manufacturer_id")

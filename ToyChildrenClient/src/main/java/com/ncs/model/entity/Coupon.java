@@ -27,7 +27,7 @@ public class Coupon implements Serializable {
 	private String code;
 
 	@Column
-	private Double sale;
+	private int sale;
 
 	@Column(name = "START_DATE")
 	private Date startDate;

@@ -29,5 +29,5 @@ public class Tax implements Serializable {
 	private String type;
 
 	@Column
-	private Double percentage;
+	private Float percentage;
 }

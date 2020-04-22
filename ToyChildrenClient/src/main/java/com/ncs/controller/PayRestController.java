@@ -4,8 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +15,6 @@ import com.ncs.service.PayService;
 
 @RestController
 @RequestMapping(value = "/customer/api/v1/pay", produces = MediaType.APPLICATION_JSON_VALUE)
-
 public class PayRestController {
 	@Autowired
 	private PayService payService;
@@ -25,11 +22,5 @@ public class PayRestController {
 	@PostMapping
 	public ResponseData<Object> pay(@RequestBody PayInput input, HttpServletRequest request) {
 		return payService.pay(input, request);
-	}
-	
-	@PreAuthorize("hasAnyRole('CUSTOMER')")
-	@GetMapping
-	public ResponseData<Object> test() {
-		return new ResponseData<Object>();
 	}
 }

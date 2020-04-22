@@ -32,7 +32,7 @@ public class CartService {
 		ResponseData<List<CartDto>> response = new ResponseData<>();
 		try {
 
-			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute("listCartSession");
+			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute(Constants.CART_SESSION);
 			response.setData(carts);
 		} catch (Exception e) {
 			LOGGER.error("Api get list cart has exception : {}", e.getMessage());
@@ -54,7 +54,7 @@ public class CartService {
 			boolean isExists = false;
 			int index = 0;
 
-			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute("listCartSession");
+			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute(Constants.CART_SESSION);
 
 			int productId = input.getProductId();
 			int quantity = input.getQuantity();
@@ -95,7 +95,7 @@ public class CartService {
 				carts.add(cartDto);
 			}
 
-			request.getSession().setAttribute("listCartSession", carts);
+			request.getSession().setAttribute(Constants.CART_SESSION, carts);
 
 			response.setData(cartDto);
 		} catch (Exception e) {
@@ -118,7 +118,7 @@ public class CartService {
 			int index = 0;
 			int quantity;
 
-			carts = (List<CartDto>) request.getSession().getAttribute("listCartSession");
+			carts = (List<CartDto>) request.getSession().getAttribute(Constants.CART_SESSION);
 
 			if (!carts.isEmpty()) {
 
@@ -137,7 +137,7 @@ public class CartService {
 
 					carts.add(index, cartDto);
 
-					request.getSession().setAttribute("listCartSession", carts);
+					request.getSession().setAttribute(Constants.CART_SESSION, carts);
 
 					response.setData(cartDto);
 				}
@@ -157,7 +157,7 @@ public class CartService {
 		LOGGER.info(">>>>>>>>>>>deleteProductOutCart Start >>>>>>>>>>>>");
 		ResponseData<Object> response = new ResponseData<Object>();
 		try {
-			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute("listCartSession");
+			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute(Constants.CART_SESSION);
 			int i = 0;
 			CartDto cartDto;
 			int cartNewId;
@@ -180,7 +180,7 @@ public class CartService {
 				}
 			}
 
-			request.getSession().setAttribute("listCartSession", carts);
+			request.getSession().setAttribute(Constants.CART_SESSION, carts);
 		} catch (Exception e) {
 			LOGGER.error("Api delete product out cart has exception : {}", e.getMessage());
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);

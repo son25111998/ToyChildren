@@ -64,7 +64,7 @@ public class PayService {
 
 //			CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
 //					.getPrincipal();
-			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute("listCartSession");
+			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute(Constants.CART_SESSION);
 //			account = userDetails.getAccount();
 
 			// get data input
@@ -112,7 +112,7 @@ public class PayService {
 			}
 
 			// set data in order
-			order.setDateOrder(new Date());
+			order.setCreateDate(new Date());
 			order.setPayment(payment);
 			order.setStatus(Constants.STATUS_ACTIVE_VALUE);
 			order.setCoupon(coupon);
@@ -134,6 +134,8 @@ public class PayService {
 
 				// save order detail in db
 				orderDetailRepository.save(orderDetail);
+				
+				request.getSession().removeAttribute(Constants.CART_SESSION);
 			}
 		} catch (Exception e) {
 			LOGGER.error("Api pay has exception : {}", e.getMessage());

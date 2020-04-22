@@ -10,7 +10,9 @@ public class Constants {
 	public static final int PAGE_DEFAULT = 1;
 	public static final int SIZE_DEFAULT = 20;
 	public static final int STATUS_ACTIVE_VALUE = 1;
+	public static final int STATUS_INACTIVE_VALUE = 0;
 	public static final int COUPON_ID_DEFAULT = 1;
+	public static final String CART_SESSION = "cartSession";
 	
 	public static final int ERR_CODE_FIELD = 0;
     public static final int SUCCESS_CODE = 200;

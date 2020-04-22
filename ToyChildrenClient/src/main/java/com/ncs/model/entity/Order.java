@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "order", schema = "dmdc", catalog = "")
+@Table(name = "orders", schema = "dmdc", catalog = "")
 @Data
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,8 +24,8 @@ public class Order implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "DATE_ORDER")
-	private Date dateOrder;
+	@Column(name = "create_date")
+	private Date createDate;
 
 	@Column
 	private String payment;
@@ -34,18 +34,18 @@ public class Order implements Serializable {
 	private int status;
 
 	@ManyToOne
-	@JoinColumn(name = "COUPON_ID")
+	@JoinColumn(name = "coupon_id")
 	private Coupon coupon;
 
 	@ManyToOne
-	@JoinColumn(name = "SHIPPING_ID")
+	@JoinColumn(name = "shipping_id")
 	private Shipping shipping;
 
 	@ManyToOne
-	@JoinColumn(name = "CUSTOMER_ID")
+	@JoinColumn(name = "customer_id")
 	private Customer customer;
 
 	@ManyToOne
-	@JoinColumn(name = "TAX_ID")
+	@JoinColumn(name = "tax_id")
 	private Tax tax;
 }
