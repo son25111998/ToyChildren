@@ -17,7 +17,6 @@ import { FooterComponent } from './shared/layout/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from "@angular/router";
 import { routes } from './app-routing.module';
-import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -37,7 +36,6 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
     FormsModule,
     RouterModule.forRoot(routes)
   ],

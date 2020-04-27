@@ -1,147 +1,138 @@
-<nav id="topBar" class="navbar navbar-default">
-    <div class="container">
-        <div class="navbar-header col-md-2 col-sm-2">
-            <a class="navbar-brand" href="/">
-                <img src="../../../../assets/images/logo.png">
-            </a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar_center">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                    <ul class="dropdown-menu" style="display: none;">
-                        <li>
-                            <a href="#" style="text-transform: uppercase"><b></b></a>
-                            <a href="/danh-muc" style="text-transform: uppercase"><b></b></a>
-                            <ul>
-                                <li><a href="/danh-muc"></a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">SALE</a>
-                    <ul class="dropdown-menu" style="display: none;">
-                        <li><a href=""></a></li>
-                    </ul>
-                </li>
-                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Tin tức</a>
-                </li>
-                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Thông tin</a>
-                    <ul class="dropdown-menu" style="display: none;">
-                        <li><a href="#">Tư vấn size</a></li>
-                        <li><a href="#">Chính sách điều khoản</a></li>
-                        <li><a href="#">Hướng dẫn mua hàng</a></li>
-                        <li><a href="#">Chinh sách thanh toán</a></li>
-                        <li><a href="#">Chính sách đổi trả</a></li>
-                        <li><a href="#">Chính sách bảo hành </a></li>
-                        <li><a href="#">Chính sách giao nhận vận chuyển</a></li>
-                        <li><a href="#">Hệ thống cửa hàng</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <form enctype="application/x-www-form-urlencoded" method="get" th:action="/tim-kiem" name="frm_search">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="key" placeholder="Tìm kiếm sản phẩm" title="tìm kiếm sản phẩm">
-                            <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit" title="tìm kiếm"> <i class="fa fa-search" aria-hidden="true"></i></button>
-                      </span>
-                        </div><!-- /input-group -->
-                    </form>
-                </li>
-                
-                   <li><a href="/dang-nhap" title="Đăng nhập"><i class="fa fa-user" aria-hidden="true"></i></a></li>
-                
-                <li><a href="/customer/info" title="Cập nhật tài khoản">Tài khoản</a></li>
-                <li><a href="/dang-xuat" title="Thoát"><i class="fa fa-sign-out"></i></a></li>
-                
-                <li class="dropdown">
-                    <a href="/gio-hang">
-                        <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                        <span></span>
-                        <span></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <h3 class="text-center"><a href="#" title="">Giỏ hàng</a></h3>
-                        <li>
-                            <ul class="list-inline clearfix">
-                                <li class="col-md-3 col-sm-4">
-                                    <a>
-                                        <img src="">
-                                    </a>
-                                </li>
-                                <li class="col-md-9 col-sm-8">
-                                    <div class="title_cartMain">
-                                        <h5><a></a></h5>
-                                    </div>
-                                    <div class="style_cartMain">
-                                        <b>Màu: </b><span></span><br>
-                                        <b>Size:</b> 
-                                        <span class="first_letter_upper"></span>
-                                        <br><b>Số lượng:</b> <span></span>                                   
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="/gio-hang">...xem chi tiết</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
-
-<!--topBar scroll addClss-->
-<script type="text/javascript">
-    $(window).scroll(function() {
-        var scroll = $(window).scrollTop();
-
-        if (scroll >= 1) {
-            $("#topBar").addClass("darkHeader");
-        }else {
-            $("#topBar").removeClass("darkHeader");
-        }
-    });
-</script>
-<!--Hover fadeIn fadeOut subMenu-->
-<script type="text/javascript">
-    $('ul.navbar-right li.dropdown').hover(function() {
-        $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
-    }, function() {
-        $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
-    });
-    $('ul.navbar_center li.dropdown').hover(function() {
-        $(this).find('.dropdown-menu').stop(true, true).delay(0).fadeIn(200);
-    }, function() {
-        $(this).find('.dropdown-menu').stop(true, true).delay(0).fadeOut(200);
-    });
-</script>
-<!--Add data-toggle--->
-<script type="text/javascript">
-    $(document).ready(function() {
-        var $window = $(window);
-        //Hàm check nếu kích thước màn hình nhỏ hơn 1024 thì thực hiện
-        function checkWidth() {
-            var windowsize = $window.width();
-            if (windowsize < 1025) {
-                // '.check_data' là class thẻ mà muốn add data-toggle
-                $(".dropdown-toggle").attr("data-toggle", "dropdown");
-            
-            }
-        }
-        // Execute on load
-        checkWidth();
-        // Bind event listener
-        $(window).resize(checkWidth);
-            });
-</script>
+<header class="mod-header">
+  <div class="grid_frame">
+      <div class="container_grid clearfix">
+          <div class="grid_12">
+              <div class="header-content clearfix">
+                  <h1 id="logo" class="rs">
+                      <a href="index.html">
+                          <img src="../../../../assets/images/logo.png" alt="$SITE_NAME"/>
+                      </a>
+                  </h1>
+                  <a id="sys_head_login" class="btn btn-green type-login btn-login" href="#">Login</a>
+                  <nav class="main-nav">
+                      <ul id="main-menu" class="nav nav-horizontal clearfix">
+                          <li class="active">
+                              <a href="index.html">Home</a>
+                          </li>
+                          <li>
+                              <a href="coupon.html">Coupons</a>
+                          </li>
+                          <li class="has-sub">
+                              <a href="coupon-code.html">Coupons Code</a>
+                              <ul class="sub-menu">
+                                  <li><a href="coupon-code.html">Coupons Code 1</a></li>
+                                  <li><a href="coupon-code-2.html">Coupons Code 2</a></li>
+                              </ul>
+                          </li>
+                          <li class="has-sub">
+                              <a href="brand-list.html">Brands</a>
+                              <ul class="sub-menu">
+                                  <li><a href="brand-detail-1.html">Brand Detail 1</a></li>
+                                  <li><a href="brand-detail-2.html">Brand Detail 2</a></li>
+                                  <li><a href="brand-detail-3.html">Brand Detail 3</a></li>
+                                  <li><a href="brand-detail-4.html">Brand Detail 4</a></li>
+                                  <li><a href="brand-detail-5.html">Brand Detail 5</a></li>
+                              </ul>
+                          </li>
+                          <li><a href="blog.html">Blog</a></li>
+                          <li>
+                              <a href="my-coupon.html">My coupons</a>
+                              <i class="icon iPickRed lbl-count"><span>12</span></i>
+                          </li>
+                      </ul>
+                      <a id="sys_btn_toogle_menu" class="btn-toogle-res-menu" href="#alternate-menu"></a>
+                  </nav>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div id="sys_pop_login" class="pop-login">
+      <div class="viewport-pop">
+          <div class="transport-viewer clearfix">
+              <div class="mod-register">
+                  <h3 class="rs title-mod">Hello pretty! Welcome to Couponday.com</h3>
+                  <div class="wrap-form-reg clearfix">
+                      <form action="#">
+                          <div class="left-form">
+                              <label class="wrap-txt" for="sys_email">
+                                  <input class="input-txt" id="sys_email" type="email" placeholder="you@mail.com">
+                              </label>
+                              <label class="wrap-txt" for="sys_pass">
+                                  <input class="input-txt" id="sys_pass" type="password" placeholder="password please!">
+                              </label>
+                              <label class="wrap-check" for="sys_chk_news">
+                                  <input id="sys_chk_news" class="input-chk" type="checkbox"> Remember me
+                                  <i class="icon iUncheck"></i>
+                                  <a class="lost-pass" href="#">Forgot password ?</a>
+                              </label>
+                              <div class="wrap-login-btn">
+                                  <button class="btn-flat gr btn-submit-reg" type="submit">Login</button>
+                                  <div class="sep-connect">
+                                      <span>Or</span>
+                                  </div>
+                                  <div class="grp-connect">
+                                      <a class="btn-flat fb" href="#">Facebook</a>
+                                      <a class="btn-flat gg" href="#">Google</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="right-create-acc">
+                              <img class="account" src="images/reg-account.png" alt="Couponday.com">
+                              <p class="lbl-dung-lo rs">Not a member? Don’t worry</p>
+                              <a id="sys_link_reg_panel" href="register.html" class="btn-flat yellow btn-submit-reg">Create an account</a>
+                              <div id="sys_warning_sms" class="warning-sms" data-warning-txt="No spam guarantee,No disturb,Promotion News"></div>
+                          </div>
+                      </form>
+                      <i class="line-sep"></i>
+                  </div>
+              </div><!--end: Login panel -->
+              <div class="mod-register">
+                  <h3 class="rs title-mod">Hello pretty! Welcome to Couponday.com</h3>
+                  <div class="desc-reg">Sign up for free and get exclusive access to members-only savings, rewards and special promotions from Coupons.com. Enter in an email and a password or sign up with Facebook.</div>
+                  <div class="wrap-form-reg clearfix">
+                      <form action="#">
+                          <div class="left-form">
+                              <label class="wrap-txt" for="sys_email_reg">
+                                  <input class="input-txt" id="sys_email_reg" type="email" placeholder="you@mail.com"/>
+                              </label>
+                              <label class="wrap-txt" for="sys_pass_reg">
+                                  <input class="input-txt" id="sys_pass_reg" type="password" placeholder="password please!"/>
+                              </label>
+                              <label class="wrap-check" for="sys_chk_news_reg">
+                                  <input id="sys_chk_news_reg" class="input-chk" type="checkbox"/> Send me the weekly Couponday.com’s offers.
+                                  <i class="icon iUncheck"></i>
+                              </label>
+                              <label class="wrap-check" for="sys_chk_agree">
+                                  <input id="sys_chk_agree" class="input-chk" type="checkbox"/> I agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.
+                                  <i class="icon iUncheck"></i>
+                              </label>
+                          </div>
+                          <div class="right-connect">
+                              <button class="btn-flat yellow btn-submit-reg" type="submit">Create an account</button>
+                              <div class="sep-connect">
+                                  <span>Or</span>
+                              </div>
+                              <div class="grp-connect">
+                                  <p class="rs">Sign up using your account on:</p>
+                                  <a class="btn-flat fb" href="#">Facebook</a>
+                                  <a class="btn-flat gg" href="#">Google</a>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+                  <p class="rs wrap-link-back">
+                      <a id="sys_link_login_panel" href="login.html" class="link-back">
+                          <i class="pick-r"></i>
+                          Back to login
+                      </a>
+                  </p>
+              </div><!--end: Register panel -->
+          </div>
+          <div id="sys_paging_state" class="paging-state">
+              <i class="active"></i>
+              <i></i>
+          </div>
+          <i id="sys_close_login_popup" class="icon iClose close-popop"></i>
+      </div>
+  </div>
+</header><!--end: header.mod-header -->
