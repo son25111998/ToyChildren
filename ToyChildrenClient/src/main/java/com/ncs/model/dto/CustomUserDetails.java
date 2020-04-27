@@ -18,7 +18,7 @@ public class CustomUserDetails implements UserDetails {
 	public CustomUserDetails(Account account) {
 		this.account = account; 
 	}
-
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
@@ -60,4 +60,7 @@ public class CustomUserDetails implements UserDetails {
 		return true;
 	}
 
+	public Account getAccount() {
+		return account;
+	}
 }

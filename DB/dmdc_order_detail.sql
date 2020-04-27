@@ -23,17 +23,16 @@ DROP TABLE IF EXISTS `order_detail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `order_detail` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `ORDER_ID` int(11) NOT NULL,
-  `PRODUCT_ID` int(11) NOT NULL,
-  `ATTRIBUTE` varchar(45) DEFAULT NULL,
-  `QUANTITY` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `FK_ORDER_DETAIL_PRODUCT_idx` (`PRODUCT_ID`),
-  KEY `FK_ORDER_DETAIL_ORDER_PRODUCT` (`ORDER_ID`),
-  CONSTRAINT `FK_ORDER_DETAIL_ORDER_PRODUCT` FOREIGN KEY (`ORDER_ID`) REFERENCES `orderproduct` (`ID`),
-  CONSTRAINT `FK_ORDER_DETAIL_PRODUCT_123` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `product` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `quantity` int(11) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_order_idx` (`order_id`),
+  KEY `Fk_product_idx` (`product_id`),
+  CONSTRAINT `FK_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+  CONSTRAINT `Fk_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +41,7 @@ CREATE TABLE `order_detail` (
 
 LOCK TABLES `order_detail` WRITE;
 /*!40000 ALTER TABLE `order_detail` DISABLE KEYS */;
-INSERT INTO `order_detail` VALUES (1,1,7,NULL,21);
+INSERT INTO `order_detail` VALUES (1,4,2,2);
 /*!40000 ALTER TABLE `order_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-21  9:41:42
+-- Dump completed on 2020-04-22 15:29:32

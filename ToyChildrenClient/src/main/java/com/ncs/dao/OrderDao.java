@@ -8,31 +8,35 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.ncs.common.constants.Constants;
-import com.ncs.model.entity.Product;
-import com.ncs.model.output.GetListProductOutput;
+import com.ncs.model.entity.Order;
+import com.ncs.model.output.GetListOrderOutput;
+import com.ncs.model.output.OrderOutput;
 import com.ncs.model.output.Pagination;
 
 @Repository
-public class ProductDao {
-	private static final int STATUS_ACTIVE_VALUE = 1;
+public class OrderDao {
 	@Autowired
 	private EntityManager entityManager;
 
 	@SuppressWarnings("unchecked")
-	public GetListProductOutput getListProduct(int page, int size, String search) {
+	public GetListOrderOutput getListOrder(int page, int size, String date) {
 		StringBuffer sql = new StringBuffer();
-		GetListProductOutput result = new GetListProductOutput();
+		GetListOrderOutput result = new GetListOrderOutput();
 		Pagination pagging = new Pagination();
 
 		try {
 			// create query DB
-			sql.append("SELECT p FROM ");
-			sql.append(Product.class.getName());
-			sql.append(" p WHERE p.status = :status ");
+			sql.append("SELECT new ");
+			sql.append(OrderOutput.class.getName());
+			sql.append(
+					" (p.id, p.status, p.coupon.sale, p.shipping.cost, p.tax.percentage, p.payment, p.shipping.name, p.customer.lastName, p.customer.phone, p.createDate) ");
+			sql.append(" FROM ");
+			sql.append(Order.class.getName());
+			sql.append(" p ");
 
-			if (!StringUtils.isEmpty(search)) {
+			if (!StringUtils.isEmpty(date)) {
 				sql.append(" AND ");
-				sql.append(" p.name LIKE :productName ");
+				sql.append(" p.create_date = STR_TO_DATE(:date,'%d/%m/%Y') ");
 			}
 
 			// sort by createDate
@@ -49,52 +53,47 @@ public class ProductDao {
 			Query query = entityManager.createQuery(sql.toString()).setFirstResult((page - 1) * size)
 					.setMaxResults(size);
 
-			query.setParameter("status", STATUS_ACTIVE_VALUE);
-
 			// set data to parameters of query
-			if (!StringUtils.isEmpty(search)) {
-				query.setParameter("productName", "%" + search + "%");
+			if (!StringUtils.isEmpty(date)) {
+				query.setParameter("date", date);
 			}
 
 			// set data output
 			pagging.setPage(page);
 			pagging.setSize(size);
-			pagging.setTotalRecord(getTotalRecord(search));
+			pagging.setTotalRecord(getTotalRecord(date));
 
 			result.setPagination(pagging);
 
 			// execute query and return data
-			result.setProducts(query.getResultList());
+			result.setOrders(query.getResultList());
 		} catch (Exception e) {
 			result = null;
 		}
 		return result;
 	}
 
-	private Long getTotalRecord(String search) {
+	private long getTotalRecord(String date) {
 		StringBuffer sql = new StringBuffer();
 		try {
 			// create query DB
 			sql.append("SELECT count(*) FROM ");
-			sql.append(Product.class.getName());
-			sql.append(" p WHERE p.status = :status ");
+			sql.append(Order.class.getName());
+			sql.append(" p ");
 
-			if (!StringUtils.isEmpty(search)) {
+			if (!StringUtils.isEmpty(date)) {
 				sql.append(" AND ");
-				sql.append(" p.name LIKE :productName ");
+				sql.append(" p.create_date = STR_TO_DATE(:date,'%d/%m/%Y') ");
 			}
 
 			Query query = entityManager.createQuery(sql.toString());
 
-			query.setParameter("status", STATUS_ACTIVE_VALUE);
-
 			// set data to parameters of query
-			if (!StringUtils.isEmpty(search)) {
-				query.setParameter("productName", "%" + search + "%");
+			if (!StringUtils.isEmpty(date)) {
+				query.setParameter("date", date);
 			}
 
-			// execute query and return data
-			return (Long) query.getSingleResult();
+			return (long) query.getSingleResult();
 		} catch (Exception e) {
 			return 0L;
 		}

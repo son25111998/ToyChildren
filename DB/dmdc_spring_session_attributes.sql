@@ -16,41 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `orderproduct`
+-- Table structure for table `spring_session_attributes`
 --
 
-DROP TABLE IF EXISTS `orderproduct`;
+DROP TABLE IF EXISTS `spring_session_attributes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `orderproduct` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `DATE_ORDER` date DEFAULT NULL,
-  `PAYMENT_TYPE` int(11) DEFAULT NULL,
-  `STATUS` int(11) DEFAULT NULL,
-  `COUPON_ID` int(11) DEFAULT NULL,
-  `SHIPPING_ID` int(11) DEFAULT NULL,
-  `CUSTOMER_ID` int(11) NOT NULL,
-  `TAX_ID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `fk_ORDER_COUPON1_idx` (`COUPON_ID`),
-  KEY `fk_ORDER_SHIPPING1_idx` (`SHIPPING_ID`),
-  KEY `fk_ORDER_CUSTOMER1_idx` (`CUSTOMER_ID`),
-  KEY `FK_ORDER_TAX_idx` (`TAX_ID`),
-  CONSTRAINT `FK_ORDER_TAX` FOREIGN KEY (`TAX_ID`) REFERENCES `tax` (`ID`),
-  CONSTRAINT `fk_ORDER_COUPON1` FOREIGN KEY (`COUPON_ID`) REFERENCES `coupon` (`ID`),
-  CONSTRAINT `fk_ORDER_CUSTOMER1` FOREIGN KEY (`CUSTOMER_ID`) REFERENCES `customer` (`ID`),
-  CONSTRAINT `fk_ORDER_SHIPPING1` FOREIGN KEY (`SHIPPING_ID`) REFERENCES `shipping` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+CREATE TABLE `spring_session_attributes` (
+  `SESSION_PRIMARY_ID` char(36) NOT NULL,
+  `ATTRIBUTE_NAME` varchar(200) NOT NULL,
+  `ATTRIBUTE_BYTES` blob NOT NULL,
+  PRIMARY KEY (`SESSION_PRIMARY_ID`,`ATTRIBUTE_NAME`),
+  CONSTRAINT `SPRING_SESSION_ATTRIBUTES_FK` FOREIGN KEY (`SESSION_PRIMARY_ID`) REFERENCES `spring_session` (`PRIMARY_ID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `orderproduct`
+-- Dumping data for table `spring_session_attributes`
 --
 
-LOCK TABLES `orderproduct` WRITE;
-/*!40000 ALTER TABLE `orderproduct` DISABLE KEYS */;
-INSERT INTO `orderproduct` VALUES (1,NULL,NULL,NULL,1,NULL,1,1);
-/*!40000 ALTER TABLE `orderproduct` ENABLE KEYS */;
+LOCK TABLES `spring_session_attributes` WRITE;
+/*!40000 ALTER TABLE `spring_session_attributes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `spring_session_attributes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -62,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-21  9:41:39
+-- Dump completed on 2020-04-22 15:29:34

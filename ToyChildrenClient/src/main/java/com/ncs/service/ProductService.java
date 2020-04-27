@@ -39,7 +39,6 @@ public class ProductService {
 			response.setData(productDao.getListProduct(page, size, search));
 		} catch (Exception e) {
 			LOGGER.error("Api get list product has exception : {}", e.getMessage());
-			response.setData(null);
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);
 			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
 		}
@@ -54,7 +53,6 @@ public class ProductService {
 			response.setData(productRepository.findById(productId).get());
 		} catch (Exception e) {
 			LOGGER.error("Api get product detail has exception : {}", e.getMessage());
-			response.setData(null);
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);
 			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
 		}

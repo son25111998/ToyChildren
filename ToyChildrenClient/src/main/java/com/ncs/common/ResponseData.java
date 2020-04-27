@@ -26,7 +26,7 @@ public class ResponseData<T> {
 	private String message = Constants.SUCCESS_MSG;
 
 	/** the response data */
-	private T Data = null;
+	private T data = null;
 
 	/**
 	 * constructor
@@ -45,7 +45,7 @@ public class ResponseData<T> {
 	 * @param result the result
 	 */
 	public ResponseData(T data, Result result) {
-		this.Data = data;
+		this.data = data;
 		this.code = result.getCode();
 		this.message = result.getMessage();
 	}

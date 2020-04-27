@@ -32,7 +32,7 @@ public class CartService {
 		ResponseData<List<CartDto>> response = new ResponseData<>();
 		try {
 
-			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute("listCartSession");
+			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute(Constants.CART_SESSION);
 			response.setData(carts);
 		} catch (Exception e) {
 			LOGGER.error("Api get list cart has exception : {}", e.getMessage());
@@ -52,18 +52,19 @@ public class CartService {
 			CartDto cartDto = new CartDto();
 			Product product = new Product();
 			boolean isExists = false;
+			int index = 0;
 
-			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute("listCartSession");
+			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute(Constants.CART_SESSION);
 
 			int productId = input.getProductId();
 			int quantity = input.getQuantity();
 
-			product = productRepository.findById(productId).get();
+			product = productRepository.findById(productId).orElse(null);
 
 			if (ObjectUtils.isEmpty(product)) {
-				LOGGER.error(Constants.PRODUCT_DO_NOT_EXIST);
+				LOGGER.error("Sản phẩm {}",Constants.RECORD_DO_NOT_EXIST);
 				response.setCode(Constants.UNKNOWN_ERROR_CODE);
-				response.setMessage(Constants.PRODUCT_DO_NOT_EXIST);
+				response.setMessage("Sản phẩm " + Constants.RECORD_DO_NOT_EXIST);
 				return response;
 			}
 
@@ -75,24 +76,26 @@ public class CartService {
 					if (carts.get(i).getProduct().getId() == productId) {
 						isExists = true;
 						cartDto = carts.get(i);
+						index = i;
+						carts.remove(i);
 						break;
 					}
 				}
 
 				if (!isExists)
-					cartDto.setCartId(carts.get(carts.size()).getCartId() + 1);
+					cartDto.setCartId(carts.get(carts.size() - 1).getCartId() + 1);
 			}
 
 			if (isExists) {
 				cartDto.setQuantity(cartDto.getQuantity() + quantity);
+				carts.add(index, cartDto);
 			} else {
 				cartDto.setProduct(product);
 				cartDto.setQuantity(quantity);
+				carts.add(cartDto);
 			}
 
-			carts.add(cartDto);
-
-			request.getSession().setAttribute("listCartSession", carts);
+			request.getSession().setAttribute(Constants.CART_SESSION, carts);
 
 			response.setData(cartDto);
 		} catch (Exception e) {
@@ -101,7 +104,7 @@ public class CartService {
 			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
 		}
 
-		LOGGER.info(">>>>>>>>>>>addProductToCart Start >>>>>>>>>>>>");
+		LOGGER.info(">>>>>>>>>>>addProductToCart End >>>>>>>>>>>>");
 		return response;
 	}
 
@@ -112,15 +115,18 @@ public class CartService {
 		try {
 			List<CartDto> carts = new ArrayList<>();
 			CartDto cartDto = new CartDto();
+			int index = 0;
 			int quantity;
 
-			carts = (List<CartDto>) request.getSession().getAttribute("listCartSession");
+			carts = (List<CartDto>) request.getSession().getAttribute(Constants.CART_SESSION);
 
 			if (!carts.isEmpty()) {
 
 				for (int i = 0; i < carts.size(); i++) {
 					if (carts.get(i).getCartId() == cartId) {
 						cartDto = carts.get(i);
+						index = i;
+						break;
 					}
 				}
 
@@ -129,9 +135,9 @@ public class CartService {
 
 					cartDto.setQuantity(quantity);
 
-					carts.add(cartDto);
+					carts.add(index, cartDto);
 
-					request.getSession().setAttribute("listCartSession", carts);
+					request.getSession().setAttribute(Constants.CART_SESSION, carts);
 
 					response.setData(cartDto);
 				}
@@ -142,7 +148,7 @@ public class CartService {
 			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
 		}
 
-		LOGGER.info(">>>>>>>>>>>updateCart Start >>>>>>>>>>>>");
+		LOGGER.info(">>>>>>>>>>>updateCart End >>>>>>>>>>>>");
 		return response;
 	}
 
@@ -151,15 +157,30 @@ public class CartService {
 		LOGGER.info(">>>>>>>>>>>deleteProductOutCart Start >>>>>>>>>>>>");
 		ResponseData<Object> response = new ResponseData<Object>();
 		try {
-			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute("listCartSession");
+			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute(Constants.CART_SESSION);
+			int i = 0;
+			CartDto cartDto;
+			int cartNewId;
+			int cartOldId;
 
-			for (int i = 0; i < carts.size(); i++) {
+			for (i = 0; i < carts.size(); i++) {
 				if (carts.get(i).getCartId() == cartId) {
 					carts.remove(i);
+					break;
 				}
 			}
 
-			request.getSession().setAttribute("listCartSession", carts);
+			// set cartId
+			for (i = 0; i < carts.size(); i++) {
+				cartDto = carts.get(i);
+				cartOldId = cartDto.getCartId();
+				if (cartOldId > cartId) {
+					cartNewId = cartOldId - 1;
+					cartDto.setCartId(cartNewId);
+				}
+			}
+
+			request.getSession().setAttribute(Constants.CART_SESSION, carts);
 		} catch (Exception e) {
 			LOGGER.error("Api delete product out cart has exception : {}", e.getMessage());
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);

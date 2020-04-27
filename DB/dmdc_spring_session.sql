@@ -16,34 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `product_review`
+-- Table structure for table `spring_session`
 --
 
-DROP TABLE IF EXISTS `product_review`;
+DROP TABLE IF EXISTS `spring_session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `product_review` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `REVIEW_RATING` int(11) DEFAULT NULL,
-  `REVIEW_DATE` date DEFAULT NULL,
-  `REVIEW_CONTENT` varchar(45) DEFAULT NULL,
-  `PRODUCT_ID` int(11) NOT NULL,
-  `CUSTOMER_ID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `fk_PRODUCT_REVIEW_PRODUCT1_idx` (`PRODUCT_ID`),
-  KEY `fk_PRODUCT_REVIEW_CUSTOMER1_idx` (`CUSTOMER_ID`),
-  CONSTRAINT `fk_PRODUCT_REVIEW_CUSTOMER1` FOREIGN KEY (`CUSTOMER_ID`) REFERENCES `customer` (`ID`),
-  CONSTRAINT `fk_PRODUCT_REVIEW_PRODUCT1` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `product` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `spring_session` (
+  `PRIMARY_ID` char(36) NOT NULL,
+  `SESSION_ID` char(36) NOT NULL,
+  `CREATION_TIME` bigint(20) NOT NULL,
+  `LAST_ACCESS_TIME` bigint(20) NOT NULL,
+  `MAX_INACTIVE_INTERVAL` int(11) NOT NULL,
+  `EXPIRY_TIME` bigint(20) NOT NULL,
+  `PRINCIPAL_NAME` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`PRIMARY_ID`),
+  UNIQUE KEY `SPRING_SESSION_IX1` (`SESSION_ID`),
+  KEY `SPRING_SESSION_IX2` (`EXPIRY_TIME`),
+  KEY `SPRING_SESSION_IX3` (`PRINCIPAL_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `product_review`
+-- Dumping data for table `spring_session`
 --
 
-LOCK TABLES `product_review` WRITE;
-/*!40000 ALTER TABLE `product_review` DISABLE KEYS */;
-/*!40000 ALTER TABLE `product_review` ENABLE KEYS */;
+LOCK TABLES `spring_session` WRITE;
+/*!40000 ALTER TABLE `spring_session` DISABLE KEYS */;
+/*!40000 ALTER TABLE `spring_session` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-22 15:29:27
+-- Dump completed on 2020-04-22 15:29:31
