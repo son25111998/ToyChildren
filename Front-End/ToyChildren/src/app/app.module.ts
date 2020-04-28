@@ -17,6 +17,7 @@ import { FooterComponent } from './shared/layout/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from "@angular/router";
 import { routes } from './app-routing.module';
+import { CategoryService } from './service/category.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,9 @@ import { routes } from './app-routing.module';
     FormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [
+    CategoryService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
