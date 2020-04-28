@@ -1,5 +1,7 @@
 package com.ncs.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -35,5 +37,10 @@ public class ProductRestController {
 	@GetMapping("new")
 	public ResponseData<GetListProductOutput> getListProductNew(@RequestParam int page, @RequestParam int size) {
 		return productService.getListProductsNew(page, size);
+	}
+	
+	@GetMapping("hot")
+	public ResponseData<List<Product>> getListProductHot() {
+		return productService.getListProductsHot();
 	}
 }

@@ -1,6 +1,7 @@
 package com.ncs.service;
 
 import java.util.Calendar;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,6 +93,21 @@ public class ProductService {
 			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
 		}
 		LOGGER.info(">>>>>>>>>>>getListProductsNew End >>>>>>>>>>>>");
+		return response;
+	}
+	
+	public ResponseData<List<Product>> getListProductsHot() {
+		LOGGER.info(">>>>>>>>>>>getListProductsHot Start >>>>>>>>>>>>");
+		ResponseData<List<Product>> response = new ResponseData<>();
+		try {
+			//TODO:{
+//			Pagination pagination = new Pagination();
+		} catch (Exception e) {
+			LOGGER.error("Api get list product hot has exception : {}", e.getMessage());
+			response.setCode(Constants.UNKNOWN_ERROR_CODE);
+			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
+		}
+		LOGGER.info(">>>>>>>>>>>getListProductsHot End >>>>>>>>>>>>");
 		return response;
 	}
 

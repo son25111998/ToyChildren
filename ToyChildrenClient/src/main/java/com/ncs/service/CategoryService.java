@@ -31,7 +31,7 @@ public class CategoryService {
 	private ProductRepository productRepository;
 
 	private static final String CATEGORY_FIELD = "Danh mục sản phẩm";
-	private static final int PARENT_ID_VALUE = 1;
+	private static final int PARENT_ID_VALUE = 0;
 	private static final int STATUS_ACTIVE = 1;
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 
