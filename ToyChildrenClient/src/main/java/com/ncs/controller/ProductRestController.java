@@ -31,4 +31,9 @@ public class ProductRestController {
 	public ResponseData<Product> getListProduct(@PathVariable(name = "id") int productId) {
 		return productService.getProductInfo(productId);
 	}
+	
+	@GetMapping("new")
+	public ResponseData<GetListProductOutput> getListProductNew(@RequestParam int page, @RequestParam int size) {
+		return productService.getListProductsNew(page, size);
+	}
 }

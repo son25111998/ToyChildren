@@ -1,8 +1,14 @@
 package com.ncs.service;
 
+import java.util.Calendar;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -11,6 +17,7 @@ import com.ncs.common.constants.Constants;
 import com.ncs.dao.ProductDao;
 import com.ncs.model.entity.Product;
 import com.ncs.model.output.GetListProductOutput;
+import com.ncs.model.output.Pagination;
 import com.ncs.repository.ProductRepository;
 
 @Service
@@ -25,7 +32,7 @@ public class ProductService {
 
 	public ResponseData<GetListProductOutput> getListProducts(int page, int size, String search) {
 		LOGGER.info(">>>>>>>>>>>getListProducts Start >>>>>>>>>>>>");
-		
+
 		ResponseData<GetListProductOutput> response = new ResponseData<>();
 		try {
 			if (StringUtils.isEmpty(page)) {
@@ -46,6 +53,48 @@ public class ProductService {
 		return response;
 	}
 
+	public ResponseData<GetListProductOutput> getListProductsNew(int page, int size) {
+		LOGGER.info(">>>>>>>>>>>getListProductsNew Start >>>>>>>>>>>>");
+
+		ResponseData<GetListProductOutput> response = new ResponseData<>();
+		try {
+			GetListProductOutput productOutput = new GetListProductOutput();
+			Pagination pagination = new Pagination();
+			Calendar calendar = Calendar.getInstance();
+
+			if (StringUtils.isEmpty(page)) {
+				page = Constants.PAGE_DEFAULT;
+			}
+
+			if (StringUtils.isEmpty(page)) {
+				size = Constants.SIZE_DEFAULT;
+			}
+
+			// date now - 1 month
+			calendar.add(Calendar.MONTH, -1);
+
+			Pageable pageable = PageRequest.of(page-1, size, Sort.by("createTime").descending());
+
+			Page<Product> products = productRepository.findByCreateTimeBetween(calendar.getTime(),
+					Calendar.getInstance().getTime(), pageable);
+
+			pagination.setPage(page);
+			pagination.setSize(size);
+			pagination.setTotalRecord(products.getTotalElements());
+
+			productOutput.setProducts(products.toList());
+			productOutput.setPagination(pagination);
+
+			response.setData(productOutput);
+		} catch (Exception e) {
+			LOGGER.error("Api get list product new has exception : {}", e.getMessage());
+			response.setCode(Constants.UNKNOWN_ERROR_CODE);
+			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
+		}
+		LOGGER.info(">>>>>>>>>>>getListProductsNew End >>>>>>>>>>>>");
+		return response;
+	}
+
 	public ResponseData<Product> getProductInfo(int productId) {
 		LOGGER.info(">>>>>>>>>>>getProductInfo Start >>>>>>>>>>>>");
 		ResponseData<Product> response = new ResponseData<>();
@@ -56,7 +105,7 @@ public class ProductService {
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);
 			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
 		}
-		
+
 		LOGGER.info(">>>>>>>>>>>getProductInfo End >>>>>>>>>>>>");
 		return response;
 	}
