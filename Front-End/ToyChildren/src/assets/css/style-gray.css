@@ -2,9 +2,9 @@ a{
 	color: #888888;
 }
 /*		Theme-gray     */
-.gray .container-page{
+/* .gray .container-page{
 	background:  url(../images/pattern.png) ;
-}
+} */
 .gray .container-page.login{
 	background:#fff;
 }
@@ -256,9 +256,10 @@ a{
 	background-color: #04BFBF;
 }
 /*	blog   */
-p,.gray .article-item .art-desc{
+/* p,.gray .article-item .art-desc{
 	color: #A6A6A6;
-}
+} */
+
 .gray .article-item .wrap-date-post .btn-more{
 	background-color: #023550;
 	color: #fff;

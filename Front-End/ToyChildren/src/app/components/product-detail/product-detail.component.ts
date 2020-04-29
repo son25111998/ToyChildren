@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductService } from 'src/app/service/product.service';
+import { Component, OnInit, NgZone } from '@angular/core';
+import { ProductService } from 'src/app/shared/services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from 'src/app/models/product.model';
-import { CategoryService } from 'src/app/service/category.service';
+import { CategoryService } from 'src/app/shared/services/category.service';
+import { CartInput } from 'src/app/models/cart-input';
+import { CartService } from 'src/app/shared/services/cart.service';
+import { CodeConstants } from 'src/app/shared/utils/code.constants';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-product-detail',
@@ -11,15 +14,20 @@ import { CategoryService } from 'src/app/service/category.service';
   providers: [ProductService]
 })
 export class ProductDetailComponent implements OnInit {
-  products: Product[];
-  product: Product;
+  products = new Array<Product>();
+  product = new Product();
   id: number;
+  quantity: number = 1;
+  maxQuantity: number;
+  cartInput = new CartInput();
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private ngZone: NgZone,
     private productService: ProductService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
@@ -28,8 +36,35 @@ export class ProductDetailComponent implements OnInit {
     this.productService.findById(this.id).subscribe(data => {
       this.product = data.data;
       this.categoryService.findAllProductByCategory(this.product.category.id, 1, 8).subscribe(data => {
-        this.products = data['data'].products;
+        this.products = data.data.products;
       })
+      this.maxQuantity = this.product.amount;
+      console.log(this.product.amount);
+
+    })
+  }
+
+  plusProduct() {
+    if (this.maxQuantity > this.quantity)
+      this.quantity += 1;
+  }
+
+  minusProduct() {
+    if (this.quantity > 1)
+      this.quantity -= 1;
+  }
+
+  onSubmit() {
+    this.cartInput.productId = this.id;
+    this.cartInput.quantity = this.quantity;
+    console.log(this.cartInput);
+    this.cartService.addCart(this.cartInput).subscribe(data => {
+      if (data.code == CodeConstants.CODE_SUCCESS) {
+        alert("Thêm thành công sản phẩm vào giỏ hàng");
+      } else {
+        alert("Thêm không thành công sản phẩm vào giỏ hàng");
+      }
+      this.ngZone.run(() => this.router.navigateByUrl('/gio-hang'))
     })
   }
 }

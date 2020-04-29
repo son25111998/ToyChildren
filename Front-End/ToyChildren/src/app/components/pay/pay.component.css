@@ -1,0 +1,224 @@
+#content {
+    margin-bottom: 0px;
+}
+
+#content {
+    padding-top: 90px;
+    margin-bottom: 30px;
+}
+
+.title_h3 >.container >h3 {
+    border-bottom: none;
+    padding: 0;
+}
+
+.title_h3>.container>h3 {
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #333;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.panel-default {
+    border-color: #ddd;
+}
+.panel {
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+#p_coupon {
+    padding-top: 5px;
+    text-align: center;
+}
+.required {
+    color: #F00;
+}
+
+#pay_2>.container>.row>.col-md-5>.col-md-12>.panel>.panel-heading {
+    background: none;
+    border: 0px;
+    padding: 0px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+.panel-default > .panel-heading {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+.panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+#pay_2 >.container >.row >.col-md-5 >.col-md-12 >.panel >.panel-body {
+    text-align: center;
+}
+#pay_2>.container>.row>.col-md-5>.col-md-12>.panel>.panel-body {
+    border-bottom: 1px dotted #ccc;
+}
+.panel-body {
+    padding: 15px;
+}
+
+#pay_2 >.container >.row >.col-md-5 >.col-md-12 >.panel >.panel-body input {
+    width: 50%;
+    height: 30px;
+    font-size: 11px;
+    padding: 0 10px;
+    outline: none;
+    font-weight: normal;
+    margin-right: 5px;
+}
+
+select, input, textarea {
+    border: 1px solid #ccc;
+    background: #fff;
+    box-shadow: none;
+}
+
+.pay>.container>.row>.col-md-5>.col-md-12 {
+    padding-right: 0px;
+    border-left: 1px solid #ccc;
+}
+
+#pay_2>.container>.row>.col-md-5>.col-md-12>.panel>.panel-body button {
+    width: 20%;
+    height: 30px;
+    background: #000;
+    color: #fff;
+    border: 1px solid #000;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+input, select, button {
+    outline: none;
+}
+
+input, button, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.pay>.container>.row>.col-md-5>.col-md-12>table>thead>tr>th {
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+.pay>.container>.row>.col-md-5>.col-md-12>table>tbody>tr>td {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+#pay_2>.container>.row>.col-md-5>.col-md-12>table>tfoot>tr>td {
+    border-bottom: 1px solid #ccc;
+    padding-top: 7.5px;
+    padding-bottom: 7.5px;
+}
+.pay>.container>.row>.col-md-5>.col-md-12>table>tfoot>tr>td {
+    padding-top: 10px;
+}
+
+#pay_2>.container>.row>.col-md-5>.col-md-12>table>tfoot>tr:last-child>td {
+    border: 0px;
+}
+
+.pull-left {
+    float: left !important;
+}
+.title_h3>.container>.row>.col-md-7>h5, .title_h3>.container>.row>.col-md-7>form>h5 {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+#pay_2>.container>.row>.col-md-7>form>ul {
+    margin-bottom: 30px;
+}
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+ol, ul {
+    list-style: none;
+}
+
+#pay_2>.container>.row>.col-md-7>form>ul>li {
+    margin-bottom: 5px;
+}
+
+input[type="radio"], input[type="checkbox"] {
+    margin: 4px 0 0;
+    margin-top: 1px \9;
+    line-height: normal;
+}
+input[type="checkbox"], input[type="radio"] {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+#pay_2>.container>.row>.col-md-7>form>ul>li>label {
+    font-weight: bold;
+}
+
+small, .small {
+    font-size: 85%;
+}
+
+.title_h3>.container>.row>.col-md-7>h5, .title_h3>.container>.row>.col-md-7>form>h5 {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+#pay_2>.container>.row>.col-md-7>form>p.pay_text_ts {
+    margin-bottom: 20px;
+}
+
+#pay_2>.container>.row>.col-md-7>form>ul>li {
+    margin-bottom: 5px;
+}
+
+#pay_2>.container>.row>.col-md-7>form .row>.col-md-12 {
+    margin-top: 30px;
+}
+
+#pay>.container>.row>.col-md-7>form .row>.col-md-12>a.pull-left, #pay_2>.container>.row>.col-md-7>form .row>.col-md-12>a.pull-left {
+    margin-top: 5px;
+    color: #C90;
+}
+
+#pay >.container >.row >.col-md-7 >form .row >.col-md-12 button, #pay_2 >.container >.row >.col-md-7 >form .row >.col-md-12 button {
+    margin: 15px 0;
+}
+
+#pay>.container>.row>.col-md-7>form .row>.col-md-12 button, #pay_2>.container>.row>.col-md-7>form .row>.col-md-12 button {
+    background: #f2f2f2;
+    border: 2px solid #000;
+    padding: 8px 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 11px;
+    font-weight: bold;
+}

@@ -9,7 +9,6 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { CategoryComponent } from './components/category/category.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { CartComponent } from './components/cart/cart.component';
 import { OrderComponent } from './components/order/order.component';
 import { PayComponent } from './components/pay/pay.component';
 import { HeaderComponent } from './shared/layout/header/header.component';
@@ -17,7 +16,12 @@ import { FooterComponent } from './shared/layout/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from "@angular/router";
 import { routes } from './app-routing.module';
-import { CategoryService } from './service/category.service';
+import { HomeService } from './shared/services/Home/home-service.service';
+import { CategoryService } from './shared/services/category.service';
+import { CartService } from './shared/services/cart.service';
+import { ProductService } from './shared/services/product.service';
+import { CartAddComponent } from './components/cart/cart-add/cart-add.component';
+import { CartListComponent } from './components/cart/cart-list/cart-list.component';
 
 @NgModule({
   declarations: [
@@ -27,11 +31,12 @@ import { CategoryService } from './service/category.service';
     RegisterComponent,
     CategoryComponent,
     ProductDetailComponent,
-    CartComponent,
     OrderComponent,
     PayComponent,
     HeaderComponent,
     FooterComponent,
+    CartAddComponent,
+    CartListComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,9 @@ import { CategoryService } from './service/category.service';
     RouterModule.forRoot(routes)
   ],
   providers: [
-    CategoryService
+    CategoryService,
+    CartService,
+    ProductService
   ],
   bootstrap: [AppComponent],
 })

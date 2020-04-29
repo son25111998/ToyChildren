@@ -1,0 +1,10 @@
+{
+    "/serve": {
+      "target": "http://localhost:9000/",
+      "secure": false,
+      "pathRewrite": {
+        "^/serve": ""
+      },
+      "changeOrigin": true
+    }
+  }

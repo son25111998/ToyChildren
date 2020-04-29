@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { UrlConstants } from '../shared/utils/url.constants';
-import { ProductOutput } from '../models/product-output.model';
+import { UrlConstants } from '../utils/url.constants';
 import { retry, catchError } from 'rxjs/operators';
-import { DataResponse } from '../models/response.model';
-import { Product } from '../models/product.model';
-
+import { ProductOutput } from 'src/app/models/product-output';
+import { DataResponse } from 'src/app/models/data-response';
+import { Product } from 'src/app/models/product';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +21,7 @@ export class ProductService {
   }
 
   public getProductByCategory(): Observable<ProductOutput> {
-    return this.http.get<ProductOutput>(UrlConstants.URL + '/api/v1/category')
+    return this.http.get<ProductOutput>(UrlConstants.BASE_URL + '/api/v1/category')
       .pipe(
         retry(1),
         catchError(this.errorHandl)
@@ -30,7 +29,7 @@ export class ProductService {
   }
 
   public findById(id: number): Observable<DataResponse<Product>> {
-    return this.http.get<DataResponse<Product>>(UrlConstants.URL + '/api/v1/product/info/' + id)
+    return this.http.get<DataResponse<Product>>(UrlConstants.BASE_URL + '/api/v1/product/info/' + id)
       .pipe(
         retry(1),
         catchError(this.errorHandl)

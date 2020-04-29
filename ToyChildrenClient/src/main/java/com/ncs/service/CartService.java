@@ -24,16 +24,17 @@ public class CartService {
 	private ProductRepository productRepository;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
+	private List<CartDto> carts = new ArrayList<>();
 
-	@SuppressWarnings("unchecked")
 	public ResponseData<List<CartDto>> getListCart(HttpServletRequest request) {
 		LOGGER.info(">>>>>>>>>>>getListCart Start >>>>>>>>>>>>");
 
 		ResponseData<List<CartDto>> response = new ResponseData<>();
 		try {
 
-			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute(Constants.CART_SESSION);
-			response.setData(carts);
+			response.setData(this.carts);
+
+			LOGGER.info("{}", this.carts);
 		} catch (Exception e) {
 			LOGGER.error("Api get list cart has exception : {}", e.getMessage());
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);
@@ -44,7 +45,6 @@ public class CartService {
 		return response;
 	}
 
-	@SuppressWarnings("unchecked")
 	public ResponseData<CartDto> addProductToCart(CartInput input, HttpServletRequest request) {
 		LOGGER.info(">>>>>>>>>>>addProductToCart Start >>>>>>>>>>>>");
 		ResponseData<CartDto> response = new ResponseData<>();
@@ -54,49 +54,47 @@ public class CartService {
 			boolean isExists = false;
 			int index = 0;
 
-			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute(Constants.CART_SESSION);
-
 			int productId = input.getProductId();
 			int quantity = input.getQuantity();
 
 			product = productRepository.findById(productId).orElse(null);
 
 			if (ObjectUtils.isEmpty(product)) {
-				LOGGER.error("Sản phẩm {}",Constants.RECORD_DO_NOT_EXIST);
+				LOGGER.error("Sản phẩm {}", Constants.RECORD_DO_NOT_EXIST);
 				response.setCode(Constants.UNKNOWN_ERROR_CODE);
 				response.setMessage("Sản phẩm " + Constants.RECORD_DO_NOT_EXIST);
 				return response;
 			}
 
-			if (ObjectUtils.isEmpty(carts)) {
-				carts = new ArrayList<>();
+			if (ObjectUtils.isEmpty(this.carts)) {
+				this.carts = new ArrayList<>();
 				cartDto.setCartId(1);
 			} else {
-				for (int i = 0; i < carts.size(); i++) {
-					if (carts.get(i).getProduct().getId() == productId) {
+				for (int i = 0; i < this.carts.size(); i++) {
+					if (this.carts.get(i).getProduct().getId() == productId) {
 						isExists = true;
-						cartDto = carts.get(i);
+						cartDto = this.carts.get(i);
 						index = i;
-						carts.remove(i);
+						this.carts.remove(i);
 						break;
 					}
 				}
 
 				if (!isExists)
-					cartDto.setCartId(carts.get(carts.size() - 1).getCartId() + 1);
+					cartDto.setCartId(this.carts.get(this.carts.size() - 1).getCartId() + 1);
 			}
 
 			if (isExists) {
 				cartDto.setQuantity(cartDto.getQuantity() + quantity);
-				carts.add(index, cartDto);
+				this.carts.add(index, cartDto);
 			} else {
 				cartDto.setProduct(product);
 				cartDto.setQuantity(quantity);
-				carts.add(cartDto);
+				this.carts.add(cartDto);
 			}
 
-			request.getSession().setAttribute(Constants.CART_SESSION, carts);
-
+			request.getSession().setAttribute(Constants.CART_SESSION, this.carts);
+			LOGGER.info("{}", this.carts);
 			response.setData(cartDto);
 		} catch (Exception e) {
 			LOGGER.error("Api get add product to cart has exception : {}", e.getMessage());
@@ -108,23 +106,19 @@ public class CartService {
 		return response;
 	}
 
-	@SuppressWarnings("unchecked")
 	public ResponseData<CartDto> updateCart(int cartId, HttpServletRequest request) {
 		LOGGER.info(">>>>>>>>>>>updateCart Start >>>>>>>>>>>>");
 		ResponseData<CartDto> response = new ResponseData<>();
 		try {
-			List<CartDto> carts = new ArrayList<>();
 			CartDto cartDto = new CartDto();
 			int index = 0;
 			int quantity;
 
-			carts = (List<CartDto>) request.getSession().getAttribute(Constants.CART_SESSION);
+			if (!this.carts.isEmpty()) {
 
-			if (!carts.isEmpty()) {
-
-				for (int i = 0; i < carts.size(); i++) {
-					if (carts.get(i).getCartId() == cartId) {
-						cartDto = carts.get(i);
+				for (int i = 0; i < this.carts.size(); i++) {
+					if (this.carts.get(i).getCartId() == cartId) {
+						cartDto = this.carts.get(i);
 						index = i;
 						break;
 					}
@@ -135,9 +129,9 @@ public class CartService {
 
 					cartDto.setQuantity(quantity);
 
-					carts.add(index, cartDto);
+					this.carts.add(index, cartDto);
 
-					request.getSession().setAttribute(Constants.CART_SESSION, carts);
+					request.getSession().setAttribute(Constants.CART_SESSION, this.carts);
 
 					response.setData(cartDto);
 				}
@@ -152,27 +146,25 @@ public class CartService {
 		return response;
 	}
 
-	@SuppressWarnings("unchecked")
 	public ResponseData<Object> deleteProductOutCart(int cartId, HttpServletRequest request) {
 		LOGGER.info(">>>>>>>>>>>deleteProductOutCart Start >>>>>>>>>>>>");
 		ResponseData<Object> response = new ResponseData<Object>();
 		try {
-			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute(Constants.CART_SESSION);
 			int i = 0;
 			CartDto cartDto;
 			int cartNewId;
 			int cartOldId;
 
-			for (i = 0; i < carts.size(); i++) {
-				if (carts.get(i).getCartId() == cartId) {
-					carts.remove(i);
+			for (i = 0; i < this.carts.size(); i++) {
+				if (this.carts.get(i).getCartId() == cartId) {
+					this.carts.remove(i);
 					break;
 				}
 			}
 
 			// set cartId
-			for (i = 0; i < carts.size(); i++) {
-				cartDto = carts.get(i);
+			for (i = 0; i < this.carts.size(); i++) {
+				cartDto = this.carts.get(i);
 				cartOldId = cartDto.getCartId();
 				if (cartOldId > cartId) {
 					cartNewId = cartOldId - 1;
@@ -180,7 +172,7 @@ public class CartService {
 				}
 			}
 
-			request.getSession().setAttribute(Constants.CART_SESSION, carts);
+			request.getSession().setAttribute(Constants.CART_SESSION, this.carts);
 		} catch (Exception e) {
 			LOGGER.error("Api delete product out cart has exception : {}", e.getMessage());
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);

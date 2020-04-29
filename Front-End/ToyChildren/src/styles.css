@@ -10,3 +10,18 @@
 @import url('./assets/css/style-gray.css');
 @import url('./assets/css/res-menu.css');
 @import url('./assets/css/responsive.css');
+@import url('https://pro.fontawesome.com/releases/v5.10.0/css/all.css');
+@import url('../node_modules/bootstrap/dist/css/bootstrap.min.css');
+
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Helvetica','Arial',Sans-Serif;
+    font-size: 12px;
+    line-height: 18px;
+    color: #000;
+}

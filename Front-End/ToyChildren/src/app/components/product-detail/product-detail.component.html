@@ -2,75 +2,139 @@
     <div class="container_grid">
         <div class="mod-breadcrumb clearfix">
             <div class="grid_12">
-                <a href="#">Home</a>
-                <span>&gt;</span>
-                <a href="#">Coupons</a>
-                <span>&gt;</span>
-                <a href="#">Lindt - Save 10% off</a>
+                <a href="trang-chu">Trang chủ</a>
+                <span style="margin:0 5px;">&gt;</span>
+                <a href="#">Danh mục</a>
+                <span style="margin:0 5px;">&gt;</span>
+                <a href="#" style="font-weight: bold;">{{product.name}}</a>
             </div>
-        </div><!--end: .mod-breadcrumb -->
-        <div class="mod-coupon-detail clearfix">
-            <div class="grid_4">
-                <div class="wrap-thumb">
-                    <div class="img-thumb-center">
-                        <div class="wrap-img-thumb">
-                            <span class="ver_hold"></span>
-                            <a href="#" class="ver_container"><img src="images/ex/03-01.jpg" alt="$COUPON_TITLE"></a>
+        </div>
+        <!--end: .mod-breadcrumb -->
+        <div id="product_detail" class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--demo4-->
+                        <div class="box cf">
+                            <div class="left">
+                                <span class="demowrap">
+                                    <img id="demo4"
+                                        src="https://pubcdn.ivymoda.com/files/product/thumab/1366/2020/04/24/7e298e443bb61a0ab56cde9cd784ce86.jpg">
+                                </span>
+                            </div>
+                            <div class="right">
+                                <h4 style="margin-bottom: 20px;">{{product.name}}</h4>
+                                <p class="ID_productDetail" style="font-size: 14px;margin-bottom: 30px;">MSP: {{product.id}}</p>
+                                <p class="price_productDetail">
+                                    <span class="price_productDetail_sale"><small id="display_price_org">930.000</small><sup>đ</sup></span>
+                                    <span class="price_productDetail_main" style="font-size: 18px;">
+                                        <small id="display_price_org"><b>930.000</b></small><sup>đ</sup></span>
+                                    <br>
+                                    <span class="price_coupon_display">-10%</span>
+                                </p>
+                                <form name="frm_product_sub" id="frm_product_sub" (ngSubmit)="onSubmit()">
+                                    <h6 class="option-title ">Số lượng</h6>
+                                    <div class="cart-buttons box-quantity">
+                                        <button class="down-quantity-product btn btn-down-quantity btn-secondary" style="margin-right:3px;" type="button" (click)="minusProduct()">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="4" viewBox="0 0 16 4">
+                                                <path fill="#EE3E80" fill-rule="nonzero" d="M14.571.571H1.43a1.429 1.429 0 0 0 0 2.858H14.57a1.429 1.429 0 0 0 0-2.858z"></path>
+                                            </svg>
+                                        </button>
+                                        <input size="2" class="btn btn-down btn-outline btn-quantity" id="quantity_wanted" name="quantity" type="text" value="{{quantity}}" maxlength="2">
+                                        <button class="btn up-quantity-product btn-up-quantity btn-secondary up-quantity-product" type="button" (click)="plusProduct()">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                                <path fill="#EE3E80" fill-rule="nonzero" d="M21.857 9.857h-7.286a.429.429 0 0 1-.428-.428V2.143a2.143 2.143 0 0 0-4.286 0v7.286a.429.429 0 0 1-.428.428H2.143a2.143 2.143 0 0 0 0 4.286h7.286c.236 0 .428.192.428.428v7.286a2.143 2.143 0 0 0 4.286 0v-7.286c0-.236.192-.428.428-.428h7.286a2.143 2.143 0 0 0 0-4.286z"></path>
+                                                </svg>
+                                        </button>
+
+                                        <span class="deal_span text-primary font-12" style="margin-top: 5px;"></span>
+
+                                        <span class="ajax-message-error italic font-12 " style="margin-top: 5px; "></span>
+
+                                    </div>
+                                    <p class="button_poductDetail">
+                                        <button style="display:none" type="submit" id="but_choose_product_clear">
+                                            <i class="fa fa-shopping-basket" aria-hidden="true"></i> Hết hàng
+                                        </button>
+                                        <button style="display:block" type="submit" id="but_choose_product">
+                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> Mua hàng
+                                        </button>
+                                    </p>
+                                </form>
+
+                                <ul class="list-inline phone_chat_mail">
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" type="button" data-toggle="dropdown" href="#">
+                                            <i class="fa fa-phone" aria-hidden="true"></i> Hotline
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="tel:02466623434">024 6662 3434</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="javascript:;" class="chat_fb"><i class="fa fa-comments-o fa-lg" aria-hidden="true"></i> Chat</a></li>
+                                    <li>
+                                        <a href="#" data-toggle="modal" data-target="#myModal_mail">Mail</a>
+                                        <!-- sModal -->
+                                        <div id="myModal_mail" class="modal fade" role="dialog"></div>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                                <!-- qrcode, barcode -->
+                                <div class="bar_QA">
+                                    <!-- data-toggle="modal" data-target="#img_1" -->
+                                    <span style="margin-right: 15px;" id="box_qrcode">
+                                        <img title="click để lấy mã qr code" id="myImg"
+                                            src="https://pubcdn.ivymoda.com/images/qrcode2.png"
+                                            alt="Mã qrcode cho sản phẩm 17M4889" width="50">
+                                    </span>
+                                    <div class="modal fade" id="img_1" role="dialog">
+                                        <div class="modal-dialog" style="width: 350px">
+                                            <div class="modal-content">
+                                                <div class="modal-body text-center">
+                                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                                    <div id="qrcode"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal -->
+                                </div>
+                                <!-- end:qrcode, barcode -->
+                                <hr>
+                                <p class="productDetail_buttonShow">
+                                    <i class="fa fa-angle-down productDetail_buttonShow_btn" aria-hidden="true"></i>
+                                </p>
+                                <div class="col-md-12" style="padding: 0;">
+                                    <div class="description">Mô tả sản phẩm</div>
+                                    <div class="product-tab">
+                                        <div class="product-description has-more-content table-responsive full-screen" id="product-description">
+                                            <p><strong>Thành phần nguyên liệu:&nbsp;</strong>Nhựa ABS</p>
+                                            <p><strong>Hướng dẫn sử dụng:&nbsp;</strong>lắp ráp theo hướng dẫn</p>
+                                            <p><strong>Thông tin sản phẩm</strong><strong>:</strong></p>
+                                            <p><strong>Tên sản phẩm:&nbsp;</strong>{{product.name}}</p>
+                                            <p><strong>Xuất xứ:&nbsp;</strong>Trung Quốc</p>
+                                            <p><strong>Tên nhà sản xuất:</strong>{{product.manufacturer.name}}</p>
+                                            <p><strong>Tên cty nhập khẩu:&nbsp;</strong>Công ty CP SX &amp; XNK Duka</p>
+                                            <p><strong>Kích thước:&nbsp;</strong>27,5x25,5x9cm</p>
+                                            <p><strong>Trọng lượng:&nbsp;</strong>560g</p>
+                                            <p><strong>Độ tuổi phù hợp:&nbsp;</strong>từ 3 tuổi</p>
+                                            <p><strong>Lưu ý:&nbsp;</strong>mảnh nhỏ có thể gây ngạt</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <i class="stick-lbl hot-sale"></i>
                 </div>
             </div>
-            <div class="grid_5">
-                <div class="save-price">Save 10% Off</div>
-                <a href="#" class="brand-name"></a>
-                <div class="coupon-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vestibulum interdum ipsum, eu gravida massa <a href="#">cursus id</a>. Pellentesque feugiat ante eu scelerisque porta. In quis velit ligula. Cum sociis natoque <a href="#">penatibus et</a> magnis dis parturient montes, nascetur ridiculus mus. Donec ac dignissim nulla.</div>
-                <div class="wrap-btn clearfix">
-                    <div class="day-left">9 days 4 hours left</div>
-                    <a class="btn btn-blue btn-take-coupon" href="#">Take Coupon</a>
-                </div>
-                <div class="wrap-action clearfix">
-                    <div class="left-vote">
-                        <span class="lbl-work">100% work</span>
-                        <span class="lbl-vote">12 <i class="icon iAddVote"></i></span>
-                        <span class="lbl-vote">2 <i class="icon iSubVote"></i></span>
-                    </div>
-                    <div class="right-social">
-                        Share now
-                        <a href="#"><i class="fa fa-facebook-square fa-2x"></i></a>
-                        <a href="#"><i class="fa fa-twitter-square fa-2x"></i></a>
-                        <a href="#"><i class="fa fa-pinterest-square fa-2x"></i></a>
-                        <a href="#"><i class="fa fa-linkedin-square fa-2x"></i></a>
-                    </div>
-                </div>
-                <div class="wrap-tag">
-                    <span class="btn btn-gray type-tag tag-lbl">Tag</span>
-                    <a class="btn btn-gray type-tag" href="#">Sweet</a>
-                    <a class="btn btn-gray type-tag" href="#">Lindor</a>
-                    <a class="btn btn-gray type-tag" href="#">Food</a>
-                    <a class="btn btn-gray type-tag" href="#">Lindt</a>
-                    <a class="btn btn-gray type-tag" href="#">Walmart</a>
-                    <a class="btn btn-gray type-tag" href="#">Chocolate</a>
-                </div>
-            </div>
-            <div class="grid_3">
-                <div class="brand-info ta-c">
-                    <div class="brand-logo"><img src="images/ex/03-03.jpg" alt="$NAME"></div>
-                    <span class="star-rate"><span style="width: 91%"></span></span>
-                    <div class="rated-number">289.876 Followers</div>
-                    <div class="brand-desc ta-l">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vestibulum interdum ipsum, eu gravida massa cursus id. Pellentesque feugiat ante eu scelerisque porta. In quis velit ligula. </div>
-                    <a class="link-brand" href="#">View Brand</a>
-                </div>
-            </div>
-        </div><!--end: .mod-coupon-detail -->
-        <div class="mod-grp-coupon block clearfix">
+        </div>
+        <div class="mod-grp-coupon block clearfix" style="margin-top: 50px;">
             <div class="grid_12">
-                <h3 class="title-block">
-                    Related coupons
-                </h3>
+                <h3 class="title-block"> Sản phẩm tương tự</h3>
             </div>
             <div class="block-content list-coupon clearfix">
-                <div class="coupon-item grid_3">
+                <div class="coupon-item grid_3" *ngFor="let product of products">
                     <div class="coupon-content">
                         <div class="img-thumb-center">
                             <div class="wrap-img-thumb">
@@ -85,262 +149,8 @@
                         <a class="btn btn-blue btn-take-coupon" href="#">Take Coupon</a>
                     </div>
                     <i class="stick-lbl hot-sale"></i>
-                </div><!--end: .coupon-item -->
-                <div class="coupon-item grid_3">
-                    <div class="coupon-content">
-                        <div class="img-thumb-center">
-                            <div class="wrap-img-thumb">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_02.jpg" alt="$COUPON_TITLE"></a>
-                            </div>
-                        </div>
-                        <div class="coupon-price">Save $1.50 on two</div>
-                        <div class="coupon-brand">Lindt Chocolate</div>
-                        <div class="coupon-desc">Find Parts for All Major Brands at Sears PartsDirect </div>
-                        <div class="time-left">9 days 4 hours left</div>
-                        <a class="btn btn-blue btn-take-coupon" href="#">Take Coupon</a>
-                    </div>
-                    <i class="stick-lbl hot-sale"></i>
-                </div><!--end: .coupon-item -->
-                <div class="coupon-item grid_3">
-                    <div class="coupon-content">
-                        <div class="img-thumb-center">
-                            <div class="wrap-img-thumb">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_03.jpg" alt="$COUPON_TITLE"></a>
-                            </div>
-                        </div>
-                        <div class="coupon-price">$5.00 Off</div>
-                        <div class="coupon-brand">Lindt Chocolate</div>
-                        <div class="coupon-desc">Find Parts for All Major Brands at Sears PartsDirect </div>
-                        <div class="time-left">2 days 14 hours left</div>
-                        <a class="btn btn-blue btn-take-coupon untake" href="#">Un Take Coupon</a>
-                    </div>
-                    <i class="stick-lbl hot-sale"></i>
-                </div><!--end: .coupon-item -->
-                <div class="coupon-item grid_3">
-                    <div class="coupon-content">
-                        <div class="img-thumb-center">
-                            <div class="wrap-img-thumb">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_04.jpg" alt="$COUPON_TITLE"></a>
-                            </div>
-                        </div>
-                        <div class="coupon-price">$7.00 Off</div>
-                        <div class="coupon-brand">Wallmart</div>
-                        <div class="coupon-desc">During the Red Star Spectacular Sale going on now get an extra 20% off</div>
-                        <div class="time-left">12 days 1 hour left</div>
-                        <a class="btn btn-blue btn-take-coupon" href="#">Take Coupon</a>
-                    </div>
-                    <i class="stick-lbl hot-sale"></i>
-                </div><!--end: .coupon-item -->
-                <div class="coupon-item grid_3">
-                    <div class="coupon-content">
-                        <div class="img-thumb-center">
-                            <div class="wrap-img-thumb">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_02.jpg" alt="$COUPON_TITLE"></a>
-                            </div>
-                        </div>
-                        <div class="coupon-price">$12.00 Off</div>
-                        <div class="coupon-brand">Wallmart</div>
-                        <div class="coupon-desc">Find Parts for All Major Brands at Sears PartsDirect </div>
-                        <div class="time-left">9 days 4 hours left</div>
-                        <a class="btn btn-blue btn-take-coupon" href="#">Take Coupon</a>
-                    </div>
-                </div><!--end: .coupon-item -->
-                <div class="coupon-item grid_3">
-                    <div class="coupon-content">
-                        <div class="img-thumb-center">
-                            <div class="wrap-img-thumb">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_03.jpg" alt="$COUPON_TITLE"></a>
-                            </div>
-                        </div>
-                        <div class="coupon-price">$17.50 off</div>
-                        <div class="coupon-brand">Lindt Chocolate</div>
-                        <div class="coupon-desc">Find Parts for All Major Brands at Sears PartsDirect </div>
-                        <div class="time-left">9 days 4 hours left</div>
-                        <a class="btn btn-blue btn-take-coupon" href="#">Take Coupon</a>
-                    </div>
-                </div><!--end: .coupon-item -->
-                <div class="coupon-item grid_3">
-                    <div class="coupon-content">
-                        <div class="img-thumb-center">
-                            <div class="wrap-img-thumb">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_01.jpg" alt="$COUPON_TITLE"></a>
-                            </div>
-                        </div>
-                        <div class="coupon-price">$3.00 Off</div>
-                        <div class="coupon-brand">Lindt Chocolate</div>
-                        <div class="coupon-desc">Find Parts for All Major Brands at Sears PartsDirect </div>
-                        <div class="time-left">2 days 14 hours left</div>
-                        <a class="btn btn-blue btn-take-coupon" href="#">Take Coupon</a>
-                    </div>
-                </div><!--end: .coupon-item -->
-                <div class="coupon-item grid_3">
-                    <div class="coupon-content">
-                        <div class="img-thumb-center">
-                            <div class="wrap-img-thumb">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_04.jpg" alt="$COUPON_TITLE"></a>
-                            </div>
-                        </div>
-                        <div class="coupon-price">$7.00 Off</div>
-                        <div class="coupon-brand">Wallmart</div>
-                        <div class="coupon-desc">During the Red Star Spectacular Sale going on now get an extra 20% off</div>
-                        <div class="time-left">12 days 1 hour left</div>
-                        <a class="btn btn-blue btn-take-coupon" href="#">Take Coupon</a>
-                    </div>
-                </div><!--end: .coupon-item -->
-                <div class="coupon-item grid_3">
-                    <div class="coupon-content">
-                        <div class="img-thumb-center">
-                            <div class="wrap-img-thumb">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_04.jpg" alt="$COUPON_TITLE"></a>
-                            </div>
-                        </div>
-                        <div class="coupon-price">$2.00 Off</div>
-                        <div class="coupon-brand">Lindt Chocolate</div>
-                        <div class="coupon-desc">Find Parts for All Major Brands at Sears PartsDirect </div>
-                        <div class="time-left">9 days 4 hours left</div>
-                        <a class="btn btn-blue btn-take-coupon" href="#">Take Coupon</a>
-                    </div>
-                </div><!--end: .coupon-item -->
-                <div class="coupon-item grid_3">
-                    <div class="coupon-content">
-                        <div class="img-thumb-center">
-                            <div class="wrap-img-thumb">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_01.jpg" alt="$COUPON_TITLE"></a>
-                            </div>
-                        </div>
-                        <div class="coupon-price">$11.50 off</div>
-                        <div class="coupon-brand">Lindt Chocolate</div>
-                        <div class="coupon-desc">Find Parts for All Major Brands at Sears PartsDirect </div>
-                        <div class="time-left">9 days 4 hours left</div>
-                        <a class="btn btn-blue btn-take-coupon" href="#">Take Coupon</a>
-                    </div>
-                </div><!--end: .coupon-item -->
-                <div class="coupon-item grid_3">
-                    <div class="coupon-content">
-                        <div class="img-thumb-center">
-                            <div class="wrap-img-thumb">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_03.jpg" alt="$COUPON_TITLE"></a>
-                            </div>
-                        </div>
-                        <div class="coupon-price">$12.00 Off</div>
-                        <div class="coupon-brand">SunMart</div>
-                        <div class="coupon-desc">Find Parts for All Major Brands at Sears PartsDirect </div>
-                        <div class="time-left">2 days 14 hours left</div>
-                        <a class="btn btn-blue btn-take-coupon untake" href="#">Un Take Coupon</a>
-                    </div>
-                </div><!--end: .coupon-item -->
-                <div class="coupon-item grid_3">
-                    <div class="coupon-content">
-                        <div class="img-thumb-center">
-                            <div class="wrap-img-thumb">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_02.jpg" alt="$COUPON_TITLE"></a>
-                            </div>
-                        </div>
-                        <div class="coupon-price">$4.5 Off</div>
-                        <div class="coupon-brand">Wallmart</div>
-                        <div class="coupon-desc">During the Red Star Spectacular Sale going on now get an extra 20% off</div>
-                        <div class="time-left">12 days 1 hour left</div>
-                        <a class="btn btn-blue btn-take-coupon" href="#">Take Coupon</a>
-                    </div>
-                </div><!--end: .coupon-item -->
-            </div>
-         </div><!--end block: Related coupons-->
-        <div class="mod-email-newsletter clearfix">
-            <div class="grid_12">
-                <div class="wrap-form clearfix">
-                    <div class="left-lbl">
-                        <div class="big-lbl">newsletter</div>
-                        <div class="sml-lbl">Don't miss a chance!</div>
-                    </div>
-                    <div class="wrap-email">
-                        <label for="sys_email_newsletter">
-                            <input type="email" id="sys_email_newsletter" placeholder="Enter your email here">
-                        </label>
-                    </div>
-                    <button class="btn btn-orange btn-submit-email" type="submit">SUBSCRIBE NOW</button>
                 </div>
             </div>
-        </div><!--end: .mod-email-newsletter-->
-        <div class="mod-brands block clearfix">
-            <div class="grid_12">
-                <h3 class="title-block has-link">
-                    POPULAR BRANDS (129)
-                    <a href="#" class="link-right">See all <i class="pick-right"></i></a>
-                </h3>
-            </div>
-            <div class="block-content list-brand clearfix">
-                <div class="brand-item grid_4">
-                    <div class="brand-content">
-                        <div class="brand-logo">
-                            <div class="wrap-img-logo">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--end: .brand-item -->
-                <div class="brand-item grid_4">
-                    <div class="brand-content">
-                        <div class="brand-logo">
-                            <div class="wrap-img-logo">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--end: .brand-item -->
-                <div class="brand-item grid_4">
-                    <div class="brand-content">
-                        <div class="brand-logo">
-                            <div class="wrap-img-logo">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--end: .brand-item -->
-                <div class="brand-item grid_4">
-                    <div class="brand-content">
-                        <div class="brand-logo">
-                            <div class="wrap-img-logo">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--end: .brand-item -->
-                <div class="brand-item grid_4">
-                    <div class="brand-content">
-                        <div class="brand-logo">
-                            <div class="wrap-img-logo">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--end: .brand-item -->
-                <div class="brand-item grid_4">
-                    <div class="brand-content">
-                        <div class="brand-logo">
-                            <div class="wrap-img-logo">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--end: .brand-item -->
-            </div>
-        </div><!--end: .mod-brand -->
+        </div>
     </div>
 </div>

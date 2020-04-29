@@ -1,1 +1,112 @@
-<p>pay works!</p>
+<div id="content" class="container-fluid">
+    <div id="pay_2" class="row title_h3 pay">
+        <div class="container">
+            <h3>Tiến hành thanh toán</h3>
+            <div class="row">
+                <div class="col-md-7 col-sm-7 pull-left col-xs-12">
+                    <h5>Phương thức giao hàng</h5>
+                    <form action="" id="frm_step2" name="frm_step2" enctype="application/x-www-form-urlencoded"
+                        method="post">
+                        <ul class="list-unstyled" id="box_shipping_method">
+                            <li><input id="shipping_method_1" type="radio" checked="checked" name="shipping_method"
+                                    value="1"> <label>Giao hàng chuyển phát nhanh </label> (45.000) <br>
+                                <small>Chuyển hàng tới địa chỉ khách hàng.</small></li>
+                        </ul>
+                        <h5>Phương thức thanh toán</h5>
+                        <p class="pay_text_ts">Mọi giao dịch đều được bảo mật và mã
+                            hóa. Thông tin thẻ tín dụng sẽ không bao giờ được lưu lại.</p>
+                        <ul class="list-unstyled">
+                            <li><input id="payment_method_1" type="radio" name="payment_method" value="1"> <label> Thanh
+                                    toán bằng thẻ tín dụng(OnePay)</label>
+                                <div>
+                                    <img src="https://pubcdn.ivymoda.com/images/1.png" height="31" class="">
+                                </div>
+                            </li>
+                            <li><input id="payment_method_2" type="radio" name="payment_method" value="2"> <label> Thanh
+                                    toán bằng thẻ ATM(OnePay)</label>
+                                <div>
+                                    <img src="https://pubcdn.ivymoda.com/images/2.png" height="31" class=""><br /> Hỗ
+                                    trợ thanh toán online hơn 18 ngân hàng phổ
+                                    biến Việt Nam.
+                                </div>
+                            </li>
+                            <li>
+                                <input id="payment_method_5" type="radio" name="payment_method" value="5"> <label> Thanh
+                                    toán Momo</label>
+                                <div>
+                                    <img src="https://pubcdn.ivymoda.com/images/5.png" height="31" class="">
+                                </div>
+                            </li>
+                            <li>
+                                <input id="payment_method_3" type="radio" name="payment_method" value="3"
+                                    checked="checked">
+                                <label> Thu tiền tận nơi</label>
+                            </li>
+                        </ul>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a id="but-cancel-step1" href="gio-hang" class="pull-left">&lt;&lt; Quay lại</a>
+                                <button type="button" class="pull-right" id="but_pay">Hoàn thành</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-5 col-sm-5 pull-right col-xs-12">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <p class="required" id="p_coupon" style="display: none;"> Mã giảm giá không hợp lệ</p>
+                            <div class="panel-heading">Mã giảm giá / Quà tặng:</div>
+                            <div class="panel-body">
+                                <input type="text" name="coupon_code_text" id="coupon_code_text">
+                                <button type="button" id="but_coupon_code">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div class="clearfix">
+                                <br>
+                            </div>
+                        </div>
+
+                        <table style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>Tên sản phẩm</th>
+                                    <th class="text-center">Số lượng</th>
+                                    <th class="text-right">Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p>áo thun #StrongVietNam | 04.2020 MS 57M5700</p>
+                                        <p>77B7655 / 358.000<sup>đ</sup></p>
+                                    </td>
+                                    <td class="text-center"></td>
+                                    <td class="text-right"></td>
+                                </tr>
+                            </tbody>
+                            <tfoot id="box_product_total">
+                                <tr>
+                                    <td colspan="2">Tạm tính</td>
+                                    <td class="text-right"><b>808.000<sup>đ</sup></b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Giao hàng chuyển phát nhanh - Chuyển phát
+                                        nhanh</td>
+                                    <td class="text-right">45.000 đ</td>
+                                </tr>
+                                <tr id="voucher-view" style="display: none;">
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><b>Tổng</b></td>
+                                    <td class="text-right" id="product_sub_total_end"><b>500000</b></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

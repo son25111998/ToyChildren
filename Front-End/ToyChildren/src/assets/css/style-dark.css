@@ -191,9 +191,9 @@
 }
 
 /*	blog   */
-p,.dark .article-item .art-desc{
+/* p,.dark .article-item .art-desc{
 	color: #A6A6A6;
-}
+} */
 .dark .article-item .wrap-date-post .btn-more{
 	background-color: #000;
 }
