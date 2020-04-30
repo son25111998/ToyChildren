@@ -16,12 +16,10 @@ import { FooterComponent } from './shared/layout/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from "@angular/router";
 import { routes } from './app-routing.module';
-import { HomeService } from './shared/services/Home/home-service.service';
-import { CategoryService } from './shared/services/category.service';
-import { CartService } from './shared/services/cart.service';
-import { ProductService } from './shared/services/product.service';
 import { CartAddComponent } from './components/cart/cart-add/cart-add.component';
 import { CartListComponent } from './components/cart/cart-list/cart-list.component';
+import { CategoryService } from './shared/services/category.service';
+import { CartService } from './shared/services/cart.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +34,7 @@ import { CartListComponent } from './components/cart/cart-list/cart-list.compone
     HeaderComponent,
     FooterComponent,
     CartAddComponent,
-    CartListComponent,
+    CartListComponent
   ],
   imports: [
     BrowserModule,
@@ -45,11 +43,7 @@ import { CartListComponent } from './components/cart/cart-list/cart-list.compone
     FormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [
-    CategoryService,
-    CartService,
-    ProductService
-  ],
+  providers: [CategoryService, CartService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

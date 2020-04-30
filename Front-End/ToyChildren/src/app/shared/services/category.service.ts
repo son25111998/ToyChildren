@@ -19,8 +19,8 @@ export class CategoryService{
     })
   }
 
-  public getCategory(): Observable<DataResponse<Category>> {
-    return this.http.get<DataResponse<Category>>(UrlConstants.BASE_URL + '/api/v1/category')
+  public getCategory(): Observable<DataResponse<Category[]>> {
+    return this.http.get<DataResponse<Category[]>>(UrlConstants.CATEGORY_API_URL)
     .pipe(
       retry(1),
       catchError(this.errorHandl)
@@ -28,7 +28,7 @@ export class CategoryService{
   }
 
   public findAllProductByCategory(id: number, page: number, size: number): Observable<DataResponse<ProductOutput>> {
-    return this.http.get<DataResponse<ProductOutput>>(UrlConstants.BASE_URL + '/api/v1/category/' + id+ '?page=' +page+'&size=' + size)
+    return this.http.get<DataResponse<ProductOutput>>(UrlConstants.CATEGORY_API_URL + id+ '?page=' +page+'&size=' + size)
     .pipe(
       retry(1),
       catchError(this.errorHandl)

@@ -6,6 +6,7 @@ import { CartInput } from 'src/app/models/cart-input';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { CodeConstants } from 'src/app/shared/utils/code.constants';
 import { Product } from 'src/app/models/product';
+import { UrlConstants } from 'src/app/shared/utils/url.constants';
 
 @Component({
   selector: 'app-product-detail',
@@ -39,8 +40,6 @@ export class ProductDetailComponent implements OnInit {
         this.products = data.data.products;
       })
       this.maxQuantity = this.product.amount;
-      console.log(this.product.amount);
-
     })
   }
 
@@ -55,16 +54,32 @@ export class ProductDetailComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.quantity > this.product.amount) {
+      this.cartInput.quantity = 1;
+    }
+
     this.cartInput.productId = this.id;
     this.cartInput.quantity = this.quantity;
-    console.log(this.cartInput);
     this.cartService.addCart(this.cartInput).subscribe(data => {
       if (data.code == CodeConstants.CODE_SUCCESS) {
         alert("Thêm thành công sản phẩm vào giỏ hàng");
       } else {
         alert("Thêm không thành công sản phẩm vào giỏ hàng");
       }
-      this.ngZone.run(() => this.router.navigateByUrl('/gio-hang'))
+      this.ngZone.run(() => this.router.navigateByUrl(UrlConstants.CART_URL))
+    })
+  }
+
+  addToCart(id: number) {
+    this.cartInput.productId = id;
+    this.cartInput.quantity = 1;
+    this.cartService.addCart(this.cartInput).subscribe(data => {
+      if (data.code == CodeConstants.CODE_SUCCESS) {
+        alert("Thêm thành công sản phẩm vào giỏ hàng");
+      } else {
+        alert("Thêm không thành công sản phẩm vào giỏ hàng");
+      }
+      this.ngZone.run(() => this.router.navigateByUrl(UrlConstants.CART_URL))
     })
   }
 }

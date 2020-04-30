@@ -16,22 +16,22 @@
                     <tbody>
                         <tr *ngFor="let cart of carts">
                             <td>
-                                <a href="san-pham/"><img title="" src=""></a>
+                                <a href="san-pham/"><img title="" src="https://pubcdn.ivymoda.com/files/product/2020/03/24/5d80d3eb2e1d89805ea6ec53891e81c3.jpg"></a>
                             </td>
                             <td class="hidden-xs">
                                 <a href="https://ivymoda.com/sanpham/ao-khoac-khaki-ms-77b7655-22173" title="áo khoác khaki MS 77B7655">
                                     {{cart.product.name}}
-                                    <br><b>- 1.432.000 đ</b> <br>
-                                    <b>- 80 %</b>
+                                    <br><b>{{cart.product.price}}</b> <br>
+                                    <b>- {{cart.product.discount}} %</b>
                                 </a>
                             </td>
                             <td>
-                                <span class="controll-quantity" (click)="plusQuantity(cart.cartId)"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                <span class="controll-quantity" (click)="minusQuantity(cart.cartId)"><i class="fa fa-minus" aria-hidden="true"></i></span>
                                 <input class="quantity" type="text" size="3" value="{{cart.quantity}}" maxlength="1" readonly>
-                                <span class="controll-quantity" (click)="minusQuantity(cart.cartId)"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                <span class="controll-quantity" (click)="plusQuantity(cart.cartId)"><i class="fa fa-plus" aria-hidden="true"></i></span>
                             </td>
-                            <td>450.000<sup>đ</sup></td>
-                            <td><a href="#" title="Xóa">x</a></td>
+                            <td>{{(cart.product.price*(1-cart.product.discount/100))*cart.quantity}}<sup>đ</sup></td>
+                            <td><a (click)="deleteProductOutCart(cart.cartId)" style="cursor: pointer;" title="Xóa">x</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -43,17 +43,17 @@
                         <tbody>
                             <tr>
                                 <td>Tổng sản phẩm</td>
-                                <td>1</td>
+                                <td>{{totalProduct}}</td>
                             </tr>
                             <tr>
                                 <td>Thành tiền</td>
-                                <td>450.000<sup>đ</sup></td>
+                                <td>{{totalMoney}}<sup>đ</sup></td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td>Tạm tính</td>
-                                <td>450.000<sup>đ</sup></td>
+                                <td>{{totalMoney}}<sup>đ</sup></td>
                             </tr>
                         </tfoot>
 

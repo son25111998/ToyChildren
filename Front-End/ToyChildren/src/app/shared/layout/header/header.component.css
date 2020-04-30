@@ -2,13 +2,15 @@ li.dropdown {
     position: relative;
 }
 
-li.dropdown >ul {
+li.dropdown>ul {
     width: 300px;
     padding-top: 0px;
     box-shadow: none;
     border-radius: 0px;
     max-height: 480px;
     overflow: hidden;
+    left: -500%;
+    top: 210%;
 }
 
 .dropdown-menu {
@@ -32,7 +34,6 @@ li.dropdown >ul {
     -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
     box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 }
-
 
 .text-center {
     text-align: center;
@@ -61,18 +62,101 @@ li.dropdown >ul {
     white-space: nowrap;
 }
 
-.title_cartMain >h5 >a {
-    font-size: 10px;
+.title_cartMain>h5>a {
+    font-size: 13px;
     color: #000;
     text-transform: uppercase;
 }
 
 .style_cartMain {
+    font-size: 11px;
+    margin-top: 30px;
+    color: #666;
+    line-height: 20px;
+}
+
+.first_letter_upper {
+    text-transform: capitalize;
+}
+
+#topBar>.container>.collapse>ul.navbar-right>li>ul>h3 {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    padding: 5px;
+    background: #000;
+}
+
+.title_cartMain>h5>a:hover {
+    color: #999;
+}
+
+#topBar>.container>.collapse>ul.navbar-right>li>ul>h3>a {
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#topBar>.container>.collapse>ul.navbar-right>li>ul>li {
+    padding: 10px 10px 0 10px;
+}
+
+#topBar img {
+    width: 100%;
+}
+
+#topBar>.container>.collapse>ul.navbar-right>li>ul>li>ul>li.col-md-9>.title_cartMain {
+    width: 100%;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#topBar>.container>.collapse>ul.navbar-right>li>ul>li>ul>li.col-md-9>.title_cartMain>h5>a {
+    font-size: 10px;
+    color: #000;
+    text-transform: uppercase;
+}
+
+#topBar>.container>.collapse>ul.navbar-right>li>ul>li>ul>li.col-md-9>.style_cartMain {
     font-size: 10px;
     margin-top: 30px;
     color: #666;
 }
 
-.first_letter_upper {
-    text-transform: capitalize;
+#topBar>.container>.collapse>ul.navbar-right>li>ul>li:last-child {
+    text-align: center;
+    display: block;
+    padding: 5px;
+}
+
+.detail-cart {
+    display: block;
+    padding: 5px;
+}
+
+#topBar>.container>.collapse>ul.navbar-right>li.dropdown {
+    position: relative;
+}
+
+#topBar>.container>.collapse>ul.navbar-right>li {
+    padding-bottom: 25px;
+    margin-left: 15px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.text-center a {
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.dropdown-menu>li>a:hover,
+.dropdown-menu>li>a:focus {
+    color: #262626;
+    text-decoration: none;
+    background-color: #f5f5f5;
 }

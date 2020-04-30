@@ -22,7 +22,7 @@ export class CartService {
   }
 
   public getCart(): Observable<DataResponse<Cart[]>> {
-    return this.http.get<DataResponse<Cart[]>>(UrlConstants.BASE_URL + '/api/v1/cart')
+    return this.http.get<DataResponse<Cart[]>>(UrlConstants.CART_API_URL)
       .pipe(
         retry(1),
         catchError(this.errorHandl)
@@ -30,7 +30,7 @@ export class CartService {
   }
 
   public addCart(cartInput: CartInput): Observable<DataResponse<Cart>> {
-    return this.http.post<DataResponse<Cart>>(UrlConstants.BASE_URL + '/api/v1/cart', JSON.stringify(cartInput), this.httpOptions)
+    return this.http.post<DataResponse<Cart>>(UrlConstants.CART_API_URL, JSON.stringify(cartInput), this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.errorHandl)
@@ -38,7 +38,7 @@ export class CartService {
   }
 
   public updateCart(id: number): Observable<DataResponse<Cart>> {
-    return this.http.put<DataResponse<Cart>>(UrlConstants.BASE_URL + '/api/v1/cart/' + id, this.httpOptions)
+    return this.http.put<DataResponse<Cart>>(UrlConstants.CART_API_URL + id, this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.errorHandl)
@@ -46,7 +46,7 @@ export class CartService {
   }
 
   public deleteProductOutCart(id: number): Observable<DataResponse<Cart>> {
-    return this.http.delete<DataResponse<Cart>>(UrlConstants.BASE_URL + '/api/v1/cart/' + id)
+    return this.http.delete<DataResponse<Cart>>(UrlConstants.CART_API_URL + id)
       .pipe(
         retry(1),
         catchError(this.errorHandl)

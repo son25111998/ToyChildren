@@ -7,11 +7,13 @@ import { Category } from 'src/app/models/category';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
+  providers: [CategoryService, CartService]
 })
 export class HeaderComponent implements OnInit {
   categories = new Array<Category>();
-  carts: Array<Cart>;
+  carts = new Array<Cart>();
+  totalItem: number = 0;
 
   constructor(private categoryService: CategoryService, private cartService: CartService) { }
 
@@ -21,12 +23,15 @@ export class HeaderComponent implements OnInit {
   }
 
   loadCategory() {
-    return this.categoryService.getCategory().subscribe((data: {}) => {
-      this.categories = data['data'];
+    return this.categoryService.getCategory().subscribe(data => {
+      this.categories = data.data;
     })
   }
 
-  loadCart(){
-    
+  loadCart() {
+    return this.cartService.getCart().subscribe(data => {
+      this.carts = data.data;
+      this.totalItem = this.carts.length;
+    })
   }
 }

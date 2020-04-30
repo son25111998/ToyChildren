@@ -1,173 +1,182 @@
 <div class="top-area">
-  <div class="mod-head-slide">
-      <div class="grid_frame">
-          <div class="wrap-slide">
-              <p class="ta-c"><img src="../../../assets/images/ajax-loader.gif" alt="loading"></p>
-              <div id="sys_head_slide" class="head-slide flexslider">
-                  <ul class="slides">
-                      <li>
-                          <img src="../../../assets/images/ex/01_banner.jpg" alt=""/>
-                      </li>
-                      <li>
-                          <img src="../../../assets/images/ex/02_banner.jpg" alt=""/>
-                      </li>
-                      <li>
-                          <img src="../../../assets/images/ex/03_banner.jpg" alt=""/>
-                      </li>
-                  </ul>
-              </div>
-          </div>
-      </div>
-  </div>
+    <div class="mod-head-slide">
+        <div class="grid_frame">
+            <div class="wrap-slide">
+                <p class="ta-c"><img src="../../../assets/images/ajax-loader.gif" alt="loading"></p>
+                <div id="sys_head_slide" class="head-slide flexslider">
+                    <ul class="slides">
+                        <li>
+                            <img src="../../../assets/images/ex/01_banner.jpg" alt="" />
+                        </li>
+                        <li>
+                            <img src="../../../assets/images/ex/02_banner.jpg" alt="" />
+                        </li>
+                        <li>
+                            <img src="../../../assets/images/ex/03_banner.jpg" alt="" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="grid_frame page-content">
-  <div class="container_grid">
-      <div class="mod-grp-coupon block clearfix">
-          <div class="grid_12">
-              <h3 class="title-block has-link">
-                  Sản phẩm mới
-                  <a href="#" class="link-right">Xem tất cả<i class="pick-right"></i></a>
-              </h3>
-          </div>
-          <!-- item product new start -->
-          <div class="block-content list-coupon clearfix">
-              <div class="coupon-item grid_3" *ngFor="let item of productNews;let i = index ">
-                  <div class="coupon-content">
-                      <div class="img-thumb-center">
-                          <div class="wrap-img-thumb">
-                              <span class="ver_hold"></span>
-                              <a href="#" class="ver_container"><img src="../../../assets/images/ex/01_01.jpg" alt="$COUPON_TITLE"></a>
-                          </div>
-                      </div>
-                      <div class="coupon-brand">{{item.name}}</div>
-                      <div class="coupon-price">${{item.price}} </div><del>${{item.price}}</del>
-                      <div class="coupon-desc2"><strong>Nhà sản xuất:</strong> {{item.manufacturer.name}}</div>
-                      <div class="coupon-desc2"><strong>Danh mục:</strong> {{item.category.name}}</div>
-                      <div class="coupon-desc2"><strong>Trạng thái:</strong> <em> Còn hàng</em></div>
-                      <div class="coupon-desc">{{item.description}}</div>
-                      <div class="customStar" title="Đánh giá của khách hàng">
-                        <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
-                        <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
-                        <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
-                        <span [ngClass]="{'fas fa-star-half-alt': i%2==0, 'fa fa-star checked': i%2!=0,'far fa-star' : i%3==0}"  style="color:gold; padding: 1px;"></span>
-                        <span [ngClass]="{'far fa-star' : i%2==0, 'fas fa-star-half-alt': i%2!=0}" style="color:gold; padding: 1px;"></span>
-                      </div>
-                      <a class="btn btn-blue btn-take-coupon" style="cursor: pointer;" ><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
-                  </div>
-                  <em class="stick-lbl trust-brand-b"></em>
-              </div>
-          </div>
-          <!-- item product new end -->
-      </div><!--end block: New Coupons-->
-      <div class="mod-grp-coupon block clearfix">
-          <div class="grid_12">
-              <h3 class="title-block has-link">
-                  Sản phẩm bán chạy
-                  <a href="#" class="link-right">Xem tất cả <em class="pick-right"></em></a>
-              </h3>
-          </div>
-          <div class="block-content list-coupon clearfix">
-              <!-- item product featured start -->
-              <div class="coupon-item grid_3" *ngFor="let item of productFeatured;let i = index">
-                  <div class="coupon-content">
-                      <div class="img-thumb-center">
-                          <div class="wrap-img-thumb">
-                              <span class="ver_hold"></span>
-                              <a href="#" class="ver_container"><img src="../../../assets/images/ex/01_02.jpg" alt="$COUPON_TITLE"></a>
-                          </div>
-                      </div>
-                      <div class="coupon-brand">{{item.name}}</div>
-                      <div class="coupon-price">${{item.price}} </div><del>${{item.price}}</del>
-                      <div class="coupon-desc2"><strong>Nhà sản xuất:</strong> {{item.manufacturer.name}}</div>
-                      <div class="coupon-desc2"><strong>Danh mục:</strong> {{item.category.name}}</div>
-                      <div class="coupon-desc2"><strong>Trạng thái:</strong><em> Còn hàng</em></div>
-                      <div class="coupon-desc">{{item.description}}</div>
-                      <div class="customStar" title="Đánh giá của khách hàng">
-                        <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
-                        <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
-                        <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
-                        <span [ngClass]="{'fas fa-star-half-alt': i%2==0, 'fa fa-star checked': i%2!=0,'far fa-star' : i%3==0}"  style="color:gold; padding: 1px;"></span>
-                        <span [ngClass]="{'far fa-star' : i%2==0, 'fas fa-star-half-alt': i%2!=0}" style="color:gold; padding: 1px;"></span>
-                      </div>
-                      <a class="btn btn-blue btn-take-coupon" style="cursor: pointer;" ><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
-                  </div>
-                  <em class="stick-lbl hot-sale"></em>
-              </div>
-              <!-- item product featured end -->
-          </div>
-          <button class="grid_6 btn btn-orange btn-load-more" [disabled] = "maxTotalRecord" (click)="loadMoreProduct(8)">Load more coupon</button>
-      </div><!--end block: Featured Coupons-->
+    <div class="container_grid">
+        <div class="mod-grp-coupon block clearfix">
+            <div class="grid_12">
+                <h3 class="title-block has-link">
+                    Sản phẩm mới
+                    <a href="#" class="link-right">Xem tất cả<i class="pick-right"></i></a>
+                </h3>
+            </div>
+            <!-- item product new start -->
+            <div class="block-content list-coupon clearfix">
+                <div class="coupon-item grid_3" *ngFor="let item of productNews;let i = index ">
+                    <div class="coupon-content">
+                        <div class="img-thumb-center">
+                            <div class="wrap-img-thumb">
+                                <span class="ver_hold"></span>
+                                <a [routerLink]="['/san-pham',item.id]" routerLinkActive="router-link-active" class="ver_container"><img src="../../../assets/images/ex/01_01.jpg" alt="$COUPON_TITLE"></a>
+                            </div>
+                        </div>
+                        <div class="coupon-brand">{{item.name}}</div>
+                        <div class="coupon-price">${{item.price}} </div><del>${{item.price}}</del>
+                        <div class="coupon-desc2"><strong>Nhà sản xuất:</strong> {{item.manufacturer.name}}</div>
+                        <div class="coupon-desc2"><strong>Danh mục:</strong> {{item.category.name}}</div>
+                        <div class="coupon-desc2"><strong>Trạng thái:</strong> <em> Còn hàng</em></div>
+                        <div class="coupon-desc">{{item.description}}</div>
+                        <div class="customStar" title="Đánh giá của khách hàng">
+                            <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
+                            <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
+                            <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
+                            <span [ngClass]="{'fas fa-star-half-alt': i%2==0, 'fa fa-star checked': i%2!=0,'far fa-star' : i%3==0}" style="color:gold; padding: 1px;"></span>
+                            <span [ngClass]="{'far fa-star' : i%2==0, 'fas fa-star-half-alt': i%2!=0}" style="color:gold; padding: 1px;"></span>
+                        </div>
+                        <a class="btn btn-blue btn-take-coupon" style="cursor: pointer;" (click)="addToCart(item.id)"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
+                    </div>
+                    <em class="stick-lbl trust-brand-b"></em>
+                </div>
+            </div>
+            <!-- item product new end -->
+        </div>
+        <!--end block: New Coupons-->
+        <div class="mod-grp-coupon block clearfix">
+            <div class="grid_12">
+                <h3 class="title-block has-link">
+                    Sản phẩm bán chạy
+                    <a href="#" class="link-right">Xem tất cả <em class="pick-right"></em></a>
+                </h3>
+            </div>
+            <div class="block-content list-coupon clearfix">
+                <!-- item product featured start -->
+                <div class="coupon-item grid_3" *ngFor="let item of productFeatured;let i = index">
+                    <div class="coupon-content">
+                        <div class="img-thumb-center">
+                            <div class="wrap-img-thumb">
+                                <span class="ver_hold"></span>
+                                <a [routerLink]="['/san-pham',item.id]" class="ver_container"><img src="../../../assets/images/ex/01_02.jpg" alt="$COUPON_TITLE"></a>
+                            </div>
+                        </div>
+                        <div class="coupon-brand">{{item.name}}</div>
+                        <div class="coupon-price">${{item.price}} </div><del>${{item.price}}</del>
+                        <div class="coupon-desc2"><strong>Nhà sản xuất:</strong> {{item.manufacturer.name}}</div>
+                        <div class="coupon-desc2"><strong>Danh mục:</strong> {{item.category.name}}</div>
+                        <div class="coupon-desc2"><strong>Trạng thái:</strong><em> Còn hàng</em></div>
+                        <div class="coupon-desc">{{item.description}}</div>
+                        <div class="customStar" title="Đánh giá của khách hàng">
+                            <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
+                            <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
+                            <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
+                            <span [ngClass]="{'fas fa-star-half-alt': i%2==0, 'fa fa-star checked': i%2!=0,'far fa-star' : i%3==0}" style="color:gold; padding: 1px;"></span>
+                            <span [ngClass]="{'far fa-star' : i%2==0, 'fas fa-star-half-alt': i%2!=0}" style="color:gold; padding: 1px;"></span>
+                        </div>
+                        <a class="btn btn-blue btn-take-coupon" (click)="addToCart(item.id)" style="cursor: pointer;"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
+                    </div>
+                    <em class="stick-lbl hot-sale"></em>
+                </div>
+                <!-- item product featured end -->
+            </div>
+            <button class="grid_6 btn btn-orange btn-load-more" [disabled]="maxTotalRecord" (click)="loadMoreProduct(8)">Load more coupon</button>
+        </div>
+        <!--end block: Featured Coupons-->
 
-      <div class="mod-brands block clearfix">
-          <div class="grid_12">
-              <h3 class="title-block has-link">
-                  POPULAR BRANDS (129)
-                  <a href="#" class="link-right">Xem tất cả <em class="pick-right"></em></a>
-              </h3>
-          </div>
-          <div class="block-content list-brand clearfix">
-              <div class="brand-item grid_4">
-                  <div class="brand-content">
-                      <div class="brand-logo">
-                          <div class="wrap-img-logo">
-                              <span class="ver_hold"></span>
-                              <a href="#" class="ver_container"><img src="../../../assets/images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
-                          </div>
-                      </div>
-                  </div>
-              </div><!--end: .brand-item -->
-              <div class="brand-item grid_4">
-                  <div class="brand-content">
-                      <div class="brand-logo">
-                          <div class="wrap-img-logo">
-                              <span class="ver_hold"></span>
-                              <a href="#" class="ver_container"><img src="../../../assets/images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
-                          </div>
-                      </div>
-                  </div>
-              </div><!--end: .brand-item -->
-              <div class="brand-item grid_4">
-                  <div class="brand-content">
-                      <div class="brand-logo">
-                          <div class="wrap-img-logo">
-                              <span class="ver_hold"></span>
-                              <a href="#" class="ver_container"><img src="../../../assets/images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
-                          </div>
-                      </div>
-                  </div>
-              </div><!--end: .brand-item -->
-              <div class="brand-item grid_4">
-                  <div class="brand-content">
-                      <div class="brand-logo">
-                          <div class="wrap-img-logo">
-                              <span class="ver_hold"></span>
-                              <a href="#" class="ver_container"><img src="../../../assets/images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
-                          </div>
-                      </div>
-                  </div>
-              </div><!--end: .brand-item -->
-              <div class="brand-item grid_4">
-                  <div class="brand-content">
-                      <div class="brand-logo">
-                          <div class="wrap-img-logo">
-                              <span class="ver_hold"></span>
-                              <a href="#" class="ver_container"><img src="../../../assets/images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
-                          </div>
-                      </div>
-                  </div>
-              </div><!--end: .brand-item -->
-              <div class="brand-item grid_4">
-                  <div class="brand-content">
-                      <div class="brand-logo">
-                          <div class="wrap-img-logo">
-                              <span class="ver_hold"></span>
-                              <a href="#" class="ver_container"><img src="../../../assets/images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
-                          </div>
-                      </div>
-                  </div>
-              </div><!--end: .brand-item -->
-          </div>
-      </div><!--end: .mod-brand -->
-  </div>
+        <div class="mod-brands block clearfix">
+            <div class="grid_12">
+                <h3 class="title-block has-link">
+                    POPULAR BRANDS (129)
+                    <a href="#" class="link-right">Xem tất cả <em class="pick-right"></em></a>
+                </h3>
+            </div>
+            <div class="block-content list-brand clearfix">
+                <div class="brand-item grid_4">
+                    <div class="brand-content">
+                        <div class="brand-logo">
+                            <div class="wrap-img-logo">
+                                <span class="ver_hold"></span>
+                                <a href="#" class="ver_container"><img src="../../../assets/images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end: .brand-item -->
+                <div class="brand-item grid_4">
+                    <div class="brand-content">
+                        <div class="brand-logo">
+                            <div class="wrap-img-logo">
+                                <span class="ver_hold"></span>
+                                <a href="#" class="ver_container"><img src="../../../assets/images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end: .brand-item -->
+                <div class="brand-item grid_4">
+                    <div class="brand-content">
+                        <div class="brand-logo">
+                            <div class="wrap-img-logo">
+                                <span class="ver_hold"></span>
+                                <a href="#" class="ver_container"><img src="../../../assets/images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end: .brand-item -->
+                <div class="brand-item grid_4">
+                    <div class="brand-content">
+                        <div class="brand-logo">
+                            <div class="wrap-img-logo">
+                                <span class="ver_hold"></span>
+                                <a href="#" class="ver_container"><img src="../../../assets/images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end: .brand-item -->
+                <div class="brand-item grid_4">
+                    <div class="brand-content">
+                        <div class="brand-logo">
+                            <div class="wrap-img-logo">
+                                <span class="ver_hold"></span>
+                                <a href="#" class="ver_container"><img src="../../../assets/images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end: .brand-item -->
+                <div class="brand-item grid_4">
+                    <div class="brand-content">
+                        <div class="brand-logo">
+                            <div class="wrap-img-logo">
+                                <span class="ver_hold"></span>
+                                <a href="#" class="ver_container"><img src="../../../assets/images/ex/01_07.jpg" alt="$BRAND_TITLE"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end: .brand-item -->
+            </div>
+        </div>
+        <!--end: .mod-brand -->
+    </div>
 </div>

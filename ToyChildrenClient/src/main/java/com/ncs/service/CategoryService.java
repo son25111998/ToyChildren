@@ -44,10 +44,27 @@ public class CategoryService {
 			List<Category> categories = categoryRepository.findAll();
 
 			categories.forEach(category -> {
-				if (category.getParentCategoryId() != PARENT_ID_VALUE && category.getStatus() == STATUS_ACTIVE) {
+				if (category.getParentCategoryId() == PARENT_ID_VALUE && category.getStatus() == STATUS_ACTIVE) {
 					menuParents.add(convertCategoryToListMenuOutput(category));
 				}
 			});
+
+			for (ListMenuOutput menu : menuParents) {
+				List<ListMenuOutput> menuChildrens = new ArrayList<ListMenuOutput>();
+
+				for (Category category : categories) {
+
+					// check menu parentId = menuInfo menusId
+					if (category.getParentCategoryId() == menu.getId()) {
+
+						// add menu in child menu
+						menuChildrens.add(convertCategoryToListMenuOutput(category));
+					}
+				}
+
+				// add child menu in list menus
+				menu.setChildrens(menuChildrens);
+			}
 
 			response.setData(menuParents);
 		} catch (Exception e) {
@@ -104,7 +121,7 @@ public class CategoryService {
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);
 			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
 		}
-		
+
 		LOGGER.info("findProductByCateogry End");
 		return response;
 	}

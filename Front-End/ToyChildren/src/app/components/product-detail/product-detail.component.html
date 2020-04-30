@@ -2,11 +2,11 @@
     <div class="container_grid">
         <div class="mod-breadcrumb clearfix">
             <div class="grid_12">
-                <a href="trang-chu">Trang chủ</a>
+                <a [routerLink]="['/trang-chu']" routerLinkActive="router-link-active">Trang chủ</a>
                 <span style="margin:0 5px;">&gt;</span>
                 <a href="#">Danh mục</a>
                 <span style="margin:0 5px;">&gt;</span>
-                <a href="#" style="font-weight: bold;">{{product.name}}</a>
+                <a [routerLink]="['/san-pham',product.id]" style="font-weight: bold;">{{product.name}}</a>
             </div>
         </div>
         <!--end: .mod-breadcrumb -->
@@ -57,7 +57,7 @@
                                             <i class="fa fa-shopping-basket" aria-hidden="true"></i> Hết hàng
                                         </button>
                                         <button style="display:block" type="submit" id="but_choose_product">
-                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> Mua hàng
+                                            <i class="fas fa-cart-plus" aria-hidden="true"></i> Thêm vào giỏ hàng
                                         </button>
                                     </p>
                                 </form>
@@ -134,21 +134,30 @@
                 <h3 class="title-block"> Sản phẩm tương tự</h3>
             </div>
             <div class="block-content list-coupon clearfix">
-                <div class="coupon-item grid_3" *ngFor="let product of products">
+                <div class="coupon-item grid_3" *ngFor="let item of products;let i = index ">
                     <div class="coupon-content">
                         <div class="img-thumb-center">
                             <div class="wrap-img-thumb">
                                 <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img src="images/ex/01_01.jpg" alt="$COUPON_TITLE"></a>
+                                <a [routerLink]="['/san-pham',item.id]" class="ver_container"><img src="../../../assets/images/ex/01_01.jpg" alt="$COUPON_TITLE"></a>
                             </div>
                         </div>
-                        <div class="coupon-price">$2.00 Off</div>
-                        <div class="coupon-brand">Wallmart</div>
-                        <div class="coupon-desc">Find Parts for All Major Brands at Sears PartsDirect </div>
-                        <div class="time-left">9 days 4 hours left</div>
-                        <a class="btn btn-blue btn-take-coupon" href="#">Take Coupon</a>
+                        <div class="coupon-brand">{{item.name}}</div>
+                        <div class="coupon-price">${{item.price}} </div><del>${{item.price}}</del>
+                        <div class="coupon-desc2"><strong>Nhà sản xuất:</strong> {{item.manufacturer.name}}</div>
+                        <div class="coupon-desc2"><strong>Danh mục:</strong> {{item.category.name}}</div>
+                        <div class="coupon-desc2"><strong>Trạng thái:</strong> <em> Còn hàng</em></div>
+                        <div class="coupon-desc">{{item.description}}</div>
+                        <div class="customStar" title="Đánh giá của khách hàng">
+                            <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
+                            <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
+                            <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
+                            <span [ngClass]="{'fas fa-star-half-alt': i%2==0, 'fa fa-star checked': i%2!=0,'far fa-star' : i%3==0}" style="color:gold; padding: 1px;"></span>
+                            <span [ngClass]="{'far fa-star' : i%2==0, 'fas fa-star-half-alt': i%2!=0}" style="color:gold; padding: 1px;"></span>
+                        </div>
+                        <a class="btn btn-blue btn-take-coupon" style="cursor: pointer;" (click)="addToCart(item.id)"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
                     </div>
-                    <i class="stick-lbl hot-sale"></i>
+                    <em class="stick-lbl trust-brand-b"></em>
                 </div>
             </div>
         </div>

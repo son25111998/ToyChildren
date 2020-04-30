@@ -4,58 +4,53 @@
             <div class="grid_12">
                 <div class="header-content clearfix">
                     <h1 id="logo" class="rs">
-                        <a href="trang-chu">
+                        <a [routerLink]="['/trang-chu']" routerLinkActive="router-link-active">
                             <img src="../../../../assets/images/logo-en.png" width="100px" alt="$SITE_NAME" />
                         </a>
                     </h1>
                     <nav class="main-nav">
                         <ul id="main-menu" class="nav nav-horizontal clearfix">
-                            <li class="active">
-                                <a href="trang-chu">Trang chủ</a>
-                            </li>
-                            <li class="has-sub">
-                                <a href="coupon-code.html">Danh mục sản phẩm</a>
+                            <li class="has-sub" *ngFor="let category of categories">
+                                <a href="#">{{category.name}}</a>
                                 <ul class="sub-menu">
-                                    <li *ngFor="let category of categories"><a href="#" [routerLink]="['/danh-muc', category.id ]">{{category.name}}</a></li>
+                                    <li *ngFor="let item of category.childrens"><a [routerLink]="['/danh-muc', item.id ]">{{item.name}}</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a>Sản phẩm bán chạy</a>
-                            </li>
-                            <li><a href="blog.html">Sản phẩm mới</a></li>
-                            <li>
                                 <a href="coupon.html">Khuyến mại</a>
                             </li>
-                            <li><a href="dang-nhap" title="Đăng nhập"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                            <li><a [routerLink]="['/dang-nhap']" routerLinkActive="router-link-active" title="Đăng nhập"><i class="fa fa-user" aria-hidden="true"></i></a></li>
                             <li><a href="#" title="Cập nhật tài khoản">Tài khoản</a></li>
                             <li><a href="#" title="Đăng xuất"><i class="fa fa-sign-out"></i></a></li>
                             <li class="dropdown">
                                 <a [routerLink]="['/gio-hang']">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                    <span style="color: red; position: absolute;top: -3px;font-size: 12px; right: -6px; font-weight: bold;">1</span>
+                                    <span style="color: red; position: absolute;top: -3px;font-size: 12px; right: -6px; font-weight: bold;">{{totalItem}}</span>
                                 </a>
-                                <ul class="dropdown-menu" style="display: none;">
+                                <ul class="dropdown-menu" style="display: block;">
                                     <h3 class="text-center"><a href="#" title="">Giỏ hàng</a></h3>
-                                    <li>
-                                        <ul class="list-inline clearfix">
+                                    <li *ngFor="let cart of carts">
+                                        <ul class="list-inline clearfix row">
                                             <li class="col-md-3 col-sm-4">
-                                                <a href="#"><img src=""></a>
+                                                <a [routerLink]="['/san-pham',cart.product.id]"><img src="https://pubcdn.ivymoda.com/files/product/2020/03/24/5d80d3eb2e1d89805ea6ec53891e81c3.jpg"></a>
                                             </li>
                                             <li class="col-md-9 col-sm-8">
                                                 <div class="title_cartMain">
                                                     <h5>
-                                                        <a href="#"> </a>
+                                                        <a [routerLink]="['/san-pham',cart.product.id]" routerLinkActive="router-link-active">{{cart.product.name}} </a>
                                                     </h5>
                                                 </div>
                                                 <div class="style_cartMain">
-                                                    <b>Số lượng:</b> 1
+                                                    <b>Giá: </b>{{cart.product.price}}
+                                                    <br/>
+                                                    <b>Số lượng:</b> {{cart.quantity}}
                                                 </div>
                                             </li>
 
                                         </ul>
                                     </li>
                                     <li style="text-align: center;font-size: 13px;font-weight: 300;">
-                                        <a href="gio-hang">...xem chi tiết</a>
+                                        <a [routerLink]="['/gio-hang']" class="detail-cart">Xem chi tiết</a>
                                     </li>
                                 </ul>
                             </li>
