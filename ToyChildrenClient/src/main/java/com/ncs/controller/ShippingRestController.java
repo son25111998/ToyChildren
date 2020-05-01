@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ncs.common.ResponseData;
@@ -21,13 +20,13 @@ public class ShippingRestController {
 	@Autowired
 	private ShippingService shippingService;
 	
-	@GetMapping("list")
+	@GetMapping
 	public ResponseData<List<Shipping>> getListShipping(){
 		return shippingService.getListShipping();
 	}
 	
-	@GetMapping("info")
-	public ResponseData<Shipping> getShippingById(@RequestParam int id){
-		return shippingService.getShippingById(id);
-	}
+//	@GetMapping("info")
+//	public ResponseData<Shipping> getShippingById(@RequestParam int id){
+//		return shippingService.getShippingById(id);
+//	}
 }

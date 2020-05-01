@@ -7,7 +7,7 @@
     margin-bottom: 30px;
 }
 
-.title_h3 >.container >h3 {
+.title_h3>.container>h3 {
     border-bottom: none;
     padding: 0;
 }
@@ -30,6 +30,7 @@
 .panel-default {
     border-color: #ddd;
 }
+
 .panel {
     margin-bottom: 20px;
     border: 1px solid transparent;
@@ -42,6 +43,7 @@
     padding-top: 5px;
     text-align: center;
 }
+
 .required {
     color: #F00;
 }
@@ -54,11 +56,13 @@
     text-transform: uppercase;
     letter-spacing: .5px;
 }
-.panel-default > .panel-heading {
+
+.panel-default>.panel-heading {
     color: #333;
     background-color: #f5f5f5;
     border-color: #ddd;
 }
+
 .panel-heading {
     padding: 10px 15px;
     border-bottom: 1px solid transparent;
@@ -66,17 +70,19 @@
     border-top-right-radius: 3px;
 }
 
-#pay_2 >.container >.row >.col-md-5 >.col-md-12 >.panel >.panel-body {
+#pay_2>.container>.row>.col-md-5>.col-md-12>.panel>.panel-body {
     text-align: center;
 }
+
 #pay_2>.container>.row>.col-md-5>.col-md-12>.panel>.panel-body {
     border-bottom: 1px dotted #ccc;
 }
+
 .panel-body {
     padding: 15px;
 }
 
-#pay_2 >.container >.row >.col-md-5 >.col-md-12 >.panel >.panel-body input {
+#pay_2>.container>.row>.col-md-5>.col-md-12>.panel>.panel-body input {
     width: 50%;
     height: 30px;
     font-size: 11px;
@@ -86,7 +92,9 @@
     margin-right: 5px;
 }
 
-select, input, textarea {
+select,
+input,
+textarea {
     border: 1px solid #ccc;
     background: #fff;
     box-shadow: none;
@@ -107,11 +115,17 @@ select, input, textarea {
     font-weight: bold;
     text-transform: uppercase;
 }
-input, select, button {
+
+input,
+select,
+button {
     outline: none;
 }
 
-input, button, select, textarea {
+input,
+button,
+select,
+textarea {
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
@@ -134,6 +148,7 @@ input, button, select, textarea {
     padding-top: 7.5px;
     padding-bottom: 7.5px;
 }
+
 .pay>.container>.row>.col-md-5>.col-md-12>table>tfoot>tr>td {
     padding-top: 10px;
 }
@@ -145,7 +160,9 @@ input, button, select, textarea {
 .pull-left {
     float: left !important;
 }
-.title_h3>.container>.row>.col-md-7>h5, .title_h3>.container>.row>.col-md-7>form>h5 {
+
+.title_h3>.container>.row>.col-md-7>h5,
+.title_h3>.container>.row>.col-md-7>form>h5 {
     font-weight: bold;
     font-size: 14px;
     margin-bottom: 20px;
@@ -154,11 +171,14 @@ input, button, select, textarea {
 #pay_2>.container>.row>.col-md-7>form>ul {
     margin-bottom: 30px;
 }
+
 .list-unstyled {
     padding-left: 0;
     list-style: none;
 }
-ol, ul {
+
+ol,
+ul {
     list-style: none;
 }
 
@@ -166,12 +186,15 @@ ol, ul {
     margin-bottom: 5px;
 }
 
-input[type="radio"], input[type="checkbox"] {
-    margin: 4px 0 0;
+input[type="radio"],
+input[type="checkbox"] {
+    margin: 0 5px 0 0;
     margin-top: 1px \9;
     line-height: normal;
 }
-input[type="checkbox"], input[type="radio"] {
+
+input[type="checkbox"],
+input[type="radio"] {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -182,11 +205,13 @@ input[type="checkbox"], input[type="radio"] {
     font-weight: bold;
 }
 
-small, .small {
+small,
+.small {
     font-size: 85%;
 }
 
-.title_h3>.container>.row>.col-md-7>h5, .title_h3>.container>.row>.col-md-7>form>h5 {
+.title_h3>.container>.row>.col-md-7>h5,
+.title_h3>.container>.row>.col-md-7>form>h5 {
     font-weight: bold;
     font-size: 14px;
     margin-bottom: 20px;
@@ -204,16 +229,19 @@ small, .small {
     margin-top: 30px;
 }
 
-#pay>.container>.row>.col-md-7>form .row>.col-md-12>a.pull-left, #pay_2>.container>.row>.col-md-7>form .row>.col-md-12>a.pull-left {
+#pay>.container>.row>.col-md-7>form .row>.col-md-12>a.pull-left,
+#pay_2>.container>.row>.col-md-7>form .row>.col-md-12>a.pull-left {
     margin-top: 5px;
     color: #C90;
 }
 
-#pay >.container >.row >.col-md-7 >form .row >.col-md-12 button, #pay_2 >.container >.row >.col-md-7 >form .row >.col-md-12 button {
+#pay>.container>.row>.col-md-7>form .row>.col-md-12 button,
+#pay_2>.container>.row>.col-md-7>form .row>.col-md-12 button {
     margin: 15px 0;
 }
 
-#pay>.container>.row>.col-md-7>form .row>.col-md-12 button, #pay_2>.container>.row>.col-md-7>form .row>.col-md-12 button {
+#pay>.container>.row>.col-md-7>form .row>.col-md-12 button,
+#pay_2>.container>.row>.col-md-7>form .row>.col-md-12 button {
     background: #f2f2f2;
     border: 2px solid #000;
     padding: 8px 20px;

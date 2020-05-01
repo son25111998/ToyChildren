@@ -22,6 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
+//	@Autowired
+//	private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder(10);
@@ -35,7 +38,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-		http.authorizeRequests().antMatchers("**/admin/**").authenticated().antMatchers("**/customer/**")
-				.authenticated().anyRequest().permitAll().and().formLogin().permitAll();
+
+		http.authorizeRequests().antMatchers("/customer/**", "/admin/**").authenticated().anyRequest().permitAll();
+
+		// Cấu hình cho Login Form.
+		http.authorizeRequests().and().formLogin()//
+				.loginProcessingUrl("/j_spring_security_login")//
+				.loginPage("/login")//
+				.defaultSuccessUrl("/user")//
+//	        .failureHandler(customAuthenticationFailureHandler)
+				.usernameParameter("username")//
+				.passwordParameter("password")
+				// Cấu hình cho Logout Page.
+				.and().logout().logoutUrl("/j_spring_security_logout").logoutSuccessUrl("/login?message=logout");
 	}
 }

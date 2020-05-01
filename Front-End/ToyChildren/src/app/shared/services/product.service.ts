@@ -20,8 +20,26 @@ export class ProductService {
     })
   }
 
+   // get list product
+   getProducts(page,size): Observable<DataResponse<ProductOutput>> {
+    return this.http.get<DataResponse<ProductOutput>>(UrlConstants.PRODUCT_API_URL + 'list?page='+page+'&size='+size)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
+  }
+
+  // get list product new
+  getProductNews(page,size): Observable<DataResponse<ProductOutput>> {
+    return this.http.get<DataResponse<ProductOutput>>(UrlConstants.PRODUCT_API_URL + 'new?page='+page+'&size='+size)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
+  }
+
   public getProductByCategory(): Observable<ProductOutput> {
-    return this.http.get<ProductOutput>(UrlConstants.BASE_URL + '/api/v1/category')
+    return this.http.get<ProductOutput>(UrlConstants.CATEGORY_API_URL)
       .pipe(
         retry(1),
         catchError(this.errorHandl)
@@ -29,7 +47,7 @@ export class ProductService {
   }
 
   public findById(id: number): Observable<DataResponse<Product>> {
-    return this.http.get<DataResponse<Product>>(UrlConstants.BASE_URL + '/api/v1/product/info/' + id)
+    return this.http.get<DataResponse<Product>>(UrlConstants.PRODUCT_API_URL + 'info/' + id)
       .pipe(
         retry(1),
         catchError(this.errorHandl)

@@ -5,46 +5,46 @@
             <div class="row">
                 <div class="col-md-7 col-sm-7 pull-left col-xs-12">
                     <h5>Phương thức giao hàng</h5>
-                    <form id="frm_step2" name="frm_step2" (ngSubmit)="onSubmit()">
-                        <ul class="list-unstyled" id="box_shipping_method">
-                            <li><input id="shipping_method_1" type="radio" checked="checked" name="shippingId" value="1" ngModel> <label>Giao hàng chuyển phát nhanh </label> (45.000) <br>
-                                <small>Chuyển hàng tới địa chỉ khách hàng.</small></li>
+                    <form id="frm_step2" name="frm_step2" method="POST" role="form">
+                        <ul class="list-unstyled" id="box_shipping_method" *ngIf="shippings">
+                            <li *ngFor="let shipping of shippings; let i = index">
+                                <input id="shipping_method_{{i}}" type="radio" name="shippingId" value="{{shipping.id}}" [(ngModel)]="payInput.shippingId" [ngModelOptions]="{standalone: true}" (click)="SelectShipping(shipping)">
+                                <label for="shipping_method_{{i}}">{{shipping.name}}</label> ({{shipping.cost}}đ)<br>
+                            </li>
+                            <small>Chuyển hàng tới địa chỉ khách hàng.</small>
                         </ul>
                         <h5>Phương thức thanh toán</h5>
                         <p class="pay_text_ts">Mọi giao dịch đều được bảo mật và mã hóa. Thông tin thẻ tín dụng sẽ không bao giờ được lưu lại.</p>
                         <ul class="list-unstyled">
                             <li>
-                                <input id="payment_method_1" type="radio" value="Thanh toán bằng thẻ tín dụng(OnePay)">
-                                <label> Thanh toán bằng thẻ tín dụng(OnePay)</label>
+                                <input id="payment_method_1" type="radio" value="Thanh toán bằng thẻ tín dụng(OnePay)" [(ngModel)]="payInput.payment" [ngModelOptions]="{standalone: true}">
+                                <label for="payment_method_1"> Thanh toán bằng thẻ tín dụng(OnePay)</label>
                                 <div>
                                     <img src="https://pubcdn.ivymoda.com/images/1.png" height="31" class="">
                                 </div>
                             </li>
-                            <li><input id="payment_method_2" type="radio" name="payment" value="Thanh toán bằng thẻ ATM(OnePay)" ngModel>
-                                <label> Thanh toán bằng thẻ ATM(OnePay)</label>
+                            <li><input id="payment_method_2" type="radio" name="payment" value="Thanh toán bằng thẻ ATM(OnePay)" [(ngModel)]="payInput.payment" [ngModelOptions]="{standalone: true}">
+                                <label for="payment_method_2"> Thanh toán bằng thẻ ATM(OnePay)</label>
                                 <div>
                                     <img src="https://pubcdn.ivymoda.com/images/2.png" height="31" class=""><br /> Hỗ trợ thanh toán online hơn 18 ngân hàng phổ biến Việt Nam.
                                 </div>
                             </li>
                             <li>
-                                <input id="payment_method_5" type="radio" name="payment" value="Thanh toán Momo" ngModel>
-                                <label> Thanh toán Momo</label>
+                                <input id="payment_method_3" type="radio" name="payment" value="Thanh toán Momo" [(ngModel)]="payInput.payment" [ngModelOptions]="{standalone: true}">
+                                <label for="payment_method_3"> Thanh toán Momo</label>
                                 <div>
                                     <img src="https://pubcdn.ivymoda.com/images/5.png" height="31" class="">
                                 </div>
                             </li>
                             <li>
-                                <input id="payment_method_3" type="radio" name="payment" value="Thu tiền tận nơi" checked="checked" ngModel>
-                                <label> Thu tiền tận nơi</label>
+                                <input id="payment_method_4" type="radio" name="payment" value="Thu tiền tận nơi" [(ngModel)]="payInput.payment" [ngModelOptions]="{standalone: true}">
+                                <label for="payment_method_4"> Thu tiền tận nơi</label>
                             </li>
                         </ul>
-
-                        <input style="display: none;" type="text" name="couponId" value="{{couponId}}" ngModel>
-
                         <div class="row">
                             <div class="col-md-12">
                                 <a id="but-cancel-step1" [routerLink]="['/gio-hang']" routerLinkActive="router-link-active" class="pull-left">&lt;&lt; Quay lại</a>
-                                <button type="submit" class="pull-right" id="but_pay">Hoàn thành</button>
+                                <button type="submit" class="pull-right" id="but_pay" (click)="onSubmit()">Hoàn thành</button>
                             </div>
                         </div>
                     </form>
@@ -52,11 +52,11 @@
                 <div class="col-md-5 col-sm-5 pull-right col-xs-12">
                     <div class="col-md-12">
                         <div class="panel panel-default">
-                            <p class="required" id="p_coupon" style="display: none;"> Mã giảm giá không hợp lệ</p>
+                            <p class="required" id="p_coupon" *ngIf="errCoupon">Mã giảm giá không tồn tại trong hệ thống</p>
                             <div class="panel-heading">Mã giảm giá / Quà tặng:</div>
                             <div class="panel-body">
-                                <input type="text" name="coupon_code_text" id="coupon_code_text">
-                                <button type="button" id="but_coupon_code">
+                                <input type="text" name="coupon_code_text" id="coupon_code_text" [(ngModel)]="couponCode">
+                                <button type="button" id="but_coupon_code" (click)="getCoupon()">
                                     <i class="fa fa-check" aria-hidden="true"></i>
                                 </button>
                             </div>
@@ -74,12 +74,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr *ngFor="let cart of carts">
                                     <td>
-                                        <p>áo thun #StrongVietNam | 04.2020 MS 57M5700</p>
-                                        <p>77B7655 / 358.000<sup>đ</sup></p>
+                                        <p>{{cart.product.name}}/p>
+                                            <p>{{cart.product.id}} / {{cart.product.price | currency:'VND':false }}<sup>đ</sup></p>
                                     </td>
-                                    <td class="text-center"></td>
+                                    <td class="text-center">{{cart.quantity}}</td>
                                     <td class="text-right"></td>
                                 </tr>
                             </tbody>
@@ -88,12 +88,13 @@
                                     <td colspan="2">Tạm tính</td>
                                     <td class="text-right"><b>808.000<sup>đ</sup></b></td>
                                 </tr>
-                                <tr>
-                                    <td colspan="2">Giao hàng chuyển phát nhanh - Chuyển phát nhanh
-                                    </td>
-                                    <td class="text-right">45.000 đ</td>
+                                <tr *ngIf="shipping">
+                                    <td colspan="2">{{shipping.name}}</td>
+                                    <td class="text-right">{{shipping.cost}}đ</td>
                                 </tr>
-                                <tr id="voucher-view" style="display: none;">
+                                <tr id="voucher-view" *ngIf="coupon">
+                                    <td colspan="2">MÃ GIẢM GIÁ / QUÀ TẶNG ({{coupon.code}})</td>
+                                    <td class="text-right">-{{coupon.sale}}đ</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2"><b>Tổng</b></td>

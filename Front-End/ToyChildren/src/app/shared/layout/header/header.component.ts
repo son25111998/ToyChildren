@@ -31,7 +31,8 @@ export class HeaderComponent implements OnInit {
   loadCart() {
     return this.cartService.getCart().subscribe(data => {
       this.carts = data.data;
-      this.totalItem = this.carts.length;
+      if (this.carts != null)
+        this.totalItem = this.carts.length;
     })
   }
 }

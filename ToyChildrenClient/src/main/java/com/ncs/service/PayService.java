@@ -45,7 +45,7 @@ public class PayService {
 	private CustomerRepository customerRepository;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
-	private static final String COUPON_FILED = "Phiếu giảm giá";
+	private static final String COUPON_FILED = "Mã giảm giá";
 	private static final String SHIPPING_FILED = "Hình thức giao hàng";
 	private static final String TAX_FILED = "Thuế";
 
@@ -122,7 +122,9 @@ public class PayService {
 
 			// save order in db
 			order = orderRepository.save(order);
-
+			
+			LOGGER.info("Order : {}", order);
+			
 			// save cart in db
 			for (CartDto cart : carts) {
 				OrderDetail orderDetail = new OrderDetail();
@@ -133,8 +135,9 @@ public class PayService {
 				orderDetail.setQuantity(cart.getQuantity());
 
 				// save order detail in db
-				orderDetailRepository.save(orderDetail);
+				OrderDetail detail = orderDetailRepository.save(orderDetail);
 				
+				LOGGER.info("Order detail : {}", detail);
 				request.getSession().removeAttribute(Constants.CART_SESSION);
 			}
 		} catch (Exception e) {

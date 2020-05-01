@@ -1,18 +1,18 @@
 import { Product } from './../../models/product';
 import { Component, OnInit, NgZone } from '@angular/core';
-import { HomeService } from '../../shared/services/Home/home-service.service';
 import { CartInput } from 'src/app/models/cart-input';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { CodeConstants } from 'src/app/shared/utils/code.constants';
 import { Router } from '@angular/router';
 import { UrlConstants } from 'src/app/shared/utils/url.constants';
+import { ProductService } from 'src/app/shared/services/product.service';
 
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [HomeService, CartService]
+  providers: [ProductService, CartService]
 })
 export class HomeComponent implements OnInit {
 
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   private cartInput = new CartInput();
 
   constructor(
-    private api: HomeService,
+    private api: ProductService,
     private cartService: CartService,
     private router: Router,
     private ngZone: NgZone,

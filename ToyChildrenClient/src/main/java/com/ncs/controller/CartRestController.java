@@ -3,6 +3,7 @@ package com.ncs.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -29,8 +30,8 @@ public class CartRestController {
 	private CartService cartService;
 
 	@GetMapping
-	public ResponseData<List<CartDto>> view(HttpServletRequest request) {
-		return cartService.getListCart(request);
+	public ResponseData<List<CartDto>> view(HttpSession session) {
+		return cartService.getListCart(session);
 	}
 
 	@PostMapping
