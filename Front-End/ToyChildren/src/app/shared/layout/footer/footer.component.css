@@ -1,0 +1,85 @@
+.footer {
+    clear: both;
+    font-size: 12px;
+    line-height: 2;
+    padding: 0 0 10px;
+}
+
+.footer-nav {
+    background-color: #f9f9f9;
+    padding: 25px 0 0;
+    margin-bottom: 25px;
+}
+
+.widget {
+    margin-bottom: 15px;
+}
+
+.widget .widget-title {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.widget .link-list {
+    list-style: none;
+    padding: 0;
+}
+
+.widget .link-list li {
+    margin-bottom: 0;
+}
+
+.widget a {
+    color: #333;
+}
+
+.font-12,
+small {
+    font-size: 12px!important;
+}
+
+h5 {
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.icons.icon-facebook.icon-lg,
+.icons.icon-instagram.icon-lg,
+.icons.icon-video.icon-lg,
+.icons.icon-youtube.icon-lg {
+    width: 40px;
+    height: 40px;
+}
+
+.icons.icon-facebook {
+    background-image: url(https://concung.com/themes/desktop4.1/img/facebook.svg);
+}
+
+.icons.icon-facebook,
+.icons.icon-instagram,
+.icons.icon-video,
+.icons.icon-youtube {
+    width: 24px;
+    height: 24px;
+}
+
+.icons {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-size: 100% 100%;
+    vertical-align: top;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+.icons.icon-youtube {
+    background-image: url(https://concung.com/themes/desktop4.1/img/youtube.svg);
+}
+
+.icons.icon-instagram {
+    background-image: url(https://concung.com/themes/desktop4.1/img/instagram.svg);
+}

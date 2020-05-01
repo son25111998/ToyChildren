@@ -7,12 +7,13 @@ import { CartService } from 'src/app/shared/services/cart.service';
 import { CodeConstants } from 'src/app/shared/utils/code.constants';
 import { Product } from 'src/app/models/product';
 import { UrlConstants } from 'src/app/shared/utils/url.constants';
+import { FormatMoneyPipe } from 'src/app/shared/pipes/format-money-pipe';
 
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css'],
-  providers: [ProductService]
+  providers: [ProductService, FormatMoneyPipe]
 })
 export class ProductDetailComponent implements OnInit {
   products = new Array<Product>();
@@ -40,7 +41,10 @@ export class ProductDetailComponent implements OnInit {
         this.products = data.data.products;
       })
       this.maxQuantity = this.product.amount;
-    })
+
+      console.log( "10000".replace(/\d(?=(\d{3})+\.)/g, ','));
+     
+    })  
   }
 
   plusProduct() {
