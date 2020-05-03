@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.ncs.common.constants.Constants;
-import com.ncs.repository.AccountRepository;
+import com.ncs.repositoryclient.AccountRepository;
 
 @Configuration
 @EnableWebSecurity
