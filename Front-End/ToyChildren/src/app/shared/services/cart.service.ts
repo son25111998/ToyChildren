@@ -1,67 +1,132 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, Subject } from 'rxjs';
 import { Cart } from '../../models/cart.model';
 import { UrlConstants } from '../utils/url.constants';
 import { catchError, retry } from 'rxjs/operators';
 import { CartInput } from '../../models/cart-input';
 import { DataResponse } from 'src/app/models/data-response';
+import { Constant } from '../utils/constant';
+import { CodeConstants } from '../utils/code.constants';
+import { MessageConstants } from '../utils/message.constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-
   constructor(private http: HttpClient) { }
 
-  // Http Headers
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+  public getCart(): Cart[] {
+    return JSON.parse(sessionStorage.getItem(Constant.CART_SESSION));
   }
 
-  public getCart(): Observable<DataResponse<Cart[]>> {
-    return this.http.get<DataResponse<Cart[]>>(UrlConstants.CART_API_URL)
-      .pipe(
-        retry(1),
-        catchError(this.errorHandl)
-      )
-  }
+  public addCart(cartInput: CartInput): DataResponse<Cart> {
+    let response = new DataResponse<Cart>();
+    try {
+      let carts: Cart[] = JSON.parse(sessionStorage.getItem(Constant.CART_SESSION));
+      let cart = new Cart();
+      let isExists = false;
+      let index = 0;
 
-  public addCart(cartInput: CartInput): Observable<DataResponse<Cart>> {
-    return this.http.post<DataResponse<Cart>>(UrlConstants.CART_API_URL, JSON.stringify(cartInput), this.httpOptions)
-      .pipe(
-        retry(1),
-        catchError(this.errorHandl)
-      )
-  }
+      carts = this.getCart();
 
-  public updateCart(id: number): Observable<DataResponse<Cart>> {
-    return this.http.put<DataResponse<Cart>>(UrlConstants.CART_API_URL + id, this.httpOptions)
-      .pipe(
-        retry(1),
-        catchError(this.errorHandl)
-      )
-  }
+      if (cartInput.product == null) {
 
-  public deleteProductOutCart(id: number): Observable<DataResponse<Cart>> {
-    return this.http.delete<DataResponse<Cart>>(UrlConstants.CART_API_URL + id)
-      .pipe(
-        retry(1),
-        catchError(this.errorHandl)
-      )
-  }
+      }
 
-  errorHandl(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      if (carts == null || carts.length == 0) {
+        carts = new Array<Cart>();
+        cart.cartId = 1;
+      } else {
+        for (let i = 0; i < carts.length; i++) {
+          if (carts[i].product.id == cartInput.product.id) {
+            isExists = true;
+            cart = carts[i];
+            index = i;
+            carts.splice(i, 1);
+            break;
+          }
+        }
+
+        if (!isExists)
+          cart.cartId = carts[(carts.length - 1)].cartId + 1;
+      }
+
+      if (isExists) {
+        cart.quantity = cart.quantity + cartInput.quantity;
+        carts.splice(index, 0, cart);
+      } else {
+        cart.product = cartInput.product;
+        cart.quantity = cartInput.quantity;
+        carts.push(cart);
+      }
+
+      sessionStorage.setItem(Constant.CART_SESSION, JSON.stringify(carts));
+
+      this.setResponseSuccess(response,cart);
+    } catch (error) {
+      this.setResponseError(response,error);
     }
-    return throwError(errorMessage);
+    return response;
+  }
+
+  public updateCart(cart: Cart, check: boolean): DataResponse<Cart> {
+    let response = new DataResponse<Cart>();
+    try {
+      let carts = this.getCart();
+      let index = 0;
+
+      for (let i = 0; i < carts.length; i++) {
+
+        if (cart.cartId == carts[i].cartId) {
+          if (check) {
+            carts[i].quantity += 1;
+          } else {
+            carts[i].quantity -= 1;
+          }
+          index = i;
+          sessionStorage.setItem(Constant.CART_SESSION, JSON.stringify(carts));
+          break;
+        }
+      }
+
+      this.setResponseSuccess(response,carts[index]);
+    } catch (err) {
+      this.setResponseSuccess(response,err);
+    }
+    return response;
+  }
+
+  public deleteProductOutCart(cart: Cart): DataResponse<Cart> {
+    let response = new  DataResponse<Cart>();
+    try {
+      let carts = this.getCart();
+      console.log(carts);
+      
+      for (let i = 0; i < carts.length; i++) {
+        if (cart.cartId == carts[i].cartId) {
+          carts.splice(i, 1);
+          break;
+        }
+      }
+      sessionStorage.setItem(Constant.CART_SESSION, JSON.stringify(carts));
+      this.setResponseSuccess(response,cart);
+    } catch (err) {
+      this.setResponseError(response,err);
+    }
+
+    console.log(response);
+    return response;
+  }
+
+  private setResponseError(response: DataResponse<any>, error: string){
+    response.code = CodeConstants.CODE_UNKNOW;
+    response.massage = error;
+  }
+
+  private setResponseSuccess(response: DataResponse<any>,data: any){
+      response.data = data;
+      response.code = CodeConstants.CODE_SUCCESS;
+      response.massage = MessageConstants.MESSAGE_SUCCESS;
   }
 }

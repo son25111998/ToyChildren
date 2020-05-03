@@ -17,7 +17,7 @@ import com.ncs.model.output.GetListProductOutput;
 import com.ncs.service.ProductService;
 
 @RestController
-@RequestMapping(value = "/api/v1/product/", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/product/", produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 public class ProductRestController {
 	@Autowired

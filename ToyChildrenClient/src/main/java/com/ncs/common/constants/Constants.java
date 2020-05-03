@@ -12,6 +12,7 @@ public class Constants {
 	public static final int STATUS_ACTIVE_VALUE = 1;
 	public static final int STATUS_INACTIVE_VALUE = 0;
 	public static final int COUPON_ID_DEFAULT = 1;
+	public static final int TAX_ID_DEFAULT = 1;
 	public static final String CART_SESSION = "cartSession";
 	
 	public static final int ERR_CODE_FIELD = 0;
@@ -25,7 +26,8 @@ public class Constants {
     public static final int SUCCESS_CODE_FIELD_UNEXIST = 1;
     public static final int UNKNOWN_ERROR_CODE = 500;
     
-
+    public static final String ROLE_ADMIN = "ADMIN";
+    public static final String ROLE_USER = "USER";
 
     public static final String MSG_TEMP = "Đã xảy ra lỗi: ";
     public static final String MSG_CAUTION = "Chú ý: ";

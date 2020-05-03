@@ -9,7 +9,7 @@
                         <ul class="list-unstyled" id="box_shipping_method" *ngIf="shippings">
                             <li *ngFor="let shipping of shippings; let i = index">
                                 <input id="shipping_method_{{i}}" type="radio" name="shippingId" value="{{shipping.id}}" [(ngModel)]="payInput.shippingId" [ngModelOptions]="{standalone: true}" (click)="SelectShipping(shipping)">
-                                <label for="shipping_method_{{i}}">{{shipping.name}}</label> ({{shipping.cost}}đ)<br>
+                                <label for="shipping_method_{{i}}">{{shipping.name}}</label> (<span style="font-weight: bold; font-size: 13px;">{{shipping.cost | FomatMoney}}</span>)<br>
                             </li>
                             <small>Chuyển hàng tới địa chỉ khách hàng.</small>
                         </ul>
@@ -57,7 +57,7 @@
                             <div class="panel-body">
                                 <input type="text" name="coupon_code_text" id="coupon_code_text" [(ngModel)]="couponCode">
                                 <button type="button" id="but_coupon_code" (click)="getCoupon()">
-                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    <i class="fa fa-check" aria-hidden="true" style="font-size: 15px;"></i>
                                 </button>
                             </div>
                             <div class="clearfix">
@@ -73,32 +73,34 @@
                                     <th class="text-right">Thành tiền</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="main">
                                 <tr *ngFor="let cart of carts">
                                     <td>
-                                        <p>{{cart.product.name}}/p>
-                                            <p>{{cart.product.id}} / {{cart.product.price | currency:'VND':false }}<sup>đ</sup></p>
+                                        <p>{{cart.product.name}}</p>
+                                        <p>{{cart.product.id}} / {{cart.product.price | FomatMoney}}</p>
                                     </td>
                                     <td class="text-center">{{cart.quantity}}</td>
-                                    <td class="text-right"></td>
+                                    <td class="text-right">{{(cart.product.price*(1-cart.product.discount/100))* cart.quantity | FomatMoney}}</td>
                                 </tr>
                             </tbody>
                             <tfoot id="box_product_total">
                                 <tr>
                                     <td colspan="2">Tạm tính</td>
-                                    <td class="text-right"><b>808.000<sup>đ</sup></b></td>
+                                    <td class="text-right"><b>{{totalProductMoney | FomatMoney}}</b></td>
                                 </tr>
                                 <tr *ngIf="shipping">
                                     <td colspan="2">{{shipping.name}}</td>
-                                    <td class="text-right">{{shipping.cost}}đ</td>
+                                    <td class="text-right">{{shipping.cost | FomatMoney}}</td>
                                 </tr>
                                 <tr id="voucher-view" *ngIf="coupon">
                                     <td colspan="2">MÃ GIẢM GIÁ / QUÀ TẶNG ({{coupon.code}})</td>
-                                    <td class="text-right">-{{coupon.sale}}đ</td>
+                                    <td class="text-right">-{{coupon.sale | FomatMoney}}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2"><b>Tổng</b></td>
-                                    <td class="text-right" id="product_sub_total_end"><b>500000</b></td>
+                                    <td class="text-right" id="product_sub_total_end">
+                                        <b style="font-size: 20px; color: #ee3e80;">{{totalMoney | FomatMoney}}</b>
+                                    </td>
                                 </tr>
                             </tfoot>
                         </table>

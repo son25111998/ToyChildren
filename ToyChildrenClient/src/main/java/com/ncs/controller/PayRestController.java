@@ -15,7 +15,7 @@ import com.ncs.model.input.PayInput;
 import com.ncs.service.PayService;
 
 @RestController
-@RequestMapping(value = "/api/v1/pay", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/member/pay", produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin(origins = "http://localhost:4200")
 public class PayRestController {
 	@Autowired

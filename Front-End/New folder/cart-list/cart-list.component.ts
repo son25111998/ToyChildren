@@ -3,7 +3,6 @@ import { Cart } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { Router } from '@angular/router';
 import { DataResponse } from 'src/app/models/data-response';
-import { UrlConstants } from 'src/app/shared/utils/url.constants';
 
 @Component({
   selector: 'app-cart-list',
@@ -11,9 +10,8 @@ import { UrlConstants } from 'src/app/shared/utils/url.constants';
   styleUrls: ['./cart-list.component.css']
 })
 export class CartListComponent implements OnInit {
-
   carts = new Array<Cart>();
-  totalMoney: number = 0;
+  totalMoney: number;
   totalProduct: number = 0;
 
   constructor(
@@ -27,17 +25,11 @@ export class CartListComponent implements OnInit {
   }
 
   loadCart() {
-    return this.cartService.getCart().subscribe((data: DataResponse<Cart[]>) => {
-      this.carts = data.data;
-      this.totalProduct = this.carts.length;
-      this.totalMoney = this.getTotalMoney();
-    })
+    this.carts = this.cartService.getCart();
   }
 
   deleteProductOutCart(id: number) {
-    return this.cartService.deleteProductOutCart(id).subscribe((data: DataResponse<Object>) => {
-      this.loadCart();
-    })
+    
   }
 
   plusQuantity(cartId: number) {
@@ -46,13 +38,20 @@ export class CartListComponent implements OnInit {
         cart.quantity += 1;
       }
     })
+    this.getTotalMoney();
   }
 
   minusQuantity(cartId: number) {
-
+    this.carts.forEach(cart => {
+      if (cart.cartId == cartId && cart.quantity > 1) {
+        cart.quantity -= 1;
+      }
+    })
+    this.getTotalMoney();
   }
 
   getTotalMoney(): number {
+    this.totalMoney = 0;
     this.carts.forEach(cart => {
       this.totalMoney += (cart.product.price) * cart.quantity;
     })

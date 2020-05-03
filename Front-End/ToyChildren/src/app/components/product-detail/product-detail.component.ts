@@ -7,16 +7,19 @@ import { CartService } from 'src/app/shared/services/cart.service';
 import { CodeConstants } from 'src/app/shared/utils/code.constants';
 import { Product } from 'src/app/models/product';
 import { UrlConstants } from 'src/app/shared/utils/url.constants';
-import { FormatMoneyPipe } from 'src/app/shared/pipes/format-money-pipe';
+import { Constant } from 'src/app/shared/utils/constant';
+import { Cart } from 'src/app/models/cart.model';
+import { DataResponse } from 'src/app/models/data-response';
 
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css'],
-  providers: [ProductService, FormatMoneyPipe]
+  providers: [ProductService, CategoryService, CartService]
 })
 export class ProductDetailComponent implements OnInit {
   products = new Array<Product>();
+  carts = new Array<Cart>();
   product = new Product();
   id: number;
   quantity: number = 1;
@@ -26,25 +29,38 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private ngZone: NgZone,
     private productService: ProductService,
     private categoryService: CategoryService,
     private cartService: CartService
   ) { }
 
   ngOnInit(): void {
+    this.loadProduct();
+  }
+
+  loadProduct() {
     this.id = this.route.snapshot.params['id'];
+    this.productService.findById(this.id).subscribe(
+      data => {
+        this.product = data.data;
+        this.maxQuantity = this.product.amount;
+        this.loadListProduct(this.product.category.id);
+      },
+      error => {
+        // handl error
+      }
+    )
+  }
 
-    this.productService.findById(this.id).subscribe(data => {
-      this.product = data.data;
-      this.categoryService.findAllProductByCategory(this.product.category.id, 1, 8).subscribe(data => {
+  loadListProduct(id: number) {
+    this.categoryService.findAllProductByCategory(id, 1, 8).subscribe(
+      data => {
         this.products = data.data.products;
-      })
-      this.maxQuantity = this.product.amount;
-
-      console.log( "10000".replace(/\d(?=(\d{3})+\.)/g, ','));
-     
-    })  
+      },
+      error => {
+        // handl error
+      }
+    )
   }
 
   plusProduct() {
@@ -58,32 +74,45 @@ export class ProductDetailComponent implements OnInit {
   }
 
   onSubmit() {
+    let response = new DataResponse<Cart>();
+
     if (this.quantity > this.product.amount) {
       this.cartInput.quantity = 1;
     }
 
-    this.cartInput.productId = this.id;
+    this.cartInput.product = this.product;
     this.cartInput.quantity = this.quantity;
-    this.cartService.addCart(this.cartInput).subscribe(data => {
-      if (data.code == CodeConstants.CODE_SUCCESS) {
-        alert("Thêm thành công sản phẩm vào giỏ hàng");
-      } else {
-        alert("Thêm không thành công sản phẩm vào giỏ hàng");
-      }
-      this.ngZone.run(() => this.router.navigateByUrl(UrlConstants.CART_URL))
-    })
+
+    response = this.cartService.addCart(this.cartInput);
+    if (response.code == CodeConstants.CODE_SUCCESS) {
+      alert("Thêm thành công sản phẩm vào giỏ hàng");
+      window.scroll(0,0);
+    } else {
+      alert("Thêm không thành công sản phẩm vào giỏ hàng");
+    }
+    this.router.navigateByUrl(UrlConstants.CART_URL);
   }
 
-  addToCart(id: number) {
-    this.cartInput.productId = id;
+  addToCart(product: Product) {
+    let response = new DataResponse<Cart>();
+
+    this.cartInput.product = product;
     this.cartInput.quantity = 1;
-    this.cartService.addCart(this.cartInput).subscribe(data => {
-      if (data.code == CodeConstants.CODE_SUCCESS) {
-        alert("Thêm thành công sản phẩm vào giỏ hàng");
-      } else {
-        alert("Thêm không thành công sản phẩm vào giỏ hàng");
-      }
-      this.ngZone.run(() => this.router.navigateByUrl(UrlConstants.CART_URL))
-    })
+
+    response = this.cartService.addCart(this.cartInput);
+
+    if (response.code == CodeConstants.CODE_SUCCESS) {
+      alert("Thêm thành công sản phẩm vào giỏ hàng");
+      window.scroll(0,0);
+    } else {
+      alert("Thêm không thành công sản phẩm vào giỏ hàng");
+    }
+    this.router.navigateByUrl(UrlConstants.CART_URL);
+  }
+
+  productDetail(product: Product) {
+    window.scroll(0,0);
+    this.product = product;
+    this.router.navigateByUrl(UrlConstants.PRODUCT_URL + product.id);
   }
 }

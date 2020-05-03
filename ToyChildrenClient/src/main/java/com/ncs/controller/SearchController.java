@@ -15,7 +15,7 @@ import com.ncs.service.SearchService;
  * @author: SonNc
  **/
 @RestController
-@RequestMapping(value = "/api/v1/search", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SearchController {
 	@Autowired
 	private SearchService searchService;

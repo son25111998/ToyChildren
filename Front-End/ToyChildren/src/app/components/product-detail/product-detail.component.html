@@ -26,10 +26,10 @@
                                 <h4 style="margin-bottom: 20px;">{{product.name}}</h4>
                                 <p class="ID_productDetail" style="font-size: 14px;margin-bottom: 30px;">MSP: {{product.id}}</p>
                                 <p class="price_productDetail">
-                                    <span class="price_productDetail_sale" *ngIf="product.discount > 0"><small id="display_price_org">{{product.price}}<sup>đ</sup></small></span>
+                                    <span class="price_productDetail_sale" *ngIf="product.discount > 0"><small id="display_price_org">{{product.price | FomatMoney}}<sup>đ</sup></small></span>
                                     <span class="price_productDetail_main" style="font-size: 18px;">
-                                        <small id="display_price_org" class=" big-text" *ngIf="product.discount > 0"><b>{{product.price*(1-product.discount/100)}}</b><sup>đ</sup></small>
-                                        <small id="display_price_org" class="big-text" *ngIf="product.discount == 0"><b>{{product.price}}</b><sup>đ</sup></small>
+                                        <small id="display_price_org" class=" big-text" *ngIf="product.discount > 0"><b>{{product.price*(1-product.discount/100) | FomatMoney}}</b></small>
+                                        <small id="display_price_org" class="big-text" *ngIf="product.discount == 0"><b>{{product.price | FomatMoney}}</b></small>
                                     </span>
                                     <br>
                                     <span class="price_coupon_display" *ngIf="product.discount > 0">-{{product.discount}}%</span>
@@ -73,12 +73,7 @@
 
                                 <ul class="list-inline phone_chat_mail">
                                     <li class="dropdown">
-                                        <a class="dropdown-toggle" type="button" data-toggle="dropdown" href="#">
-                                            <i class="fa fa-phone" aria-hidden="true"></i> Hotline
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="tel:02466623434">024 6662 3434</a></li>
-                                        </ul>
+                                        <a class="dropdown-toggle" type="button" data-toggle="dropdown" href="javascript:;"> Hotline</a>
                                     </li>
                                     <li><a href="javascript:;" class="chat_fb"><i class="fa fa-comments-o fa-lg" aria-hidden="true"></i> Chat</a></li>
                                     <li>
@@ -133,7 +128,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="right">
+                            <div class="right" style="margin-top: -95px;">
                                 <img width="100%" class="mb-3 mt-3" src="../../../assets/images/dai-tiec-sinh-nhat-11t-7.png">
                                 <div class="border-block box-shadow-none">
                                     <ul class="checked-list mr-2 mb-0">
@@ -163,11 +158,11 @@
                             <div class="img-thumb-center">
                                 <div class="wrap-img-thumb">
                                     <span class="ver_hold"></span>
-                                    <a [routerLink]="['/san-pham',item.id]" class="ver_container"><img src="../../../assets/images/ex/01_01.jpg" alt="$COUPON_TITLE"></a>
+                                    <p (click)="productDetail(item)" class="ver_container"><img src="../../../assets/images/ex/01_01.jpg" alt="$COUPON_TITLE"></p>
                                 </div>
                             </div>
                             <div class="coupon-brand">{{item.name}}</div>
-                            <div class="coupon-price">${{item.price}} </div><del>${{item.price}}</del>
+                            <div class="coupon-price">{{item.price | FomatMoney}}</div><del>{{item.price | FomatMoney}}</del>
                             <div class="coupon-desc2"><strong>Nhà sản xuất:</strong> {{item.manufacturer.name}}</div>
                             <div class="coupon-desc2"><strong>Danh mục:</strong> {{item.category.name}}</div>
                             <div class="coupon-desc2"><strong>Trạng thái:</strong> <em> Còn hàng</em></div>
@@ -179,7 +174,7 @@
                                 <span [ngClass]="{'fas fa-star-half-alt': i%2==0, 'fa fa-star checked': i%2!=0,'far fa-star' : i%3==0}" style="color:gold; padding: 1px;"></span>
                                 <span [ngClass]="{'far fa-star' : i%2==0, 'fas fa-star-half-alt': i%2!=0}" style="color:gold; padding: 1px;"></span>
                             </div>
-                            <a class="btn btn-blue btn-take-coupon" style="cursor: pointer;" (click)="addToCart(item.id)"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
+                            <a class="btn btn-blue btn-take-coupon" style="cursor: pointer;" (click)="addToCart(item)"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
                         </div>
                         <em class="stick-lbl trust-brand-b"></em>
                     </div>

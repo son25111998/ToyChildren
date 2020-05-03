@@ -1,0 +1,225 @@
+.container>h3 {
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #333;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+#cart>.container>.row>.col-md-8>table>thead>tr>th {
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #666;
+    font-size: 11px;
+    text-align: center;
+}
+
+.table>thead>tr>th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
+}
+
+#cart>.container>.row>.col-md-8>table>tbody>tr>td {
+    vertical-align: middle;
+    font-size: 12px;
+    letter-spacing: .5px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+
+#cart>.container>.row>.col-md-8>table>tbody>tr>td:first-child img {
+    width: 100%;
+}
+
+#cart>.container>.row>.col-md-4>.col-md-12 {
+    padding-right: 0;
+    border-left: 1px solid #ccc;
+}
+
+#cart>.container>.row>.col-md-4>.col-md-12>h5 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    color: #333;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+#cart>.container>.row>.col-md-4>.col-md-12>table {
+    width: 100%;
+    border-top: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+#cart>.container>.row>.col-md-4>.col-md-12>table>tbody>tr>td:first-child,
+#cart>.container>.row>.col-md-4>.col-md-12>table>tfoot>tr>td:first-child {
+    text-transform: uppercase;
+    color: #333;
+    font-size: 11px;
+    letter-spacing: .5px;
+}
+
+#cart>.container>.row>.col-md-4>.col-md-12>table>tbody>tr>td {
+    padding-top: 8px;
+}
+
+#cart>.container>.row>.col-md-4>.col-md-12>table>tbody>tr>td:last-child {
+    text-align: right;
+    color: #333;
+}
+
+#cart>.container>.row>.col-md-4>.col-md-12>table>tbody>tr:last-child>td {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+sup {
+    top: -.5em;
+}
+
+sub,
+sup {
+    position: relative;
+    font-size: 75%;
+    line-height: 0;
+    vertical-align: baseline;
+}
+
+#cart>.container>.row>.col-md-4>.col-md-12>table>tfoot>tr>td {
+    padding-top: 10px;
+}
+
+#cart>.container>.row>.col-md-4>.col-md-12>table>tfoot>tr>td:last-child {
+    text-align: right;
+    font-weight: bold;
+}
+
+#cart>.container>.row>.col-md-4>.col-md-12>p {
+    margin-bottom: 20px;
+}
+
+#cart>.container>.row>.col-md-4>.col-md-12>p>a:first-child {
+    background: #3567d7!important;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+}
+
+#cart>.container>.row>.col-md-4>.col-md-12>p>a {
+    border: 0px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: 'Helvetica', 'Arial', Sans-Serif;
+    font-size: 11px;
+    margin-left: 5px;
+    border: 1px solid #000;
+}
+
+#cart>.container>.row>.col-md-4>.col-md-12>.panel {
+    border: 0px;
+    margin-top: 30px;
+    box-shadow: none;
+}
+
+.panel-default {
+    border: #ddd 2px solid;
+}
+
+.panel-default {
+    border-color: #ddd;
+}
+
+.panel {
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+#cart>.container>.row>.col-md-4>.col-md-12>.panel>.panel-heading {
+    padding: 0px;
+    background: none;
+    border: 0px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: .5px;
+}
+
+.panel-default>.panel-heading {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+
+.panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+#cart>.container>.row>.col-md-4>.col-md-12>.panel>.panel-body {
+    padding-top: 5px;
+}
+
+.panel-body {
+    padding: 15px;
+}
+
+#cart>.container>.row>.col-md-4>.col-md-12>.panel>.panel-body>a {
+    color: #ee3e80;
+    font-weight: bold;
+}
+
+.table-responsive {
+    display: inline-table;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+.quantity {
+    text-align: center;
+    font-weight: bold;
+    border: none;
+    color: #ee3e80;
+}
+
+.controll-quantity {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #ee3e80;
+    border-color: #ee3e80;
+    border: none !important;
+    border-radius: 10px;
+    width: 150px;
+    height: 40px;
+    line-height: 20px;
+}
+
+#but-checkout-step1:active {
+    background-color: #ee3e80 !important;
+    border-color: #ee3e80 !important;
+}
+
+a.delete {
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
+}

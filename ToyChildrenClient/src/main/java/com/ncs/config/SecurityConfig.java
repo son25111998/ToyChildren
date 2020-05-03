@@ -9,9 +9,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.ncs.common.constants.Constants;
 import com.ncs.repository.AccountRepository;
 
 @Configuration
@@ -21,9 +23,6 @@ import com.ncs.repository.AccountRepository;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsService;
-
-//	@Autowired
-//	private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -37,19 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();
+		http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-		http.authorizeRequests().antMatchers("/customer/**", "/admin/**").authenticated().anyRequest().permitAll();
-
-		// Cấu hình cho Login Form.
-		http.authorizeRequests().and().formLogin()//
-				.loginProcessingUrl("/j_spring_security_login")//
-				.loginPage("/login")//
-				.defaultSuccessUrl("/user")//
-//	        .failureHandler(customAuthenticationFailureHandler)
-				.usernameParameter("username")//
-				.passwordParameter("password")
-				// Cấu hình cho Logout Page.
-				.and().logout().logoutUrl("/j_spring_security_logout").logoutSuccessUrl("/login?message=logout");
+		http.authorizeRequests().antMatchers("/admin/**").hasRole(Constants.ROLE_ADMIN).antMatchers("/member/**")
+				.hasRole(Constants.ROLE_USER).anyRequest().permitAll();
 	}
 }

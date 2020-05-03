@@ -87,7 +87,7 @@ public class CategoryService {
 			Pagination pagination = new Pagination();
 
 			// get category by id
-			Category category = categoryRepository.findById(categoryId).orElse(null);
+			Category category = categoryRepository.findById(categoryId);
 
 			// case category null or empty
 			if (ObjectUtils.isEmpty(category)) {

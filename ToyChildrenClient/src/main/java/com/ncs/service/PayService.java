@@ -1,5 +1,6 @@
 package com.ncs.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,11 +51,11 @@ public class PayService {
 	private static final String TAX_FILED = "Thuế";
 
 	@Transactional(rollbackOn = Exception.class)
-	@SuppressWarnings("unchecked")
 	public ResponseData<Object> pay(PayInput input, HttpServletRequest request) {
 		LOGGER.info(">>>>>>>>>>>pay Start >>>>>>>>>>>>");
 		ResponseData<Object> response = new ResponseData<Object>();
 		try {
+			List<CartDto> carts = new ArrayList<>();
 			Order order = new Order();
 			Shipping shipping = new Shipping();
 			Coupon coupon = new Coupon();
@@ -64,7 +65,6 @@ public class PayService {
 
 //			CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
 //					.getPrincipal();
-			List<CartDto> carts = (List<CartDto>) request.getSession().getAttribute(Constants.CART_SESSION);
 //			account = userDetails.getAccount();
 
 			// get data input
@@ -72,6 +72,7 @@ public class PayService {
 			int couponId = input.getCouponId();
 			int taxId = input.getTaxId();
 			String payment = input.getPayment();
+			carts = input.getCarts();
 
 			// get data in db
 			shipping = shippingRepository.findById(shippingId).orElse(null);
@@ -122,9 +123,9 @@ public class PayService {
 
 			// save order in db
 			order = orderRepository.save(order);
-			
+
 			LOGGER.info("Order : {}", order);
-			
+
 			// save cart in db
 			for (CartDto cart : carts) {
 				OrderDetail orderDetail = new OrderDetail();
@@ -136,7 +137,7 @@ public class PayService {
 
 				// save order detail in db
 				OrderDetail detail = orderDetailRepository.save(orderDetail);
-				
+
 				LOGGER.info("Order detail : {}", detail);
 				request.getSession().removeAttribute(Constants.CART_SESSION);
 			}

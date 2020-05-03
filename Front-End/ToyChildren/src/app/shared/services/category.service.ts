@@ -35,15 +35,20 @@ export class CategoryService{
     )
   }
 
-  errorHandl(error) {
-    let errorMessage = '';
-    if(error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  errorHandl(error: any) {
+    let response = new DataResponse<Object>();
+    
+    // client-side error
+    if (error.error instanceof ErrorEvent) {
+      response.code = error.error.code;
+      response.massage = error.error.message;
+    } 
+    // server-side error
+    else {
+      response.code = error.status;
+      response.massage = error.message;
     }
-    return throwError(errorMessage);
- }
+    response.data = null;
+    return throwError(response);
+  }
 }

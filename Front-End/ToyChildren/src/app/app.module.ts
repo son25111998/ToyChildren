@@ -9,17 +9,16 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { CategoryComponent } from './components/category/category.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { OrderComponent } from './components/order/order.component';
 import { PayComponent } from './components/pay/pay.component';
 import { HeaderComponent } from './shared/layout/header/header.component';
 import { FooterComponent } from './shared/layout/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from "@angular/router";
 import { routes } from './app-routing.module';
-import { CartAddComponent } from './components/cart/cart-add/cart-add.component';
-import { CartListComponent } from './components/cart/cart-list/cart-list.component';
 import { CategoryService } from './shared/services/category.service';
 import { CartService } from './shared/services/cart.service';
+import { FormatMoneyPipe } from './shared/pipes/format-money-pipe';
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -29,12 +28,11 @@ import { CartService } from './shared/services/cart.service';
     RegisterComponent,
     CategoryComponent,
     ProductDetailComponent,
-    OrderComponent,
     PayComponent,
     HeaderComponent,
     FooterComponent,
-    CartAddComponent,
-    CartListComponent
+    FormatMoneyPipe,
+    CartComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +41,7 @@ import { CartService } from './shared/services/cart.service';
     FormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [CategoryService, CartService],
+  providers: [CategoryService, CartService, FormatMoneyPipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

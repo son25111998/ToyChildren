@@ -1,24 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { Cart } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { Category } from 'src/app/models/category';
+import { Customer } from 'src/app/models/customer';
+import { AccountService } from '../../services/account.service';
+import { Constant } from '../../utils/constant';
+import { Router } from '@angular/router';
+import { UrlConstants } from '../../utils/url.constants';
+import { CodeConstants } from '../../utils/code.constants';
+
+declare var $: any;
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  providers: [CategoryService, CartService]
+  providers: [CategoryService, CartService, AccountService]
 })
 export class HeaderComponent implements OnInit {
   categories = new Array<Category>();
   carts = new Array<Cart>();
-  totalItem: number = 0;
+  customer: Customer;
+  isLogged: boolean = false;
 
-  constructor(private categoryService: CategoryService, private cartService: CartService) { }
+  constructor(
+    private categoryService: CategoryService,
+    private cartService: CartService,
+    private accountService: AccountService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.loadCategory();
+    this.loadCustomer();
     this.loadCart();
   }
 
@@ -29,10 +44,46 @@ export class HeaderComponent implements OnInit {
   }
 
   loadCart() {
-    return this.cartService.getCart().subscribe(data => {
-      this.carts = data.data;
-      if (this.carts != null)
-        this.totalItem = this.carts.length;
-    })
+    this.carts = this.cartService.getCart();
+  }
+
+  loadCustomer() {
+    this.customer = JSON.parse(sessionStorage.getItem(Constant.USER_SESSION));
+    console.log(this.customer);
+
+    if (this.customer == null) {
+      this.isLogged = false;
+    } else {
+      this.isLogged = true;
+    }
+  }
+
+  logout() {
+    this.accountService.logout().subscribe(
+      data => {
+        if (data.code == CodeConstants.CODE_SUCCESS) {
+          this.isLogged = false;
+          sessionStorage.removeItem(Constant.USER_SESSION);
+          sessionStorage.removeItem(Constant.HEADERS_SESSION);
+          this.router.navigateByUrl(UrlConstants.LOGIN_URL);
+        }
+      },
+      error => {
+        // handl error 
+      }
+    )
+  }
+
+  ngAfterViewInit(): void {
+    $(document).ready(function () {
+      $(window).scroll(function (event) {
+        var st = $(this).scrollTop();
+        if (st > 100) {
+          $('.mod-header').attr('style', 'position: fixed;');
+        } else {
+          $('.mod-header').removeAttr('style');
+        }
+      });
+    });
   }
 }

@@ -108,9 +108,9 @@ textarea {
 #pay_2>.container>.row>.col-md-5>.col-md-12>.panel>.panel-body button {
     width: 20%;
     height: 30px;
-    background: #000;
+    background: #ee3e80;
     color: #fff;
-    border: 1px solid #000;
+    border: 1px solid #ee3e80;
     font-size: 11px;
     font-weight: bold;
     text-transform: uppercase;
@@ -232,7 +232,7 @@ small,
 #pay>.container>.row>.col-md-7>form .row>.col-md-12>a.pull-left,
 #pay_2>.container>.row>.col-md-7>form .row>.col-md-12>a.pull-left {
     margin-top: 5px;
-    color: #C90;
+    color: #ee3e80;
 }
 
 #pay>.container>.row>.col-md-7>form .row>.col-md-12 button,
@@ -243,10 +243,15 @@ small,
 #pay>.container>.row>.col-md-7>form .row>.col-md-12 button,
 #pay_2>.container>.row>.col-md-7>form .row>.col-md-12 button {
     background: #f2f2f2;
-    border: 2px solid #000;
+    border: 2px solid #ee3e80;
     padding: 8px 20px;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 11px;
     font-weight: bold;
+}
+
+.main>tr>td,
+#box_product_total {
+    font-size: 13px;
 }

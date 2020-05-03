@@ -25,7 +25,7 @@
 
 #cart>.container>.row>.col-md-8>table>tbody>tr>td {
     vertical-align: middle;
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: .5px;
     text-align: center;
     border-bottom: 1px solid #ccc;
@@ -104,8 +104,10 @@ sup {
 }
 
 #cart>.container>.row>.col-md-4>.col-md-12>p>a:first-child {
-    background: #fff;
-    color: #000;
+    background: #3567d7!important;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
 }
 
 #cart>.container>.row>.col-md-4>.col-md-12>p>a {
@@ -119,11 +121,6 @@ sup {
     font-size: 11px;
     margin-left: 5px;
     border: 1px solid #000;
-}
-
-#cart>.container>.row>.col-md-4>.col-md-12>p>a:last-child {
-    background: #000;
-    color: #fff;
 }
 
 #cart>.container>.row>.col-md-4>.col-md-12>.panel {
@@ -180,7 +177,8 @@ sup {
 }
 
 #cart>.container>.row>.col-md-4>.col-md-12>.panel>.panel-body>a {
-    color: #C93;
+    color: #ee3e80;
+    font-weight: bold;
 }
 
 .table-responsive {
@@ -189,16 +187,39 @@ sup {
 
 a {
     text-decoration: none;
+    color: #000;
 }
 
 .quantity {
     text-align: center;
     font-weight: bold;
     border: none;
-    color: red;
+    color: #ee3e80;
 }
 
 .controll-quantity {
     margin: 0 5px;
     cursor: pointer;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #ee3e80;
+    border-color: #ee3e80;
+    border: none !important;
+    border-radius: 10px;
+    width: 150px;
+    height: 40px;
+    line-height: 20px;
+}
+
+#but-checkout-step1:active {
+    background-color: #ee3e80 !important;
+    border-color: #ee3e80 !important;
+}
+
+a.delete {
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
 }

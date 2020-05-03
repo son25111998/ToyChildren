@@ -19,13 +19,14 @@
                             <li>
                                 <a href="coupon.html">Khuyến mại</a>
                             </li>
-                            <li><a [routerLink]="['/dang-nhap']" routerLinkActive="router-link-active" title="Đăng nhập"><i class="fa fa-user" aria-hidden="true"></i></a></li>
-                            <li><a href="#" title="Cập nhật tài khoản">Tài khoản</a></li>
-                            <li><a href="#" title="Đăng xuất"><i class="fa fa-sign-out"></i></a></li>
+                            <li *ngIf="!isLogged"><a [routerLink]="['/dang-nhap']" routerLinkActive="router-link-active" title="Đăng nhập"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                            <li *ngIf="isLogged"><a href="#" title="Cập nhật tài khoản {{customer.firstName}} {{customer.middleName}} {{customer.lastName}}">{{customer.firstName}} {{customer.lastName}}</a></li>
+                            <li *ngIf="isLogged"><a title="Đăng xuất" (click)="logout()"><i class="fa fa-sign-out"></i></a></li>
                             <li class="dropdown">
                                 <a [routerLink]="['/gio-hang']">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                    <span style="color: red; position: absolute;top: -3px;font-size: 12px; right: -6px; font-weight: bold;">{{totalItem}}</span>
+                                    <span style="color: red; position: absolute;top: -3px;font-size: 12px; right: -6px; font-weight: bold;" *ngIf="carts">{{carts.length}}</span>
+                                    <span style="color: red; position: absolute;top: -3px;font-size: 12px; right: -6px; font-weight: bold;" *ngIf="!carts">0</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <h3 class="text-center"><a href="#" title="">Giỏ hàng</a></h3>
@@ -41,7 +42,7 @@
                                                     </h5>
                                                 </div>
                                                 <div class="style_cartMain">
-                                                    <b>Giá: </b>{{cart.product.price}}
+                                                    <b>Giá: </b>{{cart.product.price | FomatMoney}}<sup>đ</sup>
                                                     <br/>
                                                     <b>Số lượng:</b> {{cart.quantity}}
                                                 </div>

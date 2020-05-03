@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <div class="coupon-brand">{{item.name}}</div>
-                        <div class="coupon-price">${{item.price}} </div><del>${{item.price}}</del>
+                        <div class="coupon-price">{{item.price | FomatMoney}} </div><del>{{item.price | FomatMoney}}</del>
                         <div class="coupon-desc2"><strong>Nhà sản xuất:</strong> {{item.manufacturer.name}}</div>
                         <div class="coupon-desc2"><strong>Danh mục:</strong> {{item.category.name}}</div>
                         <div class="coupon-desc2"><strong>Trạng thái:</strong> <em> Còn hàng</em></div>
@@ -53,7 +53,7 @@
                             <span [ngClass]="{'fas fa-star-half-alt': i%2==0, 'fa fa-star checked': i%2!=0,'far fa-star' : i%3==0}" style="color:gold; padding: 1px;"></span>
                             <span [ngClass]="{'far fa-star' : i%2==0, 'fas fa-star-half-alt': i%2!=0}" style="color:gold; padding: 1px;"></span>
                         </div>
-                        <a class="btn btn-blue btn-take-coupon" style="cursor: pointer;" (click)="addToCart(item.id)"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
+                        <a class="btn btn-blue btn-take-coupon" style="cursor: pointer;" (click)="addToCart(item)"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
                     </div>
                     <em class="stick-lbl trust-brand-b"></em>
                 </div>
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <div class="coupon-brand">{{item.name}}</div>
-                        <div class="coupon-price">${{item.price}} </div><del>${{item.price}}</del>
+                        <div class="coupon-price">{{item.price | FomatMoney}} </div><del>{{item.price | FomatMoney}}</del>
                         <div class="coupon-desc2"><strong>Nhà sản xuất:</strong> {{item.manufacturer.name}}</div>
                         <div class="coupon-desc2"><strong>Danh mục:</strong> {{item.category.name}}</div>
                         <div class="coupon-desc2"><strong>Trạng thái:</strong><em> Còn hàng</em></div>
@@ -91,7 +91,7 @@
                             <span [ngClass]="{'fas fa-star-half-alt': i%2==0, 'fa fa-star checked': i%2!=0,'far fa-star' : i%3==0}" style="color:gold; padding: 1px;"></span>
                             <span [ngClass]="{'far fa-star' : i%2==0, 'fas fa-star-half-alt': i%2!=0}" style="color:gold; padding: 1px;"></span>
                         </div>
-                        <a class="btn btn-blue btn-take-coupon" (click)="addToCart(item.id)" style="cursor: pointer;"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
+                        <a class="btn btn-blue btn-take-coupon" (click)="addToCart(item)" style="cursor: pointer;"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
                     </div>
                     <em class="stick-lbl hot-sale"></em>
                 </div>

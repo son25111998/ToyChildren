@@ -128,6 +128,7 @@
 
 #product_detail>.container>.row>.col-md-12>.box>.mid>ul {
     margin-bottom: 15px;
+    font-size: 13px;
 }
 
 .list-inline {
@@ -282,4 +283,5 @@ a:hover {
 .btn-secondary:not(:disabled):not(.disabled):active,
 .show>.btn-secondary.dropdown-toggle {
     background-color: white !important;
+    border-color: #ee3e80;
 }

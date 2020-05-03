@@ -1,0 +1,77 @@
+<div id="cart" class="row title_h3">
+    <div class="container">
+        <h3>Giỏ hàng của bạn</h3>
+        <div class="row">
+            <div class="col-md-8 col-sm-8">
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th class="col-md-2 col-sm-2" style="width: 20%;">Sản phẩm</th>
+                            <th class="col-md-2 col-sm-2 hidden-xs" style="width: 40%;">Tên sản phẩm</th>
+                            <th class="col-md-1 col-sm-1" style="width: 15%;"> SL</th>
+                            <th class="col-md-1 col-sm-1" style="width: 20%;">Thành tiền</th>
+                            <th class="col-md-1 col-sm-1" style="width: 5%;">Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let cart of carts">
+                            <td>
+                                <a [routerLink]="['/san-pham',cart.product.id]">
+                                    <img title="" src="https://pubcdn.ivymoda.com/files/product/2020/03/24/5d80d3eb2e1d89805ea6ec53891e81c3.jpg">
+                                </a>
+                            </td>
+                            <td class="hidden-xs">
+                                <a [routerLink]="['/san-pham',cart.product.id]" title="{{cart.product.name}}">
+                                    {{cart.product.name}}
+                                    <br>
+                                    <b *ngIf="cart.product.discount > 0">{{(cart.product.price*cart.product.discount/100) | FomatMoney}}</b> <br>
+                                    <b *ngIf="cart.product.discount > 0">- {{cart.product.discount}} %</b>
+                                </a>
+                            </td>
+                            <td>
+                                <span [hidden]="2 > cart.quantity" class="controll-quantity" (click)="minusQuantity(cart)"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                <input class="quantity" type="text" size="3" value="{{cart.quantity}}" maxlength="1" readonly>
+                                <span [hidden]="cart.quantity >= cart.product.amount" class="controll-quantity" (click)="plusQuantity(cart)"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                            </td>
+                            <td style="color: #ee3e80; font-weight: bold; font-size: 20px;">{{(cart.product.price*(1-cart.product.discount/100))*cart.quantity | FomatMoney}}</td>
+                            <td><a (click)="deleteProductOutCart(cart)" class="delete" style="cursor: pointer;" title="Xóa">x</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="col-md-12">
+                    <h5>Tổng tiền giỏ hàng</h5>
+                    <table style="font-weight: bold;">
+                        <tbody>
+                            <tr>
+                                <td>Tổng sản phẩm</td>
+                                <td *ngIf="carts">{{carts.length}}</td>
+                                <td *ngIf="!carts">0</td>
+                            </tr>
+                            <tr>
+                                <td>Thành tiền</td>
+                                <td style="color: #ee3e80;font-weight: bold; font-size: 20px;">{{totalMoney | FomatMoney}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--Bạn sẽ được miễn phí ship khi đơn hàng của bạn có tổng giá trị trên 3.000.000 đ-->
+                    <p class="text-center">Bạn sẽ được miễn phí ship khi đơn hàng của bạn có tổng giá trị trên 3.000.000 đ</p>
+                    <p class="text-center">
+                        <a [routerLink]="['/trang-chu']" routerLinkActive="router-link-active" id="but-checkout-continue" class="btn btn-primary">Tiếp tục mua sắm</a>
+                        <a [hidden]="!carts || 1 > carts.length" [routerLink]="['/thanh-toan']" routerLinkActive="router-link-active" id="but-checkout-step1" class="btn btn-primary">Thanh toán</a>
+                    </p>
+                    <div class="clearfix"></div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Tài khoản BabyShop
+                        </div>
+                        <div class="panel-body">
+                            Hãy <a [routerLink]="['/dang-nhap']" routerLinkActive="router-link-active">đăng nhập</a> tài khoản của bạn để tích điểm thành viên.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

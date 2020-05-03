@@ -115,7 +115,7 @@ public class ProductService {
 		LOGGER.info(">>>>>>>>>>>getProductInfo Start >>>>>>>>>>>>");
 		ResponseData<Product> response = new ResponseData<>();
 		try {
-			response.setData(productRepository.findById(productId).get());
+			response.setData(productRepository.findById(productId));
 		} catch (Exception e) {
 			LOGGER.error("Api get product detail has exception : {}", e.getMessage());
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);

@@ -20,7 +20,7 @@ import com.ncs.service.CategoryService;
  * @author: SonNc
  **/
 @RestController
-@RequestMapping(value = "/api/v1/category", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/category", produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin(origins = "http://localhost:4200")
 public class CategoryRestController {
 

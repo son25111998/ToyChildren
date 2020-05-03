@@ -7,6 +7,12 @@ package com.ncs.common.constants;
  * @modified 9/12/19
  **/
 public class CommonConstants {
+	public final class STATUS_HISTORY{
+		public static final String CREATED = "1";
+		public static final String UPDATE = "2";
+		public static final String DELETE = "0";
+
+	}
     public static final int DELETE_STATUS = -1;
 
     /**
@@ -124,11 +130,12 @@ public class CommonConstants {
 
         public final class CATEGORY {
 
-            public static final String PROVINCE = "Province";
+            public static final String PRODUCT = "PRODUCT";
 
-            public static final String DISTRICT = "District";
+            public static final String ACCOUNT = "ACCOUNT";
 
-            public static final String WARD = "Ward";
+            public static final String CATEGORY = "CATEGORY";
+            public static final String MANUFACTURER = "MANUFACTURER";
 
             public static final String MINISTRY = "Ministry";
 

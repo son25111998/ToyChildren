@@ -16,14 +16,14 @@ public class CustomUserDetails implements UserDetails {
 	private Account account;
 
 	public CustomUserDetails(Account account) {
-		this.account = account; 
+		this.account = account;
 	}
-	
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
 
-		GrantedAuthority authority = new SimpleGrantedAuthority(account.getRole().getCode());
+		GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + account.getRole().getCode());
 
 		grantList.add(authority);
 
@@ -58,9 +58,5 @@ public class CustomUserDetails implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
-	}
-
-	public Account getAccount() {
-		return account;
 	}
 }
