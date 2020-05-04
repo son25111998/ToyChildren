@@ -2074,11 +2074,11 @@ b {
 }
 
 .pop-login {
-    display: none;
-    position: absolute;
+    display: block;
+    position: relative;
     top: 100%;
     width: 100%;
-    background: url(../images/bg-pop.png);
+    /* background: url(../images/bg-pop.png); */
 }
 
 .pop-login .viewport-pop {
@@ -2521,7 +2521,14 @@ b {
 .mod-filter .range-days-left {
     float: left;
     margin-left: 30px;
-    margin-top: 5px;
+}
+
+.mod-filter .range-days-left .custom-control-label{
+    padding: 3px;
+    margin-right: 20px;
+    font-weight: 600;
+    padding-left: 0;
+    color: #777;
 }
 
 .range-days-left .filter-days {
@@ -3916,7 +3923,7 @@ b {
 }
 
 .mod-register .right-connect {
-    float: left;
+    float: right;
     width: 36.80555555555556%;
 }
 

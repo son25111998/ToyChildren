@@ -1,9 +1,10 @@
 package com.ncs.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -16,16 +17,21 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Autowired
 	private AccountRepository accountRepository;
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(CustomUserDetailsService.class);
+
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) {
+		LOGGER.info(" >>>>>>>>>>>>>> loadUserByUsername Start >>>>>>>>>>>>>>>>");
 		// get user by email
 		Account account = accountRepository.findByUsername(username);
 
 		// check user null or empty
 		if (ObjectUtils.isEmpty(account)) {
-			throw new UsernameNotFoundException("User " + username + " was not found in the database");
+			LOGGER.info("User {} was not found in the database", username);
+			return null;
 		}
-
+		LOGGER.info(" >>>>>>>>>>>>>> loadUserByUsername End >>>>>>>>>>>>>>>>");
 		return new CustomUserDetails(account);
 	}
+
 }

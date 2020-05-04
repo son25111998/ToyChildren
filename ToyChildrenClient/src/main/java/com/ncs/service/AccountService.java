@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.ncs.common.ResponseData;
 import com.ncs.common.constants.Constants;
+import com.ncs.model.dto.CustomUserDetails;
 import com.ncs.model.entity.Account;
 import com.ncs.model.entity.Customer;
 import com.ncs.model.entity.Role;
@@ -26,17 +27,51 @@ import com.ncs.repository.RoleRepository;
 public class AccountService {
 	@Autowired
 	private AccountRepository accountRepository;
-	
+
 	@Autowired
 	private CustomerRepository customerRepository;
+
+	@Autowired
+	private CustomUserDetailsService customUserDetailsService;
 
 	@Autowired
 	private RoleRepository roleRepository;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 
+	public ResponseData<Account> login(String email, String password) {
+		LOGGER.info(">>>>>>>>>>> Login Start >>>>>>>>>>>>");
+		LOGGER.info(" Login input email: {}, passwrd: {}",email,password);
+		ResponseData<Account> response = new ResponseData<Account>();
+		try {
+			CustomUserDetails userDetail = (CustomUserDetails) customUserDetailsService.loadUserByUsername(email);
+			if (ObjectUtils.isEmpty(userDetail)) {
+				response.setMessage(Constants.ERR_MSG_UNAUTHORIZED);
+				response.setCode(Constants.ERR_CODE_UNAUTHORIZED);
+				response.setData(null);
+			} else {
+				if (BCrypt.checkpw(password, userDetail.getPassword())) {
+					response.setData(userDetail.getAccount());
+				}else {
+					response.setMessage(Constants.ERR_MSG_UNAUTHORIZED);
+					response.setCode(Constants.ERR_CODE_UNAUTHORIZED);
+					response.setData(null);
+				}
+			}
+			LOGGER.info("Login result: {}", userDetail);
+		} catch (Exception e) {
+			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
+			response.setCode(Constants.UNKNOWN_ERROR_CODE);
+			response.setData(null);
+			LOGGER.error("Login Error: {}", e);
+		}
+		LOGGER.info(">>>>>>>>>>> Login End >>>>>>>>>>>>");
+		return response;
+	}
+
 	@Transactional(rollbackOn = Exception.class)
 	public ResponseData<Customer> register(@RequestBody AccountInput input) {
+		System.out.println("input = "+input);
 		LOGGER.info(">>>>>>>>>>>register Start >>>>>>>>>>>>");
 		ResponseData<Customer> response = new ResponseData<Customer>();
 		try {
@@ -46,15 +81,15 @@ public class AccountService {
 
 			String username = input.getUsername();
 			Role role = roleRepository.findById(1).get();
-			
-			if(!ObjectUtils.isEmpty(accountRepository.findByUsername(username))){
+
+			if (!ObjectUtils.isEmpty(accountRepository.findByUsername(username))) {
 				LOGGER.error("Tên đăng nhập đã tồn tại : {}", username);
 				response.setData(null);
 				response.setCode(Constants.UNKNOWN_ERROR_CODE);
 				response.setMessage("Tên đăng nhập đã tồn tại");
 				return response;
 			}
-			
+
 			// set date account
 			account.setEmail(input.getEmail());
 			account.setPassword(BCrypt.hashpw(input.getPassword(), BCrypt.gensalt(12)));
@@ -77,12 +112,12 @@ public class AccountService {
 
 			response.setData(customerRepository.save(customer));
 		} catch (Exception e) {
-			LOGGER.error("Api account register has exception : {}",e.getMessage());
+			LOGGER.error("Api account register has exception : {}", e.getMessage());
 			response.setData(null);
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);
 			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
 		}
-		
+
 		LOGGER.info(">>>>>>>>>>>register End >>>>>>>>>>>>");
 		return response;
 	}

@@ -1,4 +1,4 @@
-
+import { ProductListComponent } from './components/product-list/product-list.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from './components/home/home.component';
@@ -15,7 +15,8 @@ export const routes: Routes = [
   { path: 'danh-muc/:id', component: CategoryComponent },
   { path: 'san-pham/:id', component: ProductDetailComponent },
   { path: 'gio-hang', component: CartListComponent },
-  { path: 'thanh-toan', component: PayComponent }
+  { path: 'thanh-toan', component: PayComponent },
+  { path: 'danh-muc-san-pham', component: ProductListComponent }
 ];
 
 @NgModule({

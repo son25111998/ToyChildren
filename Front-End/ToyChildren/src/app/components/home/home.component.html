@@ -96,14 +96,13 @@
               </div>
               <!-- item product featured end -->
           </div>
-          <button class="grid_6 btn btn-orange btn-load-more" [disabled] = "maxTotalRecord" (click)="loadMoreProduct(8)">Load more coupon</button>
+          <button class="grid_6 btn btn-orange btn-load-more" [disabled] = "maxTotalRecord" (click)="loadMoreProduct()">Xem thêm ({{totalRecord}})<em class="fas fa-level-down-alt"></em></button>
       </div><!--end block: Featured Coupons-->
 
       <div class="mod-brands block clearfix">
           <div class="grid_12">
               <h3 class="title-block has-link">
-                  POPULAR BRANDS (129)
-                  <a href="#" class="link-right">Xem tất cả <em class="pick-right"></em></a>
+                  KHÁCH HÀNG
               </h3>
           </div>
           <div class="block-content list-brand clearfix">

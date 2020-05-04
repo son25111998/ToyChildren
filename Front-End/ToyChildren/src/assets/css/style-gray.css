@@ -11,7 +11,7 @@ a{
 /*	header   */
 .gray .mod-header{
 	background-color: #fff;
-	box-shadow:0 5px 3px rgba(0, 0, 0, 0.2); 
+	box-shadow:0 5px 3px rgba(0, 0, 0, 0.2);
 }
 .gray #main-menu > li{
     border-left-color:  #BBBBBB;
@@ -153,7 +153,7 @@ a{
 }
 .gray .coupon-item .coupon-content,.gray .coupons-code-item{
 	border-color:transparent;
-	background-color: #fff; 
+	background-color: #fff;
 }
 .gray .coupon-item:hover .coupon-content,.gray .coupons-code-item:hover{
 	border-color:#FFBE19;
@@ -282,6 +282,7 @@ a{
 
 /*	register   */
 .gray .mod-register .link-back{
+  font-size: 13px;
 	color: #04BFBF;
 }
 .gray .mod-register .link-back .pick-r{
