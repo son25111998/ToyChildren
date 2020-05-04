@@ -3,8 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UrlConstants } from '../utils/url.constants';
 import { DataResponse } from 'src/app/models/data-response';
 import { retry, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 import { Constant } from '../utils/constant';
+import { Customer } from 'src/app/models/customer';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,12 @@ import { Constant } from '../utils/constant';
 export class AccountService {
 
   constructor(private http: HttpClient) { }
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
 
   public login(username: String, password: String) {
     const headers = new HttpHeaders({
@@ -26,6 +33,14 @@ export class AccountService {
         retry(1),
         catchError(this.errorHandl)
       )
+  }
+
+  public register(account: Object): Observable<DataResponse<Customer>> {
+    return this.http.post<DataResponse<Customer>>(UrlConstants.REGISTER_API_URL,JSON.stringify(account), this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
   }
 
   public logout() {

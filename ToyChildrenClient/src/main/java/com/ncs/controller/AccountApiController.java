@@ -23,7 +23,7 @@ public class AccountApiController {
 	private AccountService accountService;
 
 	@PostMapping("/register")
-	public ResponseData<Customer> getListProduct(@RequestBody AccountInput account) {
+	public ResponseData<Customer> register(@RequestBody AccountInput account) {
 		return accountService.register(account);
 	}
 

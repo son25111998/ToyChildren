@@ -7,7 +7,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { CategoryComponent } from './components/category/category.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { PayComponent } from './components/pay/pay.component';
 import { HeaderComponent } from './shared/layout/header/header.component';
@@ -19,6 +18,7 @@ import { CategoryService } from './shared/services/category.service';
 import { CartService } from './shared/services/cart.service';
 import { FormatMoneyPipe } from './shared/pipes/format-money-pipe';
 import { CartComponent } from './components/cart/cart.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
 
 @NgModule({
   declarations: [
@@ -26,13 +26,13 @@ import { CartComponent } from './components/cart/cart.component';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    CategoryComponent,
     ProductDetailComponent,
     PayComponent,
     HeaderComponent,
     FooterComponent,
     FormatMoneyPipe,
-    CartComponent
+    CartComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
