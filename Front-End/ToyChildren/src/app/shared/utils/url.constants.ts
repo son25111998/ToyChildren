@@ -9,6 +9,7 @@ export class UrlConstants {
 	public static LOGIN_API_URL = "/api/account/login";
 	public static LOGOUT_API_URL = "/api/member/logout";
 	public static REGISTER_API_URL = "/api/account/register";
+	public static EXPORT_FILE_API_URL = "/api/order/export";
 
 	public static CART_URL = "/gio-hang";
 	public static HOME_URL = "/trang-chu";

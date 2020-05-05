@@ -95,5 +95,68 @@
         border-color: #545b62;
         box-shadow: none !important;
     }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+    
+    html,
+    body {
+        height: 100%;
+    }
+    
+    body {
+        margin: 0;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+    }
+    
+    .mat-dialog-container#mat-dialog-0 {
+        width: 500px !important;
+        height: 200px;
+        padding: 0px;
+        overflow: hidden;
+    }
+    
+    h1#mat-dialog-title-0 {
+        border-bottom: 1px solid black;
+        padding: 15px 20px;
+        font-weight: bold;
+        margin: 0;
+    }
+    
+    .mat-dialog-content {
+        margin: 15px 0 0 0 !important;
+        padding: 0px 15px !important;
+        border-bottom: 1px solid gray;
+        font-size: 15px;
+        height: 70px;
+        line-height: 70px;
+        overflow: hidden !important;
+    }
+    
+    .mat-dialog-content p {
+        margin: 0;
+    }
+    
+    .mat-dialog-actions {
+        text-align: right !important;
+        padding: 0 !important;
+        margin: 7px 0 0 0 !important;
+        min-height: auto !important;
+        display: block !important;
+    }
+    
+    button.btn.ng-star-inserted {
+        margin-right: 10px !important;
+        display: inline-block;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        border: 1px solid gray;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: .25rem;
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    }

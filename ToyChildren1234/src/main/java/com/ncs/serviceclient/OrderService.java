@@ -32,6 +32,7 @@ import com.ncs.common.ResponseData;
 import com.ncs.common.constants.Constants;
 import com.ncs.common.util.Utils;
 import com.ncs.model.entity.Order;
+import com.ncs.model.entity.OrderDetail;
 import com.ncs.model.output.GetListOrderOutput;
 import com.ncs.model.output.OrderOutput;
 import com.ncs.model.output.Pagination;
@@ -49,8 +50,8 @@ public class OrderService {
 	private static final String ORDER_FIELD = "Đơn hàng";
 	private static final String PATH_FILE_EXCEL = "/templates/TemplateExcel.xlsx";
 	private static final int SIZE_DEFAULT = 10;
-//	private static final String SUCCESS_FIELD = "Thành công";
-//	private static final String FAIL_FIELD = "Thất bại";
+	private static final String SUCCESS_FIELD = "Thành công";
+	private static final String FAIL_FIELD = "Thất bại";
 
 	public ResponseData<GetListOrderOutput> getListOrder(int page, int size, String date) {
 		LOGGER.info(">>>>>>>>>>>getListOrder Start >>>>>>>>>>>>");
@@ -69,7 +70,7 @@ public class OrderService {
 			if (size < 0)
 				size = SIZE_DEFAULT;
 
-			Pageable pageable = PageRequest.of(page-1, SIZE_DEFAULT, Sort.by("createDate").descending());
+			Pageable pageable = PageRequest.of(page - 1, SIZE_DEFAULT, Sort.by("createDate").descending());
 
 			if (StringUtils.isEmpty(date)) {
 				ordersPage = orderRepository.findAll(pageable);
@@ -157,20 +158,43 @@ public class OrderService {
 	public void exportFileExcel(HttpServletResponse response, String date) {
 		LOGGER.info(">>>>>>>>>>>exportFileExcel Start >>>>>>>>>>>>");
 		try {
+			List<OrderOutput> orders = new ArrayList<>();
 
-			// get data in db
-//			GetListOrderOutput output = orderDao.getListOrder(page, size, date);
+			List<Order> ordersPage;
+			OrderOutput orderOutput;
+			StringBuilder fullName;
 
-			// set data order output
-//			List<OrderOutput> orderOutputs = output.getOrders();
-//
-//			// set list order detail in order
-//			for (OrderOutput item : orderOutputs) {
-//				List<OrderDetail> orderDetails = orderDetailRepository.findByOrderId(item.getOrderId());
-//				item.setOrderDetails(orderDetails);
-//			}
-//			output.setOrders(orderOutputs);
-			exportFile(response, orderRepository.findAll());
+			if (StringUtils.isEmpty(date)) {
+				ordersPage = orderRepository.findAll();
+			} else {
+				ordersPage = orderRepository.findByCreateDate(Utils.convertStringToDate(date));
+			}
+
+			for (Order order : ordersPage) {
+				orderOutput = new OrderOutput();
+				fullName = new StringBuilder();
+
+				fullName.append(order.getCustomer().getFirstName());
+				fullName.append(" ");
+				fullName.append(order.getCustomer().getMiddleName());
+				fullName.append(" ");
+				fullName.append(order.getCustomer().getLastName());
+
+				orderOutput.setOrderId(order.getId());
+				orderOutput.setCounpon(order.getCoupon());
+				orderOutput.setCreateDate(order.getCreateDate());
+				orderOutput.setCustomerName(fullName.toString());
+				orderOutput.setPayment(order.getPayment());
+				orderOutput.setPhone(order.getCustomer().getPhone());
+				orderOutput.setShipping(order.getShipping());
+				orderOutput.setStatus(order.getStatus());
+				orderOutput.setTax(order.getTax());
+				orderOutput.setOrderDetails(orderDetailRepository.findByOrder(order));
+
+				orders.add(orderOutput);
+			}
+
+			exportFile(response, orders);
 		} catch (Exception e) {
 			LOGGER.error("Api export file excel has exception : {}", e.getMessage());
 		}
@@ -178,7 +202,7 @@ public class OrderService {
 	}
 
 	@SuppressWarnings("resource")
-	private void exportFile(HttpServletResponse response, List<Order> orders) {
+	private void exportFile(HttpServletResponse response, List<OrderOutput> orders) {
 		try {
 			int lastRowTemp = 0;
 
@@ -209,7 +233,16 @@ public class OrderService {
 					// create row in sheet
 					XSSFRow row = sheet.createRow(lastRowTemp + i);
 
-					Order order = orders.get(i);
+					OrderOutput order = orders.get(i);
+					StringBuilder builder = new StringBuilder();
+
+					// set order detail
+					for (OrderDetail item : order.getOrderDetails()) {
+						builder.append(item.getProduct().getName());
+						builder.append(" - ");
+						builder.append(item.getQuantity());
+						builder.append("\n");
+					}
 
 					// write data in cell
 					XSSFCell cell = row.createCell(0);
@@ -217,7 +250,7 @@ public class OrderService {
 					cell.setCellStyle(cellStyle);
 
 					cell = row.createCell(1);
-					cell.setCellValue(order.getCustomer().getLastName());
+					cell.setCellValue(order.getCustomerName());
 					cell.setCellStyle(cellStyle);
 
 					cell = row.createCell(2);
@@ -225,23 +258,40 @@ public class OrderService {
 					cell.setCellStyle(cellStyle);
 
 					cell = row.createCell(3);
-					cell.setCellValue("Chi tiet don hang"); // TODO
+					cell.setCellValue(order.getPhone());
 					cell.setCellStyle(cellStyle);
 
 					cell = row.createCell(4);
-					cell.setCellValue(order.getPayment());
+					cell.setCellValue(builder.toString());
 					cell.setCellStyle(cellStyle);
 
 					cell = row.createCell(5);
-					cell.setCellValue(order.getShipping().getName());
+					cell.setCellValue(order.getPayment());
 					cell.setCellStyle(cellStyle);
 
 					cell = row.createCell(6);
-					cell.setCellValue(order.getCustomer().getPhone());
+					cell.setCellValue(order.getShipping().getName());
 					cell.setCellStyle(cellStyle);
 
 					cell = row.createCell(7);
-					cell.setCellValue(order.getStatus());
+					cell.setCellValue(order.getTax().getId());
+					cell.setCellStyle(cellStyle);
+					
+					cell = row.createCell(8);
+					cell.setCellValue(order.getCounpon().getCode());
+					cell.setCellStyle(cellStyle);
+					
+					cell = row.createCell(9);
+					cell.setCellValue(order.getMoney());
+					cell.setCellStyle(cellStyle);
+					
+					cell = row.createCell(10);
+					if(order.getStatus() == 0) {
+						cell.setCellValue(SUCCESS_FIELD);
+					}else {
+						cell.setCellValue(FAIL_FIELD);
+					}
+					
 					cell.setCellStyle(cellStyle);
 				}
 			}
@@ -251,6 +301,7 @@ public class OrderService {
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			workbook.write(outputStream);
 
+			response.setContentType("application/vnd.ms-excel;charset=UTF-8");
 			response.setHeader("Content-Disposition", "attachment; filename=ThongKe.xlsx");
 			IOUtils.copy(new ByteArrayInputStream(outputStream.toByteArray()), response.getOutputStream());
 		} catch (IOException e) {

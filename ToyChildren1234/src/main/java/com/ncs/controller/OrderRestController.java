@@ -36,7 +36,7 @@ public class OrderRestController {
 		return orderService.updateStatusOrder(orderId);
 	}
 
-	@GetMapping(value = "export", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@GetMapping(value = "export", produces = "application/vnd.ms-excel;charset=UTF-8")
 	public void exportFileExcel(HttpServletResponse response,
 			@RequestParam(required = false) String date) {
 		orderService.exportFileExcel(response, date);

@@ -1,6 +1,7 @@
 package com.ncs.repositoryclient;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,4 +17,6 @@ public interface OrderClientRepository extends JpaRepository<Order, Integer> {
 	Page<Order> findAll(Pageable pageable);
 	
 	Page<Order> findByCreateDate(Pageable pageable, Date createDate);
+	
+	List<Order> findByCreateDate( Date createDate);
 }

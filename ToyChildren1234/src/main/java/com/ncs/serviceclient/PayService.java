@@ -148,7 +148,8 @@ public class PayService {
 
 				LOGGER.info("Product update: {}", productRepository.save(product));
 			}
-
+			response.setCode(Constants.SUCCESS_CODE);
+			response.setMessage(Constants.SUCCESS_MSG);
 		} catch (Exception e) {
 			LOGGER.error("Api pay has exception : {}", e.getMessage());
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);

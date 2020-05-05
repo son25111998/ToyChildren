@@ -24,6 +24,7 @@ import { CustomMaterialModule } from './shared/layout/confirm-dialog/custom-mate
 import { MatSelectModule } from '@angular/material/select';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { ExportComponent } from './components/export/export.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     FormatMoneyPipe,
     CartComponent,
     ProductListComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ExportComponent
   ],
   imports: [
     BrowserModule,
