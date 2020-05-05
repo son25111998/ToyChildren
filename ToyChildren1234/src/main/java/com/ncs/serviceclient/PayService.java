@@ -20,6 +20,7 @@ import com.ncs.model.entity.Coupon;
 import com.ncs.model.entity.Customer;
 import com.ncs.model.entity.Order;
 import com.ncs.model.entity.OrderDetail;
+import com.ncs.model.entity.Product;
 import com.ncs.model.entity.Shipping;
 import com.ncs.model.entity.Tax;
 import com.ncs.model.input.PayInput;
@@ -27,6 +28,7 @@ import com.ncs.repositoryclient.CouponRepository;
 import com.ncs.repositoryclient.CustomerRepository;
 import com.ncs.repositoryclient.OrderClientRepository;
 import com.ncs.repositoryclient.OrderDetailClientRepository;
+import com.ncs.repositoryclient.ProductClientRepository;
 import com.ncs.repositoryclient.ShippingRepository;
 import com.ncs.repositoryclient.TaxRepository;
 
@@ -44,6 +46,8 @@ public class PayService {
 	private TaxRepository taxRepository;
 	@Autowired
 	private CustomerRepository customerRepository;
+	@Autowired
+	private ProductClientRepository productRepository;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 	private static final String COUPON_FILED = "Mã giảm giá";
@@ -129,6 +133,7 @@ public class PayService {
 			// save cart in db
 			for (CartDto cart : carts) {
 				OrderDetail orderDetail = new OrderDetail();
+				Product product = cart.getProduct();
 
 				// set data in order detail
 				orderDetail.setOrder(order);
@@ -136,11 +141,14 @@ public class PayService {
 				orderDetail.setQuantity(cart.getQuantity());
 
 				// save order detail in db
-				OrderDetail detail = orderDetailRepository.save(orderDetail);
+				LOGGER.info("Order detail : {}", orderDetailRepository.save(orderDetail));
 
-				LOGGER.info("Order detail : {}", detail);
-				request.getSession().removeAttribute(Constants.CART_SESSION);
+				// update amount product
+				product.setAmount(product.getAmount() - cart.getQuantity());
+
+				LOGGER.info("Product update: {}", productRepository.save(product));
 			}
+
 		} catch (Exception e) {
 			LOGGER.error("Api pay has exception : {}", e.getMessage());
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);

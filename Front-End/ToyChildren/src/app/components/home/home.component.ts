@@ -8,6 +8,8 @@ import { ProductService } from 'src/app/shared/services/product.service';
 import { DataResponse } from 'src/app/models/data-response';
 import { Cart } from 'src/app/models/cart.model';
 import { FormatMoneyPipe } from 'src/app/shared/pipes/format-money-pipe';
+import { SharingDataService } from 'src/app/shared/services/sharing-data.service';
+import { Constant } from 'src/app/shared/utils/constant';
 
 
 @Component({
@@ -29,6 +31,7 @@ export class HomeComponent implements OnInit {
     private cartService: CartService,
     private router: Router,
     private ngZone: NgZone,
+    private sharingDate: SharingDataService
   ) { }
 
   ngOnInit(): void {
@@ -44,6 +47,7 @@ export class HomeComponent implements OnInit {
       this.totalRecord = data.data.pagination.totalRecord - 8;
     });
 
+    this.loadCart();
   }
 
   loadMoreProduct() {
@@ -71,9 +75,13 @@ export class HomeComponent implements OnInit {
 
     response = this.cartService.addCart(this.cartInput);
     if (response.code == CodeConstants.CODE_SUCCESS) {
-
+      this.loadCart();
     } else {
 
     }
+  }
+
+  loadCart(){
+    this.sharingDate.changeCarts(JSON.parse(sessionStorage.getItem(Constant.CART_SESSION)));
   }
 }

@@ -14,6 +14,7 @@ import { UrlConstants } from 'src/app/shared/utils/url.constants';
 import { FormatMoneyPipe } from 'src/app/shared/pipes/format-money-pipe';
 import { MessageConstants } from 'src/app/shared/utils/message.constants';
 import { Constant } from 'src/app/shared/utils/constant';
+import { SharingDataService } from 'src/app/shared/services/sharing-data.service';
 
 @Component({
   selector: 'app-pay',
@@ -39,19 +40,18 @@ export class PayComponent implements OnInit {
     private payService: PayService,
     private cartService: CartService,
     private counponService: CouponService,
-    private shippingService: ShippingService
+    private shippingService: ShippingService,
+    private sharingDate: SharingDataService
   ) { }
 
   ngOnInit(): void {
     this.loadCarts();
     this.loadShipping();
-    this.payInput = new PayInput(1, 1, 1, "Thu tiền tận nơi",this.carts);
+    this.payInput = new PayInput(1, 1, 1, 1, this.carts);
   }
 
   onSubmit() {
     this.payInput.carts = this.carts;
-    console.log("data: " + JSON.stringify(this.payInput));
-    sessionStorage.removeItem(Constant.CART_SESSION);
     this.payService.pay(this.payInput).subscribe(
       data => {
         window.scroll(0, 0);
@@ -59,11 +59,12 @@ export class PayComponent implements OnInit {
           alert(MessageConstants.NOT_LOGIN);
           this.router.navigateByUrl(UrlConstants.LOGIN_URL);
         }
-        alert(data.massage);
         if (data.code == CodeConstants.CODE_SUCCESS) {
           sessionStorage.removeItem(Constant.CART_SESSION);
           this.router.navigateByUrl(UrlConstants.HOME_URL);
         }
+
+
       },
       error => {
         if (error.code == CodeConstants.CODE_FORBIDDEN) {
@@ -105,10 +106,11 @@ export class PayComponent implements OnInit {
   loadCarts() {
     this.totalProductMoney = 0;
     this.carts = this.cartService.getCart();
-
-    this.carts.forEach(cart => {
-      this.totalProductMoney += cart.product.price * (1 - cart.product.discount / 100) * cart.quantity;
-    });
+    if (this.carts != null) {
+      this.carts.forEach(cart => {
+        this.totalProductMoney += cart.product.price * (1 - cart.product.discount / 100) * cart.quantity;
+      });
+    }
   }
 
   SelectShipping(shipping: Shipping) {

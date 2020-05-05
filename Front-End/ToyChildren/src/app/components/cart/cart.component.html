@@ -29,9 +29,9 @@
                                 </a>
                             </td>
                             <td>
-                                <span [hidden]="2 > cart.quantity" class="controll-quantity" (click)="minusQuantity(cart)"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                <span class="controll-quantity" (click)="minusQuantity(cart)"><i class="fa fa-minus" aria-hidden="true"></i></span>
                                 <input class="quantity" type="text" size="3" value="{{cart.quantity}}" maxlength="1" readonly>
-                                <span [hidden]="cart.quantity >= cart.product.amount" class="controll-quantity" (click)="plusQuantity(cart)"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                <span class="controll-quantity" (click)="plusQuantity(cart)"><i class="fa fa-plus" aria-hidden="true"></i></span>
                             </td>
                             <td style="color: #ee3e80; font-weight: bold; font-size: 20px;">{{(cart.product.price*(1-cart.product.discount/100))*cart.quantity | FomatMoney}}</td>
                             <td><a (click)="deleteProductOutCart(cart)" class="delete" style="cursor: pointer;" title="Xóa">x</a></td>

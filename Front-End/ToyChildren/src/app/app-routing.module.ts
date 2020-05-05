@@ -12,10 +12,11 @@ export const routes: Routes = [
   { path: '', redirectTo: 'trang-chu', pathMatch: 'full' },
   { path: 'trang-chu', component: HomeComponent },
   { path: 'dang-nhap', component: LoginComponent },
-  { path: 'danh-muc-san-pham', component: ProductListComponent },
   { path: 'san-pham/:id', component: ProductDetailComponent },
   { path: 'gio-hang', component: CartComponent },
-  { path: 'thanh-toan', component: PayComponent }
+  { path: 'thanh-toan', component: PayComponent },
+  { path: 'danh-muc', component: ProductListComponent},
+  { path: 'danh-muc/:id', component: ProductListComponent}
 ];
 
 @NgModule({

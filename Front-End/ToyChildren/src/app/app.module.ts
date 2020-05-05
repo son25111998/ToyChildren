@@ -19,6 +19,11 @@ import { CartService } from './shared/services/cart.service';
 import { FormatMoneyPipe } from './shared/pipes/format-money-pipe';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
+import { ConfirmDialogComponent } from './shared/layout/confirm-dialog/confirm-dialog.component';
+import { CustomMaterialModule } from './shared/layout/confirm-dialog/custom-material.module';
+import { MatSelectModule } from '@angular/material/select';
+import {TextFieldModule} from '@angular/cdk/text-field';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 @NgModule({
   declarations: [
@@ -32,16 +37,21 @@ import { ProductListComponent } from './components/product-list/product-list.com
     FooterComponent,
     FormatMoneyPipe,
     CartComponent,
-    ProductListComponent
+    ProductListComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    CustomMaterialModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    MatSelectModule,
+    TextFieldModule,
+    MDBBootstrapModule.forRoot(),
   ],
-  providers: [CategoryService, CartService, FormatMoneyPipe],
+  providers: [CategoryService, CartService, FormatMoneyPipe, ConfirmDialogComponent],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

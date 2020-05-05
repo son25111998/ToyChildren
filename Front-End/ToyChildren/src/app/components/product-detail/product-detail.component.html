@@ -42,7 +42,7 @@
                                     </ul>
                                 </div>
                                 <form name="frm_product_sub" id="frm_product_sub" (ngSubmit)="onSubmit()">
-                                    <h6 class="option-title ">Số lượng</h6>
+                                    <span class="option-title" style="float: left;font-size: 17px;margin-top: 9px;margin-right: 5px;">Số lượng</span>
                                     <div class="cart-buttons box-quantity">
                                         <button class="down-quantity-product btn btn-down-quantity btn-secondary" style="margin-right:3px;" type="button" (click)="minusProduct()">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="4" viewBox="0 0 16 4">
@@ -55,17 +55,17 @@
                                                 <path fill="#EE3E80" fill-rule="nonzero" d="M21.857 9.857h-7.286a.429.429 0 0 1-.428-.428V2.143a2.143 2.143 0 0 0-4.286 0v7.286a.429.429 0 0 1-.428.428H2.143a2.143 2.143 0 0 0 0 4.286h7.286c.236 0 .428.192.428.428v7.286a2.143 2.143 0 0 0 4.286 0v-7.286c0-.236.192-.428.428-.428h7.286a2.143 2.143 0 0 0 0-4.286z"></path>
                                                 </svg>
                                         </button>
-
+                                        <span style="font-size: 17px;margin-top: 9px;margin-left: 10px;">{{product.amount}} sản phẩm có sẵn</span>
                                         <span class="deal_span text-primary font-12" style="margin-top: 5px;"></span>
 
                                         <span class="ajax-message-error italic font-12 " style="margin-top: 5px; "></span>
 
                                     </div>
                                     <p class="button_poductDetail">
-                                        <button style="display:none" type="submit" id="but_choose_product_clear">
-                                            <i class="fa fa-shopping-basket" aria-hidden="true"></i> Hết hàng
+                                        <button type="submit" id="but_choose_product_clear" *ngIf="quantity > product.amount">
+                                            <i class="fas fa-shopping-basket" aria-hidden="true"></i> Hết hàng
                                         </button>
-                                        <button style="display:block" type="submit" id="but_choose_product">
+                                        <button type="submit" id="but_choose_product" *ngIf="product.amount >= quantity">
                                             <i class="fas fa-cart-plus" aria-hidden="true"></i> Thêm vào giỏ hàng
                                         </button>
                                     </p>
@@ -174,7 +174,8 @@
                                 <span [ngClass]="{'fas fa-star-half-alt': i%2==0, 'fa fa-star checked': i%2!=0,'far fa-star' : i%3==0}" style="color:gold; padding: 1px;"></span>
                                 <span [ngClass]="{'far fa-star' : i%2==0, 'fas fa-star-half-alt': i%2!=0}" style="color:gold; padding: 1px;"></span>
                             </div>
-                            <a class="btn btn-blue btn-take-coupon" style="cursor: pointer;" (click)="addToCart(item)"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
+                            <a *ngIf="item.amount > 0" class="btn btn-blue btn-take-coupon fly-cart" style="cursor: pointer;" (click)="addToCart(item)"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
+                            <a *ngIf="1 > item.amount" class="btn btn-blue btn-take-coupon" style="cursor: pointer;"><i class="fas fa-shopping-basket" aria-hidden="true"></i> Hết hàng</a>
                         </div>
                         <em class="stick-lbl trust-brand-b"></em>
                     </div>

@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -19,18 +20,23 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import com.ncs.common.ResponseData;
 import com.ncs.common.constants.Constants;
-import com.ncs.dao.OrderDao;
+import com.ncs.common.util.Utils;
 import com.ncs.model.entity.Order;
-import com.ncs.model.entity.OrderDetail;
 import com.ncs.model.output.GetListOrderOutput;
 import com.ncs.model.output.OrderOutput;
-import com.ncs.repositoryclient.OrderDetailClientRepository;
+import com.ncs.model.output.Pagination;
 import com.ncs.repositoryclient.OrderClientRepository;
+import com.ncs.repositoryclient.OrderDetailClientRepository;
 
 @Service
 public class OrderService {
@@ -38,12 +44,11 @@ public class OrderService {
 	private OrderClientRepository orderRepository;
 	@Autowired
 	private OrderDetailClientRepository orderDetailRepository;
-	@Autowired
-	private OrderDao orderDao;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 	private static final String ORDER_FIELD = "Đơn hàng";
 	private static final String PATH_FILE_EXCEL = "/templates/TemplateExcel.xlsx";
+	private static final int SIZE_DEFAULT = 10;
 //	private static final String SUCCESS_FIELD = "Thành công";
 //	private static final String FAIL_FIELD = "Thất bại";
 
@@ -51,21 +56,60 @@ public class OrderService {
 		LOGGER.info(">>>>>>>>>>>getListOrder Start >>>>>>>>>>>>");
 		ResponseData<GetListOrderOutput> response = new ResponseData<GetListOrderOutput>();
 		try {
-			// get data in db
-			GetListOrderOutput output = orderDao.getListOrder(page, size, date);
+			GetListOrderOutput orderOutputs = new GetListOrderOutput();
+			List<OrderOutput> orders = new ArrayList<>();
+			Pagination pagination = new Pagination();
 
-			// set data order output
-			List<OrderOutput> orderOutputs = output.getOrders();
+			Page<Order> ordersPage;
+			OrderOutput orderOutput;
+			StringBuilder fullName;
 
-			// set list order detail in order
-			for (OrderOutput item : orderOutputs) {
-				List<OrderDetail> orderDetails = orderDetailRepository.findByOrderId(item.getOrderId());
-				item.setOrderDetails(orderDetails);
+			if (page < 1)
+				page = 1;
+			if (size < 0)
+				size = SIZE_DEFAULT;
+
+			Pageable pageable = PageRequest.of(page-1, SIZE_DEFAULT, Sort.by("createDate").descending());
+
+			if (StringUtils.isEmpty(date)) {
+				ordersPage = orderRepository.findAll(pageable);
+			} else {
+				ordersPage = orderRepository.findByCreateDate(pageable, Utils.convertStringToDate(date));
 			}
 
-			output.setOrders(orderOutputs);
+			for (Order order : ordersPage) {
+				orderOutput = new OrderOutput();
+				fullName = new StringBuilder();
 
-			response.setData(output);
+				fullName.append(order.getCustomer().getFirstName());
+				fullName.append(" ");
+				fullName.append(order.getCustomer().getMiddleName());
+				fullName.append(" ");
+				fullName.append(order.getCustomer().getLastName());
+
+				orderOutput.setOrderId(order.getId());
+				orderOutput.setCounpon(order.getCoupon());
+				orderOutput.setCreateDate(order.getCreateDate());
+				orderOutput.setCustomerName(fullName.toString());
+				orderOutput.setPayment(order.getPayment());
+				orderOutput.setPhone(order.getCustomer().getPhone());
+				orderOutput.setShipping(order.getShipping());
+				orderOutput.setStatus(order.getStatus());
+				orderOutput.setTax(order.getTax());
+				orderOutput.setOrderDetails(orderDetailRepository.findByOrder(order));
+
+				orders.add(orderOutput);
+			}
+
+			// set value in pagination
+			pagination.setPage(page);
+			pagination.setSize(size);
+			pagination.setTotalRecord(ordersPage.getTotalElements());
+
+			orderOutputs.setOrders(orders);
+			orderOutputs.setPagination(pagination);
+
+			response.setData(orderOutputs);
 		} catch (Exception e) {
 			LOGGER.error("Api get order has exception : {}", e.getMessage());
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);
@@ -144,7 +188,7 @@ public class OrderService {
 			XSSFWorkbook workbook = new XSSFWorkbook(in);
 
 			XSSFSheet sheet = workbook.cloneSheet(0);
-			
+
 			workbook.setSheetName(1, "Thống kê");
 			lastRowTemp = sheet.getLastRowNum() + 1;
 
@@ -207,10 +251,9 @@ public class OrderService {
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			workbook.write(outputStream);
 
-			response.setHeader("Content-Disposition", "attachment; filename=test.xlsx");
+			response.setHeader("Content-Disposition", "attachment; filename=ThongKe.xlsx");
 			IOUtils.copy(new ByteArrayInputStream(outputStream.toByteArray()), response.getOutputStream());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

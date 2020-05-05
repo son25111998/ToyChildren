@@ -2,8 +2,9 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { Cart } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { Router } from '@angular/router';
-import { DataResponse } from 'src/app/models/data-response';
 import { CodeConstants } from 'src/app/shared/utils/code.constants';
+import { SharingDataService } from 'src/app/shared/services/sharing-data.service';
+import { Constant } from 'src/app/shared/utils/constant';
 
 @Component({
   selector: 'app-cart',
@@ -17,7 +18,8 @@ export class CartComponent implements OnInit {
   constructor(
     private ngZone: NgZone,
     private router: Router,
-    private cartService: CartService
+    private cartService: CartService,
+    private sharingDate: SharingDataService
   ) { }
 
   ngOnInit() {
@@ -25,15 +27,14 @@ export class CartComponent implements OnInit {
     this.getTotalMoney();
   }
 
-  loadCart() {
-    this.carts = this.cartService.getCart();
+  ngAfterContentInit(): void {
+    window.scroll(0, 0);
   }
-
+  
   deleteProductOutCart(cart: Cart) {
     let response = this.cartService.deleteProductOutCart(cart);
     if (response.code == CodeConstants.CODE_SUCCESS) {
-      alert("Xoá thành công");
-      location.reload();
+      this.loadCart();
     } else {
       alert("Thất bại");
     }
@@ -42,9 +43,10 @@ export class CartComponent implements OnInit {
   plusQuantity(cart: Cart) {
     if (cart.product.amount > cart.quantity) {
       let response = this.cartService.updateCart(cart, true);
+      console.log(response);
+      
       if (response.code == CodeConstants.CODE_SUCCESS) {
-        alert("Cập nhật thành công");
-        location.reload();
+        this.loadCart();
       } else {
         alert("Cập nhật thất bại");
       }
@@ -55,8 +57,7 @@ export class CartComponent implements OnInit {
     if (cart.quantity > 1) {
       let response = this.cartService.updateCart(cart, false);
       if (response.code == CodeConstants.CODE_SUCCESS) {
-        alert("Cập nhật thành công");
-        location.reload();
+        this.loadCart();
       } else {
         alert("Cập nhật thất bại");
       }
@@ -70,6 +71,12 @@ export class CartComponent implements OnInit {
       this.totalMoney += (cart.product.price) * cart.quantity;
     })
     return this.totalMoney;
+  }
+
+  loadCart(){
+    this.sharingDate.changeCarts(JSON.parse(sessionStorage.getItem(Constant.CART_SESSION)));
+    this.carts = JSON.parse(sessionStorage.getItem(Constant.CART_SESSION));
+    this.getTotalMoney();
   }
 }
 

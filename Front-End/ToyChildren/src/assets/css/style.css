@@ -1922,6 +1922,7 @@ b {
 }
 
 #main-menu>li>a {
+    font-size: 1.076923076923077em;
     position: relative;
     font-size: 14px;
     font-weight: bold;
@@ -2372,7 +2373,7 @@ b {
 .mod-filter .lbl-search {
     position: relative;
     float: left;
-    width: 24.76190476190476%;
+    width: 30%;
     display: block;
 }
 
@@ -2407,8 +2408,8 @@ b {
 
 .mod-filter .btn-search {
     position: absolute;
-    top: 6px;
-    right: 10px;
+    top: 13px;
+    right: 13px;
     width: 16px;
     height: 16px;
     border: 0;
@@ -2425,13 +2426,14 @@ b {
     float: left;
     margin-left: 30px;
     position: relative;
+    width: 25%;
 }
 
 .select-cate .show-val {
     cursor: pointer;
-    padding: 4px 26px 4px 10px;
+    padding: 10px 40px 10px 10px;
     background: #f2f2f2;
-    width: 190px;
+    width: 100%;
     position: relative;
     font-family: "Open Sans", sans-serif;
     font-size: 1.076923076923077em;
@@ -2449,7 +2451,7 @@ b {
 
 .select-cate .show-val .pick-down {
     position: absolute;
-    top: 11px;
+    top: 15px;
     right: 15px;
     width: 0;
     height: 0;
@@ -2466,7 +2468,7 @@ b {
     left: 0;
     background: #FFFFFF;
     border-radius: 4px;
-    width: 360px;
+    width: 100%;
     z-index: 5;
     font-family: "Open Sans", sans-serif;
     font-weight: 600;
@@ -2505,7 +2507,7 @@ b {
     padding: 4px;
     color: #777777;
     float: left;
-    width: 50%;
+    /* width: 50%; */
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;

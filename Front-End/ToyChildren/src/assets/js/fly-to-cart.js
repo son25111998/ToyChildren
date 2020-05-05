@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    $('body').on('click', 'a.btn-take-coupon', function() {
+    $('body').on('click', 'a.fly-cart', function() {
         var cart = $('.fa-shopping-cart');
         var imgtodrag = $(this).parent('.coupon-content').find("img").eq(0);
 
@@ -32,5 +32,13 @@ $(document).ready(function() {
                 $(this).detach()
             });
         }
+
+        // show notification
+        $('.success-add-cart').addClass('animation-cart-delay');
     });
+
+    $('body').on('click', '#but_choose_product', function() {
+        $('.success-add-cart').addClass('animation-cart');
+    });
+
 });
