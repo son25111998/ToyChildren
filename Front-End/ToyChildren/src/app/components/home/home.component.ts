@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit {
     // get product new
     this.api.getProductNews(1,4).subscribe((data)=>{
       this.productNews = data.data.products;
-      console.log(data.data.products);
     });
 
     // get product featured

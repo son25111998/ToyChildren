@@ -54,7 +54,7 @@ a{
 	background-color: #fff;
 }
 .gray .mod-filter .txt-search{
-	padding:4px 40px 3px 10px;
+	padding: 10px 40px 10px 10px;
 }
 .mod-filter .txt-search:focus{
 	box-shadow: none;

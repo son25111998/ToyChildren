@@ -11,12 +11,12 @@
                     <nav class="main-nav">
                         <ul id="main-menu" class="nav nav-horizontal clearfix">
                             <li class="active">
-                                <a href="trang-chu">Trang chủ</a>
+                                <a [routerLink]="['/trang-chu']">Trang chủ</a>
                             </li>
                             <li class="has-sub">
-                                <a href="coupon-code.html">Danh mục sản phẩm</a>
+                                <a [routerLink]="['/danh-muc']">Danh mục sản phẩm</a>
                                 <ul class="sub-menu">
-                                    <li *ngFor="let category of categories"><a href="#" [routerLink]="['/danh-muc', category.id ]">{{category.name}}</a></li>
+                                    <li *ngFor="let category of categories"><a href="#" [routerLink]="['/danh-muc', category.id ]" >{{category.name}}</a></li>
                                 </ul>
                             </li>
                             <li>

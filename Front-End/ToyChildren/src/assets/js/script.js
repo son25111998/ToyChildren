@@ -15,33 +15,33 @@ $(function () {
             $("#sys_tmp_height_filter").remove();
         }
     });
-	
+
 	/*IF IE 8*/
 	var rex8 = new RegExp("MSIE 8.0"),
         rex9 = new RegExp("MSIE 9.0");
 	var trueIE8 = rex8.test(navigator.userAgent),
         trueIE9 = rex9.test(navigator.userAgent);
-	
+
 	if(trueIE8 || trueIE9) {
 
 		/*Hide menu*/
 		jQuery('.mp-level, .btn-toogle-res-menu').hide();
-		
+
 		/*Set z-index*/
 		jQuery(".sub-menu").css('z-index', '999');
-		
+
 		/*Menu float right*/
 		jQuery(".nav.nav-horizontal").css({
 			'float': 'right',
 			'margin-top': '5px',
             'display': 'block'
 		});
-		
+
 		/*Padding*/
 		jQuery(".header-content").css({
 			padding: '15px 0'
 		});
-		
+
 		jQuery("#sys_head_login").css({
             'float': 'right',
             'display': 'block'
@@ -50,11 +50,11 @@ $(function () {
 		jQuery(".pop-login").css({
 			position: "relative"
 		});*/
-		
+
 	}
 	/*END IE 8*/
-	
-	
+
+
     /* FlexSlider */
     $(window).load(function(){
         if($("#sys_head_slide").length> 0) {
@@ -139,34 +139,23 @@ $(function () {
         e.stopPropagation();
         return false;
     });
-    $("#sys_apply_filter").on("click",function(){
-        var paramAjax = {
-            keyword: $("#sys_txt_search").val(),
-            cateId: $("#sys_selected_val").children("span").attr("data-cate-id"),
-            minDayLeft: $("#sys_filter_days_left").val()[0],
-            maxDayLeft: $("#sys_filter_days_left").val()[1]
-        };
-        console.log(paramAjax);
+
+    $("#sys_selected_val2").on("click",function(e){
+        $("#sys_list_dd_cate2").fadeToggle(300);
+        $("body").on("click.hideDropCate",function(){
+            $("#sys_list_dd_cate2").fadeOut(300);
+            $("body").off("click.hideDropCate");
+        });
+        e.stopPropagation();
+    });
+    $("#sys_list_dd_cate2").on("click","a",function(e) {
+        $("#sys_selected_val2").children("span").html($(this).html()).attr("data-cate-id", $(this).attr("data-cate-id"));
+        $("#sys_list_dd_cate2").fadeOut(300);
+        $("body").off("click.hideDropCate");
+        e.stopPropagation();
+        return false;
     });
 
-    var sys_mod_filter = $("#sys_mod_filter");
-    if(sys_mod_filter.length>0) {
-        var filterOffTop = $("#sys_mod_filter").offset().top;
-        $(window).on("scroll",function(){
-            if (ww > 980) {
-                var getOffTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
-                if(getOffTop>filterOffTop) {
-                    sys_mod_filter.addClass("fix-top");
-                    if($("#sys_tmp_height_filter").length<=0) {
-                        $("<div id='sys_tmp_height_filter'></div>").height($("#sys_mod_filter").outerHeight(true)).insertAfter("#sys_mod_filter");
-                    }
-                }else{
-                    sys_mod_filter.removeClass("fix-top");
-                    $("#sys_tmp_height_filter").remove();
-                }
-            }
-        });
-    }
     var sys_warning_sms = $("#sys_warning_sms");
     if(sys_warning_sms.length>0) {
         var arr_sms = sys_warning_sms.attr("data-warning-txt").split(",");
