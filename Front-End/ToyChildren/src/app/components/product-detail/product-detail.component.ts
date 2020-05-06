@@ -7,9 +7,12 @@ import { CartService } from 'src/app/shared/services/cart.service';
 import { CodeConstants } from 'src/app/shared/utils/code.constants';
 import { Product } from 'src/app/models/product';
 import { UrlConstants } from 'src/app/shared/utils/url.constants';
-import { Constant } from 'src/app/shared/utils/constant';
 import { Cart } from 'src/app/models/cart.model';
 import { DataResponse } from 'src/app/models/data-response';
+import { SharingDataService } from 'src/app/shared/services/sharing-data.service';
+import { Constant } from 'src/app/shared/utils/constant';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogModel, ConfirmDialogComponent } from 'src/app/shared/layout/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-product-detail',
@@ -29,13 +32,20 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private dialog: MatDialog,
     private productService: ProductService,
     private categoryService: CategoryService,
-    private cartService: CartService
+    private cartService: CartService,
+    private sharingDate: SharingDataService
   ) { }
+
+  ngAfterContentInit(): void {
+    window.scroll(0, 0);
+  }
 
   ngOnInit(): void {
     this.loadProduct();
+    this.loadCart();
   }
 
   loadProduct() {
@@ -56,6 +66,11 @@ export class ProductDetailComponent implements OnInit {
     this.categoryService.findAllProductByCategory(id, 1, 8).subscribe(
       data => {
         this.products = data.data.products;
+        for (let i = 0; i < this.products.length; i++) {
+          if (this.products[i].id == this.product.id) {
+            this.products.splice(i, 1);
+          }
+        }
       },
       error => {
         // handl error
@@ -85,12 +100,10 @@ export class ProductDetailComponent implements OnInit {
 
     response = this.cartService.addCart(this.cartInput);
     if (response.code == CodeConstants.CODE_SUCCESS) {
-      alert("Thêm thành công sản phẩm vào giỏ hàng");
-      window.scroll(0,0);
+      this.loadCart();
+
     } else {
-      alert("Thêm không thành công sản phẩm vào giỏ hàng");
     }
-    this.router.navigateByUrl(UrlConstants.CART_URL);
   }
 
   addToCart(product: Product) {
@@ -102,17 +115,29 @@ export class ProductDetailComponent implements OnInit {
     response = this.cartService.addCart(this.cartInput);
 
     if (response.code == CodeConstants.CODE_SUCCESS) {
-      alert("Thêm thành công sản phẩm vào giỏ hàng");
-      window.scroll(0,0);
+      this.loadCart();
     } else {
       alert("Thêm không thành công sản phẩm vào giỏ hàng");
     }
-    this.router.navigateByUrl(UrlConstants.CART_URL);
   }
 
   productDetail(product: Product) {
-    window.scroll(0,0);
+    window.scroll(0, 0);
     this.product = product;
+    this.loadListProduct(this.product.category.id);
     this.router.navigateByUrl(UrlConstants.PRODUCT_URL + product.id);
+  }
+
+  loadCart() {
+    this.sharingDate.changeCarts(JSON.parse(sessionStorage.getItem(Constant.CART_SESSION)));
+  }
+
+  confirmDialog(title: string, message: string, textYes: string, textNo: string, urlYes: string, urlNo: string) {
+    const dialogData = new ConfirmDialogModel(title, message, textYes, textNo, urlYes, urlNo);
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: "500px",
+      data: dialogData,
+    });
   }
 }

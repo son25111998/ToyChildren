@@ -5,7 +5,14 @@ import java.util.List;
 
 import org.springframework.util.ObjectUtils;
 
+<<<<<<< HEAD
 import com.ncs.model.entity.OrderDetail;
+=======
+import com.ncs.model.entity.Coupon;
+import com.ncs.model.entity.OrderDetail;
+import com.ncs.model.entity.Shipping;
+import com.ncs.model.entity.Tax;
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderOutput {
 	private int orderId;
+<<<<<<< HEAD
 	private int status;
 	private int sale;
 	private int shippingCost;
@@ -43,6 +51,24 @@ public class OrderOutput {
 
 	public int getMoney() {
 		int sum = 0;
+=======
+	private String customerName;
+	private Date createDate;
+	private String phone;
+	private List<OrderDetail> orderDetails;
+	private int payment;
+	private Shipping shipping;
+	private Tax tax;
+	private Coupon counpon;
+	private int status;
+
+	@SuppressWarnings("unused")
+	private int money;
+
+	public int getMoney() {
+		int sum = 0;
+		int result;
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		if (ObjectUtils.isEmpty(orderDetails))
 			return 0;
 
@@ -51,7 +77,16 @@ public class OrderOutput {
 					* orderDetail.getQuantity();
 		}
 
+<<<<<<< HEAD
 		return (sum - sale - shippingCost - Math.round(sum * taxPercentage/100));
+=======
+		result = (sum - counpon.getSale() - shipping.getCost() - Math.round(sum * tax.getPercentage() / 100));
+
+		if (result < 0)
+			result = 0;
+		
+		return result;
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	}
 
 }

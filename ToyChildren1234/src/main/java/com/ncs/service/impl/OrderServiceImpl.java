@@ -10,25 +10,44 @@ import org.springframework.stereotype.Service;
 
 import com.ncs.entity.OrderDetailEntity;
 import com.ncs.entity.OrderEntity;
+<<<<<<< HEAD
 import com.ncs.entity.ProductEntity;
+=======
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 import com.ncs.repository.OrderDetailRepository;
 import com.ncs.repository.OrderRepository;
 import com.ncs.service.OrderService;
 import com.ncs.specifications.OderSpecifications;
+<<<<<<< HEAD
 @Service
 public class OrderServiceImpl implements OrderService{
+=======
+
+@Service
+public class OrderServiceImpl implements OrderService {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 
 	@Autowired
 	private OrderRepository orderRepository;
 	@Autowired
 	private OrderDetailRepository orderDetailRepository;
+<<<<<<< HEAD
 	
 	private Logger log = Logger.getLogger(OrderServiceImpl.class);
+=======
+
+	private Logger log = Logger.getLogger(OrderServiceImpl.class);
+
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	@Override
 	public Page<OrderEntity> findPaging(Pageable pageable) {
 		try {
 			return orderRepository.findAll(pageable);
+<<<<<<< HEAD
 		}catch(Exception e) {
+=======
+		} catch (Exception e) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 			e.printStackTrace();
 			log.error(e.getMessage());
 		}
@@ -56,7 +75,11 @@ public class OrderServiceImpl implements OrderService{
 	public List<OrderEntity> findAll() {
 		try {
 			return orderRepository.findAll();
+<<<<<<< HEAD
 		}catch(Exception e) {
+=======
+		} catch (Exception e) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 			e.printStackTrace();
 			log.error(e.getMessage());
 		}
@@ -69,7 +92,11 @@ public class OrderServiceImpl implements OrderService{
 		try {
 			order = orderRepository.findById(id);
 		} catch (Exception e) {
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 			log.error(e.getMessage());
 		}
 		return order;
@@ -108,7 +135,11 @@ public class OrderServiceImpl implements OrderService{
 	public Page<OrderEntity> searchAllOrder(String name, String status, Pageable pageable) {
 		try {
 			return orderRepository.findAllOrder(name, status, pageable);
+<<<<<<< HEAD
 		}catch(Exception e) {
+=======
+		} catch (Exception e) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 			e.printStackTrace();
 			log.error(e.getMessage());
 		}
@@ -119,7 +150,11 @@ public class OrderServiceImpl implements OrderService{
 	public Page<OrderEntity> searchNameOrder(String name, Pageable pageable) {
 		try {
 			return orderRepository.findNameOrder(name, pageable);
+<<<<<<< HEAD
 		}catch(Exception e) {
+=======
+		} catch (Exception e) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 			e.printStackTrace();
 			log.error(e.getMessage());
 		}

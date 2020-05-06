@@ -19,12 +19,16 @@ import com.ncs.dao.ProductDao;
 import com.ncs.model.entity.Product;
 import com.ncs.model.output.GetListProductOutput;
 import com.ncs.model.output.Pagination;
+<<<<<<< HEAD:ToyChildrenClient/src/main/java/com/ncs/serviceclient/ProductService.java
 import com.ncs.repositoryclient.ProductRepository;
+=======
+import com.ncs.repositoryclient.ProductClientRepository;
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1:ToyChildren1234/src/main/java/com/ncs/serviceclient/ProductService.java
 
 @Service
 public class ProductService {
 	@Autowired
-	private ProductRepository productRepository;
+	private ProductClientRepository productRepository;
 
 	@Autowired
 	private ProductDao productDao;

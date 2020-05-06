@@ -41,13 +41,22 @@ public class ActionHistoryResource {
 	@Autowired
 	private ActionHistoryService actionHistoryService;
 
+<<<<<<< HEAD
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+	@RequestMapping(value = "", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody Page<AmActionHistory> findAll(Pageable pageable) {
 		return actionHistoryService.findAll(pageable);
 	}
 
+<<<<<<< HEAD
 	@PostMapping(value = "/search", consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+	@PostMapping(value = "/search", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody
 	ResponseData<Page<AmActionHistory>> search(@RequestBody ActionHistoryDTO actionHistory, Pageable pageable) {
 		ResponseData<Page<AmActionHistory>> response = new ResponseData<>();
@@ -93,7 +102,11 @@ public class ActionHistoryResource {
 		return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+<<<<<<< HEAD
 	@GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+	@GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody ResponseData<AmActionHistory> findOne(@PathVariable("id") Integer id) {
 		ResponseData<AmActionHistory> response = new ResponseData<>();
 
@@ -132,7 +145,11 @@ public class ActionHistoryResource {
 		return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+<<<<<<< HEAD
 	@DeleteMapping(value = "/delete-multiple/{entityIds}", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+	@DeleteMapping(value = "/delete-multiple/{entityIds}", produces = { MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody ResponseData<Integer> deleteMultiple(@PathVariable("entityIds") Integer[] entityIds) {
 		ResponseData<Integer> response = new ResponseData<>();
 

@@ -47,7 +47,11 @@ public class CategoryResource {
 	private ProductService productService;
 
 	@GetMapping(value = "/category-management/managed-category/search/{name}/{status}", produces = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+			MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody
 	ResponseData<Page<CategoryEntity>> searchAllCategory(@PathVariable String name,
 															  @PathVariable String status, Pageable pageable) {
@@ -72,7 +76,11 @@ public class CategoryResource {
 
 
 	@GetMapping(value = "/category-management/managed-category/search-name/{name}", produces = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+			MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody
 	ResponseData<Page<CategoryEntity>> searchNameCategory(@PathVariable String name,
                                                                Pageable pageable) {
@@ -96,7 +104,11 @@ public class CategoryResource {
 	}
     //testok
 //	@GetMapping(value = "/category-management/managed-category/search-status/{status}", produces = {
+<<<<<<< HEAD
 //			MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+//			MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 //	public @ResponseBody
 //	ResponseData<Page<CategoryEntity>> searchStatusProduct(@PathVariable String status,
 //                                                                 Pageable pageable) {
@@ -120,7 +132,11 @@ public class CategoryResource {
 //	}
 	//testok
 	//select page db in amphitheater
+<<<<<<< HEAD
 	@GetMapping(value = "/category-management/managed-category", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+	@GetMapping(value = "/category-management/managed-category", produces = { MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody
 	ResponseData<Page<CategoryEntity>> getAllCategory(Pageable pageable) {
 		ResponseData<Page<CategoryEntity>> response = new ResponseData<>();
@@ -144,7 +160,11 @@ public class CategoryResource {
     //testok
 	//create new Amphitheater
 	@PostMapping(value = "/category-management/managed-category", consumes = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody
 	ResponseData<Integer> create(@RequestBody CategoryEntity categorys) {
 		ResponseData<Integer> response = new ResponseData<>();
@@ -185,7 +205,11 @@ public class CategoryResource {
 
 		return response;
 	}
+<<<<<<< HEAD
 	@GetMapping(value = "/category-management/managed-category/all", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+	@GetMapping(value = "/category-management/managed-category/all", produces = { MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody
 	ResponseData<List<CategoryEntity>> getListCategory() {
 		ResponseData<List<CategoryEntity>> response = new ResponseData<>();
@@ -208,7 +232,11 @@ public class CategoryResource {
 	}
 
 	@GetMapping(value = "/category-management/managed-category/find-id/{id}", produces = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+			MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody
 	ResponseData<CategoryEntity> findOne(@PathVariable("id") int id) {
 		ResponseData<CategoryEntity> response = new ResponseData<>();
@@ -234,7 +262,11 @@ public class CategoryResource {
 	 * update
 	 */
 	@PutMapping(value = "/category-management/managed-category", consumes = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody
 	ResponseData<Integer> update(@RequestBody CategoryEntity categorys) {
 		ResponseData<Integer> response = new ResponseData<>();
@@ -283,7 +315,11 @@ public class CategoryResource {
 	 * delete by id
 	 */
 	@DeleteMapping(value = "/category-management/managed-category/delete/{id}", consumes = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody
 	ResponseData<Integer> delete(@PathVariable("id") int id) {
 		ResponseData<Integer> response = new ResponseData<>();
@@ -306,7 +342,11 @@ public class CategoryResource {
 	 * delete multiple
 	 */
 	@DeleteMapping(value = "/category-management/managed-category/delete-multiple/{entityids}", consumes = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody
 	ResponseData<Integer> deleteMultiple(@PathVariable("entityids") int[] entityIds) {
 		ResponseData<Integer> response = new ResponseData<>();
@@ -352,7 +392,11 @@ public class CategoryResource {
 
 	// tim kiem
 	@PostMapping(value = "/category-management/managed-category/advance-search", consumes = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody
 	ResponseData<Page<CategoryEntity>> search(@RequestBody CategoryEntity category,
                                                Pageable pageable) {

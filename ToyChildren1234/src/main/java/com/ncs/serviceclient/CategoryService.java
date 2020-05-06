@@ -20,8 +20,18 @@ import com.ncs.model.entity.Product;
 import com.ncs.model.output.GetListProductOutput;
 import com.ncs.model.output.ListMenuOutput;
 import com.ncs.model.output.Pagination;
+<<<<<<< HEAD
 import com.ncs.repositoryclient.CategoryClientRepository;
 import com.ncs.repositoryclient.ProductClientRepository;
+=======
+<<<<<<< HEAD:ToyChildrenClient/src/main/java/com/ncs/serviceclient/CategoryService.java
+import com.ncs.repositoryclient.CategoryRepository;
+import com.ncs.repositoryclient.ProductRepository;
+=======
+import com.ncs.repositoryclient.CategoryClientRepository;
+import com.ncs.repositoryclient.ProductClientRepository;
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1:ToyChildren1234/src/main/java/com/ncs/serviceclient/CategoryService.java
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 
 @Service
 public class CategoryService {

@@ -20,22 +20,29 @@ import com.ncs.model.entity.Coupon;
 import com.ncs.model.entity.Customer;
 import com.ncs.model.entity.Order;
 import com.ncs.model.entity.OrderDetail;
+import com.ncs.model.entity.Product;
 import com.ncs.model.entity.Shipping;
 import com.ncs.model.entity.Tax;
 import com.ncs.model.input.PayInput;
 import com.ncs.repositoryclient.CouponRepository;
 import com.ncs.repositoryclient.CustomerRepository;
+<<<<<<< HEAD:ToyChildrenClient/src/main/java/com/ncs/serviceclient/PayService.java
 import com.ncs.repositoryclient.OrderDetailRepository;
 import com.ncs.repositoryclient.OrderRepository;
+=======
+import com.ncs.repositoryclient.OrderClientRepository;
+import com.ncs.repositoryclient.OrderDetailClientRepository;
+import com.ncs.repositoryclient.ProductClientRepository;
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1:ToyChildren1234/src/main/java/com/ncs/serviceclient/PayService.java
 import com.ncs.repositoryclient.ShippingRepository;
 import com.ncs.repositoryclient.TaxRepository;
 
 @Service
 public class PayService {
 	@Autowired
-	private OrderRepository orderRepository;
+	private OrderClientRepository orderRepository;
 	@Autowired
-	private OrderDetailRepository orderDetailRepository;
+	private OrderDetailClientRepository orderDetailRepository;
 	@Autowired
 	private ShippingRepository shippingRepository;
 	@Autowired
@@ -44,6 +51,8 @@ public class PayService {
 	private TaxRepository taxRepository;
 	@Autowired
 	private CustomerRepository customerRepository;
+	@Autowired
+	private ProductClientRepository productRepository;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 	private static final String COUPON_FILED = "Mã giảm giá";
@@ -71,7 +80,7 @@ public class PayService {
 			int shippingId = input.getShippingId();
 			int couponId = input.getCouponId();
 			int taxId = input.getTaxId();
-			String payment = input.getPayment();
+			int payment = input.getPayment();
 			carts = input.getCarts();
 
 			// get data in db
@@ -129,6 +138,7 @@ public class PayService {
 			// save cart in db
 			for (CartDto cart : carts) {
 				OrderDetail orderDetail = new OrderDetail();
+				Product product = cart.getProduct();
 
 				// set data in order detail
 				orderDetail.setOrder(order);
@@ -136,11 +146,15 @@ public class PayService {
 				orderDetail.setQuantity(cart.getQuantity());
 
 				// save order detail in db
-				OrderDetail detail = orderDetailRepository.save(orderDetail);
+				LOGGER.info("Order detail : {}", orderDetailRepository.save(orderDetail));
 
-				LOGGER.info("Order detail : {}", detail);
-				request.getSession().removeAttribute(Constants.CART_SESSION);
+				// update amount product
+				product.setAmount(product.getAmount() - cart.getQuantity());
+
+				LOGGER.info("Product update: {}", productRepository.save(product));
 			}
+			response.setCode(Constants.SUCCESS_CODE);
+			response.setMessage(Constants.SUCCESS_MSG);
 		} catch (Exception e) {
 			LOGGER.error("Api pay has exception : {}", e.getMessage());
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);

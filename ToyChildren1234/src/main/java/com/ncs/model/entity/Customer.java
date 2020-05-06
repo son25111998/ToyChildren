@@ -35,7 +35,11 @@ public class Customer implements Serializable {
 	private String lastName;
 
 	@Column
+<<<<<<< HEAD
 	private Integer gendr;
+=======
+	private int gendr;
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 
 	@Column(name = "BIRTH_DAY")
 	private Date birthDay;
@@ -46,4 +50,11 @@ public class Customer implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "ACCOUNT_ID")
 	private Account account;
+<<<<<<< HEAD
+=======
+	
+	@ManyToOne
+	@JoinColumn(name = "ADDRESS_ID")
+	private Address address;
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 }

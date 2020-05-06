@@ -17,12 +17,23 @@ import com.ncs.entity.AmActionHistory;
  * @author SonHD
  * @created 15/09/2017
  * 
+<<<<<<< HEAD
  * @modified 
  * @modifier 
  */
 public class ActionHistorySpecifications {
 	public static Specification<AmActionHistory> advanceFilter(AmActionHistory actionHistory, Date startDate, Date endDate) {
 		return new Specification<AmActionHistory>() {
+=======
+ * @modified
+ * @modifier
+ */
+public class ActionHistorySpecifications {
+	public static Specification<AmActionHistory> advanceFilter(AmActionHistory actionHistory, Date startDate,
+			Date endDate) {
+		return new Specification<AmActionHistory>() {
+			private static final long serialVersionUID = 1L;
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 
 			@Override
 			public Predicate toPredicate(Root<AmActionHistory> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
@@ -80,7 +91,11 @@ public class ActionHistorySpecifications {
 					obj = cb.lessThanOrEqualTo(root.get("dateAction"), endDate);
 					predicateList.add(obj);
 				}
+<<<<<<< HEAD
 				
+=======
+
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 				query.orderBy(cb.desc(root.get("id")));
 				return cb.and(predicateList.toArray(new Predicate[predicateList.size()]));
 			}

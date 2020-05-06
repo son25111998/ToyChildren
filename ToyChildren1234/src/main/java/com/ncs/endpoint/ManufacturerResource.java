@@ -23,7 +23,10 @@ import com.ncs.common.constants.CommonConstants;
 import com.ncs.common.constants.Constants;
 import com.ncs.common.util.Result;
 import com.ncs.entity.AmActionHistory;
+<<<<<<< HEAD
 import com.ncs.entity.CategoryEntity;
+=======
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 import com.ncs.entity.ManufacturerEntity;
 import com.ncs.entity.ProductEntity;
 import com.ncs.service.ActionHistoryService;
@@ -42,10 +45,16 @@ public class ManufacturerResource {
 	private ActionHistoryService actionHistoryService;
 
 	@GetMapping(value = "/manufacturer-management/managed-manufacturer/search/{name}/{status}", produces = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<Page<ManufacturerEntity>> searchAllManufacturer(@PathVariable String name,
 															  @PathVariable String status, Pageable pageable) {
+=======
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<Page<ManufacturerEntity>> searchAllManufacturer(@PathVariable String name,
+			@PathVariable String status, Pageable pageable) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<Page<ManufacturerEntity>> response = new ResponseData<>();
 
 		Page<ManufacturerEntity> manufacturers = null;
@@ -65,12 +74,19 @@ public class ManufacturerResource {
 		return response;
 	}
 
+<<<<<<< HEAD
 
 	@GetMapping(value = "/manufacturer-management/managed-manufacturer/search-name/{name}", produces = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<Page<ManufacturerEntity>> searchNameManufacturer(@PathVariable String name,
                                                                Pageable pageable) {
+=======
+	@GetMapping(value = "/manufacturer-management/managed-manufacturer/search-name/{name}", produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<Page<ManufacturerEntity>> searchNameManufacturer(@PathVariable String name,
+			Pageable pageable) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<Page<ManufacturerEntity>> response = new ResponseData<>();
 
 		Page<ManufacturerEntity> manufacturers = null;
@@ -89,9 +105,16 @@ public class ManufacturerResource {
 
 		return response;
 	}
+<<<<<<< HEAD
     //testok
 //	@GetMapping(value = "/manufacturer-management/managed-manufacturer/search-status/{status}", produces = {
 //			MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+
+	// testok
+//	@GetMapping(value = "/manufacturer-management/managed-manufacturer/search-status/{status}", produces = {
+//			MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 //	public @ResponseBody
 //	ResponseData<Page<ManufacturerEntity>> searchStatusProduct(@PathVariable String status,
 //                                                                 Pageable pageable) {
@@ -113,11 +136,19 @@ public class ManufacturerResource {
 //
 //		return response;
 //	}
+<<<<<<< HEAD
 	//testok
 	//select page db in amphitheater
 	@GetMapping(value = "/manufacturer-management/managed-manufacturer", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<Page<ManufacturerEntity>> getAllManufacturer(Pageable pageable) {
+=======
+	// testok
+	// select page db in amphitheater
+	@GetMapping(value = "/manufacturer-management/managed-manufacturer", produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<Page<ManufacturerEntity>> getAllManufacturer(Pageable pageable) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<Page<ManufacturerEntity>> response = new ResponseData<>();
 
 		Page<ManufacturerEntity> manufacturers = null;
@@ -136,12 +167,21 @@ public class ManufacturerResource {
 
 		return response;
 	}
+<<<<<<< HEAD
     //testok
 	//create new Amphitheater
 	@PostMapping(value = "/manufacturer-management/managed-manufacturer", consumes = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<Integer> create(@RequestBody ManufacturerEntity manufacturers) {
+=======
+
+	// testok
+	// create new Amphitheater
+	@PostMapping(value = "/manufacturer-management/managed-manufacturer", consumes = {
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<Integer> create(@RequestBody ManufacturerEntity manufacturers) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<Integer> response = new ResponseData<>();
 		try {
 			if (manufacturerService.create(manufacturers) == Constants.SUCCESS_CODE_FIELD_UNEXIST) {
@@ -152,7 +192,10 @@ public class ManufacturerResource {
 				actionHistory.setModule(CommonConstants.ACTION_HISTORY_MODULE.CATEGORY.MANUFACTURER);
 				actionHistory.setRecordId(manufacturers.getId() + "");
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 				actionHistory.setManufacturer(manufacturers.getName());
 				actionHistory.setUserName(CommonConstants.DEFAULT_USER);
 				actionHistory.setManipulation("Tạo mới nhà sản xuất");
@@ -169,8 +212,12 @@ public class ManufacturerResource {
 			// TODO: handle exception
 			if (response.getData() == Constants.CAUTION_CODE_FIELD_EXISTED) {
 				response.setCode(Constants.ERR_CODE_BAD_REQUEST);
+<<<<<<< HEAD
 				response.setMessage(
 						Constants.MSG_CAUTION + Result.CODE_IS_EXISTED.getMessage());
+=======
+				response.setMessage(Constants.MSG_CAUTION + Result.CODE_IS_EXISTED.getMessage());
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 			} else {
 				response.setData(0);
 				response.setCode(Constants.ERR_CODE_BAD_REQUEST);
@@ -180,11 +227,20 @@ public class ManufacturerResource {
 
 		return response;
 	}
+<<<<<<< HEAD
     //test ok
 	// get all list Amphitheater
 	@GetMapping(value = "/manufacturer-management/managed-manufacturer/all", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<List<ManufacturerEntity>> getListManufacturer() {
+=======
+
+	// test ok
+	// get all list Amphitheater
+	@GetMapping(value = "/manufacturer-management/managed-manufacturer/all", produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<List<ManufacturerEntity>> getListManufacturer() {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<List<ManufacturerEntity>> response = new ResponseData<>();
 
 		List<ManufacturerEntity> manufacturers = null;
@@ -205,9 +261,14 @@ public class ManufacturerResource {
 	}
 
 	@GetMapping(value = "/manufacturer-management/managed-manufacturer/find-id/{id}", produces = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<ManufacturerEntity> findOne(@PathVariable("id") int id) {
+=======
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<ManufacturerEntity> findOne(@PathVariable("id") int id) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<ManufacturerEntity> response = new ResponseData<>();
 
 		ManufacturerEntity manufacturers = null;
@@ -231,9 +292,14 @@ public class ManufacturerResource {
 	 * update
 	 */
 	@PutMapping(value = "/manufacturer-management/managed-manufacturer", consumes = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<Integer> update(@RequestBody ManufacturerEntity manufacturers) {
+=======
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<Integer> update(@RequestBody ManufacturerEntity manufacturers) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ManufacturerEntity oldData = manufacturerService.findOne(manufacturers.getId());
 		String dataSave = oldData.toString();
 		ResponseData<Integer> response = new ResponseData<>();
@@ -246,7 +312,10 @@ public class ManufacturerResource {
 				actionHistory.setModule(CommonConstants.ACTION_HISTORY_MODULE.CATEGORY.MANUFACTURER);
 				actionHistory.setRecordId(manufacturers.getId() + "");
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 				actionHistory.setManufacturer(manufacturers.getName());
 				actionHistory.setUserName(CommonConstants.DEFAULT_USER);
 				actionHistory.setManipulation("chỉnh sửa nhà sản xuất");
@@ -265,8 +334,12 @@ public class ManufacturerResource {
 			// TODO: handle exception
 			if (response.getData() == Constants.CAUTION_CODE_FIELD_EXISTED) {
 				response.setCode(Constants.ERR_CODE_BAD_REQUEST);
+<<<<<<< HEAD
 				response.setMessage(
 						Constants.MSG_CAUTION + Result.CODE_IS_EXISTED.getMessage());
+=======
+				response.setMessage(Constants.MSG_CAUTION + Result.CODE_IS_EXISTED.getMessage());
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 			} else {
 				response.setData(0);
 				response.setCode(Constants.ERR_CODE_BAD_REQUEST);
@@ -281,9 +354,14 @@ public class ManufacturerResource {
 	 * delete by id
 	 */
 	@DeleteMapping(value = "/manufacturer-management/managed-manufacturer/delete/{id}", consumes = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<Integer> delete(@PathVariable("id") int id) {
+=======
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<Integer> delete(@PathVariable("id") int id) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<Integer> response = new ResponseData<>();
 
 		int result = manufacturerService.delete(id);
@@ -304,9 +382,14 @@ public class ManufacturerResource {
 	 * delete multiple
 	 */
 	@DeleteMapping(value = "/manufacturer-management/managed-manufacturer/delete-multiple/{entityids}", consumes = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<Integer> deleteMultiple(@PathVariable("entityids") int[] entityIds) {
+=======
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<Integer> deleteMultiple(@PathVariable("entityids") int[] entityIds) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<Integer> response = new ResponseData<>();
 
 		List<ManufacturerEntity> manufacturers = new ArrayList<ManufacturerEntity>();
@@ -318,6 +401,7 @@ public class ManufacturerResource {
 			productEntity = productService.getListManufacturer(manufacturers.get(i).getId());
 		}
 		if (productEntity.size() == 0) {
+<<<<<<< HEAD
 		int result = manufacturerService.deleteAllBatch(manufacturers);
 		if (result == 1) {
 			for (ManufacturerEntity item : manufacturers) {
@@ -337,6 +421,27 @@ public class ManufacturerResource {
 			response.setCode(Constants.SUCCESS_CODE);
 			response.setMessage(Constants.SUCCESS_MSG);
 		}
+=======
+			int result = manufacturerService.deleteAllBatch(manufacturers);
+			if (result == 1) {
+				for (ManufacturerEntity item : manufacturers) {
+					AmActionHistory actionHistory = new AmActionHistory();
+					actionHistory.setAction(CommonConstants.ACTION_HISTORY_ACTION.DELETED);
+					actionHistory.setModule(CommonConstants.ACTION_HISTORY_MODULE.CATEGORY.MANUFACTURER);
+					actionHistory.setRecordId(item.getId() + "");
+					actionHistory.setManufacturer(item.getName());
+					actionHistory.setManipulation("Xóa nhà sản xuất");
+					actionHistory.setDetailAction(item.toString());
+					actionHistory.setUserName(CommonConstants.DEFAULT_USER);
+					actionHistory.setStatus(CommonConstants.STATUS_HISTORY.DELETE);
+					actionHistoryService.createActionHistoryItem(actionHistory);
+
+				}
+				response.setData(result);
+				response.setCode(Constants.SUCCESS_CODE);
+				response.setMessage(Constants.SUCCESS_MSG);
+			}
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		} else {
 			response.setData(0);
 			response.setCode(Constants.ERR_CODE_BAD_REQUEST);
@@ -345,6 +450,7 @@ public class ManufacturerResource {
 		return response;
 	}
 
+<<<<<<< HEAD
 
 
 	// tim kiem
@@ -353,6 +459,13 @@ public class ManufacturerResource {
 	public @ResponseBody
 	ResponseData<Page<ManufacturerEntity>> search(@RequestBody ManufacturerEntity manufacturer,
                                                Pageable pageable) {
+=======
+	// tim kiem
+	@PostMapping(value = "/manufacturer-management/managed-manufacturer/advance-search", consumes = {
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<Page<ManufacturerEntity>> search(@RequestBody ManufacturerEntity manufacturer,
+			Pageable pageable) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<Page<ManufacturerEntity>> response = new ResponseData<>();
 
 		Page<ManufacturerEntity> manufacturers = null;

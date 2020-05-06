@@ -16,7 +16,11 @@
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
+<<<<<<< HEAD
 		<java.version>1.8</java.version>
+=======
+		<java.version>11</java.version>
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	</properties>
 
 	<dependencies>
@@ -27,7 +31,10 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+<<<<<<< HEAD
 			<version>8.0.13</version>
+=======
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
@@ -80,6 +87,15 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+<<<<<<< HEAD
+=======
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	</dependencies>
 
 	<build>

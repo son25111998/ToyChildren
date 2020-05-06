@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+<<<<<<< HEAD
 import com.ncs.entity.OrderDetailEntity;
 import com.ncs.entity.OrderEntity;;
 
@@ -27,4 +28,25 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, 
 	// List<OrderDetailEntity> findByOderId(int oderId);
     Page<OrderDetailEntity> findAll(Specification<OrderDetailEntity> advanceFilter,Pageable pagerable);
     List<OrderDetailEntity> findByOrderId(int orderId);
+=======
+import com.ncs.entity.OrderDetailEntity;;
+
+public interface OrderDetailRepository
+		extends JpaRepository<OrderDetailEntity, Integer>, JpaSpecificationExecutor<OrderDetailEntity> {
+	@Query(value = "SELECT * FROM order_detail WHERE name_oder LIKE %:name% AND statuss LIKE %:status%", nativeQuery = true)
+	Page<OrderDetailEntity> findAllOrder(@Param("name") String name, @Param("status") String status, Pageable pageable);
+
+	@Query(value = "SELECT * FROM order_detail WHERE name_oder  LIKE %:name%", nativeQuery = true)
+	Page<OrderDetailEntity> findNameOrder(@Param("name") String name, Pageable pageable);
+
+	@Query(value = "SELECT * FROM order_detail WHERE statuss LIKE %:status%", nativeQuery = true)
+	Page<OrderDetailEntity> findStatusOrder(@Param("status") String status, Pageable pageable);
+
+	OrderDetailEntity findById(int id);
+
+	// List<OrderDetailEntity> findByOderId(int oderId);
+	Page<OrderDetailEntity> findAll(Specification<OrderDetailEntity> advanceFilter, Pageable pagerable);
+
+	List<OrderDetailEntity> findByOrderId(int orderId);
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 }

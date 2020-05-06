@@ -41,7 +41,11 @@ public class Account implements Serializable {
 	private Date lastAccess;
 
 	@Column
+<<<<<<< HEAD
 	private Byte active;
+=======
+	private int active;
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 
 	@ManyToOne
 	@JoinColumn(name = "ROLE_ID")

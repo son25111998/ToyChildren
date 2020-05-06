@@ -9,6 +9,7 @@ import { Constant } from '../../utils/constant';
 import { Router } from '@angular/router';
 import { UrlConstants } from '../../utils/url.constants';
 import { CodeConstants } from '../../utils/code.constants';
+import { SharingDataService } from '../../services/sharing-data.service';
 
 declare var $: any;
 
@@ -28,7 +29,8 @@ export class HeaderComponent implements OnInit {
     private categoryService: CategoryService,
     private cartService: CartService,
     private accountService: AccountService,
-    private router: Router
+    private router: Router,
+    private sharingDate: SharingDataService
   ) { }
 
   ngOnInit(): void {
@@ -44,7 +46,7 @@ export class HeaderComponent implements OnInit {
   }
 
   loadCart() {
-    this.carts = this.cartService.getCart();
+    this.sharingDate.currentCarts.subscribe(data => this.carts = data);
   }
 
   loadCustomer() {

@@ -20,7 +20,10 @@ public class Coupon implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
 	@Column(name = "ID")
+=======
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	private int id;
 
 	@Column

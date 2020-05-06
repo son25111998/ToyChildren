@@ -23,14 +23,18 @@ import com.ncs.model.entity.Account;
 import com.ncs.model.entity.Customer;
 import com.ncs.model.entity.Role;
 import com.ncs.model.input.AccountInput;
+<<<<<<< HEAD:ToyChildrenClient/src/main/java/com/ncs/serviceclient/AccountService.java
 import com.ncs.repositoryclient.AccountRepository;
+=======
+import com.ncs.repositoryclient.AccountClientRepository;
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1:ToyChildren1234/src/main/java/com/ncs/serviceclient/AccountService.java
 import com.ncs.repositoryclient.CustomerRepository;
 import com.ncs.repositoryclient.RoleRepository;
 
 @Service
 public class AccountService {
 	@Autowired
-	private AccountRepository accountRepository;
+	private AccountClientRepository accountRepository;
 
 	@Autowired
 	private CustomerRepository customerRepository;

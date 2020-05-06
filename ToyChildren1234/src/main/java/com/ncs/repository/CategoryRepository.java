@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 package com.ncs.repository;
+=======
+package com.ncs.repositoryclient;
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

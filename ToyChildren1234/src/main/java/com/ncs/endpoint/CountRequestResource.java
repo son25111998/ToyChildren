@@ -24,7 +24,11 @@ public class CountRequestResource {
 	@Autowired
 	private CountRequestService countRequestService;
 	@GetMapping(value = "/countrequest-management/managed-countrequest/find-id/{id}", produces = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+			MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody
 	ResponseData<CountResquest> findOne(@PathVariable("id") int id) {
 		ResponseData<CountResquest> response = new ResponseData<>();
@@ -46,7 +50,11 @@ public class CountRequestResource {
 		return response;
 	}
 	@PostMapping(value = "/countrequest-management/managed-countrequest", consumes = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody
 	ResponseData<Integer> create(@RequestBody CountResquest countResquest) {
 		ResponseData<Integer> response = new ResponseData<>();

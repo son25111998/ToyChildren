@@ -33,7 +33,11 @@ public class PublicApiProduct {
 	@Autowired
 	private CategoryService categoryService;
 
+<<<<<<< HEAD
 	@GetMapping(value = "/product-management/managed-product", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+	@GetMapping(value = "/product-management/managed-product", produces = { MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody ResponseData<Page<ProductEntity>> getAllProduct(Pageable pageable) {
 		ResponseData<Page<ProductEntity>> response = new ResponseData<>();
 
@@ -54,7 +58,11 @@ public class PublicApiProduct {
 		return response;
 	}
 
+<<<<<<< HEAD
 	@GetMapping(value = "/product-management/managed-product/all", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+	@GetMapping(value = "/product-management/managed-product/all", produces = { MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody ResponseData<List<ProductEntity>> getAllProduct() {
 		ResponseData<List<ProductEntity>> response = new ResponseData<>();
 
@@ -76,7 +84,11 @@ public class PublicApiProduct {
 	}
 
 	@GetMapping(value = "/product-management/managed-product/find-id/{id}", produces = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+			MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody ResponseData<ProductEntity> findOne(@PathVariable("id") int id) {
 		ResponseData<ProductEntity> response = new ResponseData<>();
 
@@ -98,7 +110,11 @@ public class PublicApiProduct {
 	}
 
 	@GetMapping(value = "/product-management/managed-product/sort-price", produces = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+			MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody ResponseData<Page<ProductEntity>> getListProductByPrice(Pageable pageable) {
 		ResponseData<Page<ProductEntity>> response = new ResponseData<>();
 
@@ -120,7 +136,11 @@ public class PublicApiProduct {
 	}
 
 	@GetMapping(value = "/product-management/managed-product/sort-price/asc", produces = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+			MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody ResponseData<Page<ProductEntity>> getListProductByPriceAsc(Pageable pageable) {
 		ResponseData<Page<ProductEntity>> response = new ResponseData<>();
 
@@ -142,9 +162,14 @@ public class PublicApiProduct {
 	}
 
 	@PostMapping(value = "/product-management/managed-product/advance-search", consumes = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody ResponseData<List<ProductEntity>> search(@RequestBody ProductEntity product
 			 ) {
+=======
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<List<ProductEntity>> search(@RequestBody ProductEntity product) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<List<ProductEntity>> response = new ResponseData<>();
 
 		List<ProductEntity> products = null;
@@ -174,7 +199,11 @@ public class PublicApiProduct {
 	}
 
 	@GetMapping(value = "/manufacturer-management/managed-manufacturer/all", produces = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+			MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody ResponseData<List<ManufacturerEntity>> getListManufacturer() {
 		ResponseData<List<ManufacturerEntity>> response = new ResponseData<>();
 
@@ -195,8 +224,12 @@ public class PublicApiProduct {
 		return response;
 	}
 
+<<<<<<< HEAD
 	@GetMapping(value = "/category-management/managed-category/all", produces = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+	@GetMapping(value = "/category-management/managed-category/all", produces = { MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody ResponseData<List<CategoryEntity>> getListCategory() {
 		ResponseData<List<CategoryEntity>> response = new ResponseData<>();
 
@@ -218,7 +251,11 @@ public class PublicApiProduct {
 	}
 
 	@GetMapping(value = "/product-management/managed-product/find-idCategory/{idCategory}", produces = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+			MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody ResponseData<List<ProductEntity>> findByCategory(@PathVariable("idCategory") int idCategory) {
 		ResponseData<List<ProductEntity>> response = new ResponseData<>();
 
@@ -237,7 +274,11 @@ public class PublicApiProduct {
 	}
 
 	@GetMapping(value = "/product-management/managed-product/find-idManufacturer/{idManufacturer}", produces = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+			MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	public @ResponseBody ResponseData<List<ProductEntity>> findByManufacturer(
 			@PathVariable("idManufacturer") int idManufacturer) {
 		ResponseData<List<ProductEntity>> response = new ResponseData<>();

@@ -9,7 +9,7 @@ li.dropdown>ul {
     border-radius: 0px;
     max-height: 480px;
     overflow: hidden;
-    left: -500%;
+    left: -400%;
     top: 100%;
 }
 
@@ -173,4 +173,50 @@ a {
 
 li.dropdown:hover ul.dropdown-menu {
     display: block;
+}
+
+.success-add-cart {
+    position: absolute;
+    width: 250px;
+    right: 0;
+    color: #24b500;
+    text-align: center;
+    opacity: 0;
+}
+
+.animation-cart-delay {
+    animation-name: cart;
+    animation-delay: 1.5s;
+    animation-duration: 2.5s;
+}
+
+.animation-cart {
+    animation-name: cart;
+    animation-duration: 2.5s;
+}
+
+@keyframes cart {
+    from {
+        top: 0px;
+        opacity: 0;
+    }
+    to {
+        top: 35px;
+        opacity: 1;
+    }
+}
+
+.total-element {
+    position: absolute;
+    top: 0px;
+    font-size: 12px;
+    font-weight: bold;
+    right: -10px;
+    background-color: #ee3e80;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 8px;
+    color: white;
 }

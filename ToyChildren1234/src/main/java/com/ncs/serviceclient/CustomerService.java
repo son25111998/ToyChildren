@@ -11,7 +11,15 @@ import com.ncs.common.ResponseData;
 import com.ncs.common.constants.Constants;
 import com.ncs.model.entity.Account;
 import com.ncs.model.entity.Customer;
+<<<<<<< HEAD
 import com.ncs.repositoryclient.AccountClientRepository;
+=======
+<<<<<<< HEAD:ToyChildrenClient/src/main/java/com/ncs/serviceclient/CustomerService.java
+import com.ncs.repositoryclient.AccountRepository;
+=======
+import com.ncs.repositoryclient.AccountClientRepository;
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1:ToyChildren1234/src/main/java/com/ncs/serviceclient/CustomerService.java
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 import com.ncs.repositoryclient.CustomerRepository;
 
 @Service

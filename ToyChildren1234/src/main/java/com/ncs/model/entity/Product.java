@@ -67,7 +67,11 @@ public class Product implements Serializable {
 	private int discount;
 
 	@ManyToOne
+<<<<<<< HEAD
 	@JoinColumn(name = "manufacturer_id")
+=======
+	@JoinColumn(name = "MANUFACTURER_ID")
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	private Manufacturer manufacturer;
 
 	@ManyToOne

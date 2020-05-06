@@ -1,15 +1,23 @@
 package com.ncs.entity;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Basic;
+<<<<<<< HEAD
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+=======
+import javax.persistence.Column;
+import javax.persistence.Entity;
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -30,13 +38,22 @@ public class ProductEntity {
 	private Date createTime;
 	private Date updateTime;
 	private Double lenght;
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	private Double width;
 	private Double height;
 	private Integer discount;
 	private Integer status;
+<<<<<<< HEAD
 	private List<ProductReviewEntity> productReviewEntities ;
 	private List<ProductAttributeEntity> productAttributeEntities ;
+=======
+	private List<ProductReviewEntity> productReviewEntities;
+	private List<ProductAttributeEntity> productAttributeEntities;
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 
 	@Id
 	@Column(name = "ID")
@@ -212,9 +229,17 @@ public class ProductEntity {
 	public List<ProductReviewEntity> getProductReviewEntities() {
 		return productReviewEntities;
 	}
+<<<<<<< HEAD
 	public void setProductReviewEntities(List<ProductReviewEntity> productReviewEntities) {
 		this.productReviewEntities = productReviewEntities;
 	}
+=======
+
+	public void setProductReviewEntities(List<ProductReviewEntity> productReviewEntities) {
+		this.productReviewEntities = productReviewEntities;
+	}
+
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	@OneToMany(mappedBy = "productEntity")
 	public List<ProductAttributeEntity> getProductAttributeEntities() {
 		return productAttributeEntities;
@@ -224,7 +249,10 @@ public class ProductEntity {
 		this.productAttributeEntities = productAttributeEntities;
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 //	@OneToMany(mappedBy = "ID", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //	private List<ProductAttributeEntity> children1 = new ArrayList<ProductAttributeEntity>();
 
@@ -245,9 +273,12 @@ public class ProductEntity {
 				&& Objects.equals(discount, that.discount) && Objects.equals(status, that.status);
 	}
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, name, description, thumbai, price, amount, updatedBy, createdBy, manufacturerId,

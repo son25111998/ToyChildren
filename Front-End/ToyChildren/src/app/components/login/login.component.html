@@ -1,27 +1,28 @@
-<div>
+<div id="sys_pop_login" class="pop-login">
     <div class="viewport-pop">
         <div class="transport-viewer clearfix">
             <div class="mod-register">
-                <h3 class="rs title-mod">Hello pretty! Welcome to Couponday.com</h3>
-                <p style="color: red;" *ngIf="isError">Tên đăng nhập hoặc mật khẩu không chính xác</p>
+                <h3 class="rs title-mod">Hello pretty! Welcome to BabyShop.com</h3>
                 <div class="wrap-form-reg clearfix">
                     <form action="#">
                         <div class="left-form">
                             <label class="wrap-txt" for="sys_email">
-                                <input class="input-txt" id="sys_email" type="text" name="username" placeholder="Tên đăng nhập" [(ngModel)]="username">
+                                <input class="input-txt" id="sys_email" name="inputEmail" (change)="inputChange()" required="true"
+                                [(ngModel)]="username" type="email" placeholder="Địa chỉ email" #inputEmail>{{inputEmail.className}}
                             </label>
                             <label class="wrap-txt" for="sys_pass">
-                                <input class="input-txt" id="sys_pass" type="password" placeholder="Mật khẩu" name="password" [(ngModel)]="password">
+                                <input class="input-txt" id="sys_pass" name="inputPassword" [(ngModel)]="password" type="password" #inputPassword
+                                required="true" placeholder="Mật khẩu">{{inputPassword.className}}
                             </label>
                             <label class="wrap-check" for="sys_chk_news">
                                 <input id="sys_chk_news" class="input-chk" type="checkbox"> Remember me
-                                <i class="icon iUncheck"></i>
-                                <a class="lost-pass" href="#">Forgot password ?</a>
+                                <em class="icon iUncheck"></em>
+                                <a class="lost-pass" [routerLink]="">Quên mật khẩu?</a>
                             </label>
                             <div class="wrap-login-btn">
-                                <button class="btn-flat gr btn-submit-reg" type="submit" (click)="login()">Đăng nhập</button>
+                                <button class="btn-flat gr btn-submit-reg" (click)="login()" type="submit">Đăng nhập</button>
                                 <div class="sep-connect">
-                                    <span>Or</span>
+                                    <span style="border-radius: 3px;padding-top: 3px;padding-bottom: 2px">Or</span>
                                 </div>
                                 <div class="grp-connect">
                                     <a class="btn-flat fb" href="#">Facebook</a>
@@ -30,16 +31,55 @@
                             </div>
                         </div>
                         <div class="right-create-acc">
-                            <img class="account" src="images/reg-account.png" alt="Couponday.com">
-                            <p class="lbl-dung-lo rs">Not a member? Don’t worry</p>
-                            <a id="sys_link_reg_panel" href="register.html" class="btn-flat yellow btn-submit-reg">Create an account</a>
+                            <img class="account" src="../../../assets/images/reg-account.png" alt="BabyShop.com">
+                            <p class="lbl-dung-lo rs">Bạn chưa đăng ký?</p>
+                            <button id="sys_link_reg_panel" class="btn-flat yellow btn-submit-reg">Đăng ký</button>
                             <div id="sys_warning_sms" class="warning-sms" data-warning-txt="No spam guarantee,No disturb,Promotion News"></div>
                         </div>
                     </form>
-                    <i class="line-sep"></i>
+                    <em class="line-sep"></em>
                 </div>
             </div>
             <!--end: Login panel -->
+            <div class="mod-register">
+                <h3 class="rs title-mod">Hello pretty! Welcome to BabyShop.com</h3>
+                <div class="wrap-form-reg clearfix">
+                    <form action="#">
+                        <div class="left-form">
+                            <label class="wrap-txt" for="sys_email_reg">
+                                <input class="input-txt" id="sys_email_reg" type="email" [(ngModel)]="account.email"
+                                    placeholder="Địa chỉ email" />
+                            </label>
+                            <label class="wrap-txt" for="sys_pass_reg">
+                                <input class="input-txt" id="sys_pass_reg" type="password" [(ngModel)]="account.password"
+                                    placeholder="Mật khẩu" />
+                            </label>
+                            <button class="btn-flat yellow btn-submit-reg" (click)="_register()" type="submit">Đăng ký</button>
+                        </div>
+                        <div class="right-connect">
+                            <img src="../../../assets/images/logo-en.png" style="margin-left: 77px;max-width: 45%;padding-bottom: 33px;" alt="BabyShop.com">
+                            <div class="sep-connect">
+                                <span style="border-radius: 3px;padding-top: 3px;padding-bottom: 2px;">Or</span>
+                            </div>
+                            <div class="grp-connect">
+                                <button class="btn-flat fb">Facebook</button>
+                                <button class="btn-flat gg">Google</button>
+                            </div>
+                        </div>
+                    </form>
+                    <em _ngcontent-ymx-c51="" class="line-sep"></em>
+                </div>
+                <p class="rs wrap-link-back">
+                    <a id="sys_link_login_panel" href="login.html" class="link-back">
+                        <em class="pick-r"></em> Back to login
+                    </a>
+                </p>
+            </div>
+            <!--end: Register panel -->
+        </div>
+        <div id="sys_paging_state" class="paging-state">
+            <em class="active"></em>
+            <em></em>
         </div>
     </div>
 </div>

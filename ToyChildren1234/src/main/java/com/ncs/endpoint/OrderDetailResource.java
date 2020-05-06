@@ -30,11 +30,19 @@ import com.ncs.service.OrderDetailService;
 public class OrderDetailResource {
 	@Autowired
 	private OrderDetailService orderDetailService;
+<<<<<<< HEAD
 	@GetMapping(value = "/orderdetail-management/managed-orderdetail/search/{name}/{status}", produces = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<Page<OrderDetailEntity>> searchAllOrder(@PathVariable String name,
 															  @PathVariable String status, Pageable pageable) {
+=======
+
+	@GetMapping(value = "/orderdetail-management/managed-orderdetail/search/{name}/{status}", produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<Page<OrderDetailEntity>> searchAllOrder(@PathVariable String name,
+			@PathVariable String status, Pageable pageable) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<Page<OrderDetailEntity>> response = new ResponseData<>();
 
 		Page<OrderDetailEntity> orders = null;
@@ -54,12 +62,19 @@ public class OrderDetailResource {
 		return response;
 	}
 
+<<<<<<< HEAD
 
 	@GetMapping(value = "/orderdetail-management/managed-orderdetail/search-name/{name}", produces = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<Page<OrderDetailEntity>> searchNameOrder(@PathVariable String name,
                                                                Pageable pageable) {
+=======
+	@GetMapping(value = "/orderdetail-management/managed-orderdetail/search-name/{name}", produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<Page<OrderDetailEntity>> searchNameOrder(@PathVariable String name,
+			Pageable pageable) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<Page<OrderDetailEntity>> response = new ResponseData<>();
 
 		Page<OrderDetailEntity> orders = null;
@@ -78,9 +93,16 @@ public class OrderDetailResource {
 
 		return response;
 	}
+<<<<<<< HEAD
     //testok
 //	@GetMapping(value = "/order-management/managed-order/search-status/{status}", produces = {
 //			MediaType.APPLICATION_JSON_UTF8_VALUE })
+=======
+
+	// testok
+//	@GetMapping(value = "/order-management/managed-order/search-status/{status}", produces = {
+//			MediaType.APPLICATION_JSON_VALUE })
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 //	public @ResponseBody
 //	ResponseData<Page<OrderDetailEntity>> searchStatusProduct(@PathVariable String status,
 //                                                                 Pageable pageable) {
@@ -102,11 +124,18 @@ public class OrderDetailResource {
 //
 //		return response;
 //	}
+<<<<<<< HEAD
 	//testok
 	//select page db in amphitheater
 	@GetMapping(value = "/orderdetail-management/managed-orderdetail", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<Page<OrderDetailEntity>> getAllOrder(Pageable pageable) {
+=======
+	// testok
+	// select page db in amphitheater
+	@GetMapping(value = "/orderdetail-management/managed-orderdetail", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<Page<OrderDetailEntity>> getAllOrder(Pageable pageable) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<Page<OrderDetailEntity>> response = new ResponseData<>();
 
 		Page<OrderDetailEntity> orders = null;
@@ -125,12 +154,21 @@ public class OrderDetailResource {
 
 		return response;
 	}
+<<<<<<< HEAD
     //testok
 	//create new Amphitheater
 	@PostMapping(value = "/orderdetail-management/managed-orderdetail", consumes = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<Integer> create(@RequestBody OrderDetailEntity orders) {
+=======
+
+	// testok
+	// create new Amphitheater
+	@PostMapping(value = "/orderdetail-management/managed-orderdetail", consumes = {
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<Integer> create(@RequestBody OrderDetailEntity orders) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<Integer> response = new ResponseData<>();
 		try {
 			if (orderDetailService.create(orders) == Constants.SUCCESS_CODE_FIELD_UNEXIST) {
@@ -145,8 +183,12 @@ public class OrderDetailResource {
 			// TODO: handle exception
 			if (response.getData() == Constants.CAUTION_CODE_FIELD_EXISTED) {
 				response.setCode(Constants.ERR_CODE_BAD_REQUEST);
+<<<<<<< HEAD
 				response.setMessage(
 						Constants.MSG_CAUTION + Result.CODE_IS_EXISTED.getMessage());
+=======
+				response.setMessage(Constants.MSG_CAUTION + Result.CODE_IS_EXISTED.getMessage());
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 			} else {
 				response.setData(0);
 				response.setCode(Constants.ERR_CODE_BAD_REQUEST);
@@ -156,11 +198,20 @@ public class OrderDetailResource {
 
 		return response;
 	}
+<<<<<<< HEAD
     //test ok
 	// get all list Amphitheater
 	@GetMapping(value = "/orderdetail-management/managed-orderdetail/all", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<List<OrderDetailEntity>> getListOrder() {
+=======
+
+	// test ok
+	// get all list Amphitheater
+	@GetMapping(value = "/orderdetail-management/managed-orderdetail/all", produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<List<OrderDetailEntity>> getListOrder() {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<List<OrderDetailEntity>> response = new ResponseData<>();
 
 		List<OrderDetailEntity> orders = null;
@@ -181,9 +232,14 @@ public class OrderDetailResource {
 	}
 
 	@GetMapping(value = "/orderdetail-management/managed-orderdetail/find-id/{id}", produces = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<OrderDetailEntity> findOne(@PathVariable("id") int id) {
+=======
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<OrderDetailEntity> findOne(@PathVariable("id") int id) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<OrderDetailEntity> response = new ResponseData<>();
 
 		OrderDetailEntity orders = null;
@@ -207,9 +263,14 @@ public class OrderDetailResource {
 	 * update
 	 */
 	@PutMapping(value = "/orderdetail-management/managed-orderdetail", consumes = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<Integer> update(@RequestBody OrderDetailEntity orders) {
+=======
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<Integer> update(@RequestBody OrderDetailEntity orders) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<Integer> response = new ResponseData<>();
 		try {
 			if (orderDetailService.update(orders) == Constants.SUCCESS_CODE_FIELD_UNEXIST) {
@@ -224,8 +285,12 @@ public class OrderDetailResource {
 			// TODO: handle exception
 			if (response.getData() == Constants.CAUTION_CODE_FIELD_EXISTED) {
 				response.setCode(Constants.ERR_CODE_BAD_REQUEST);
+<<<<<<< HEAD
 				response.setMessage(
 						Constants.MSG_CAUTION + Result.CODE_IS_EXISTED.getMessage());
+=======
+				response.setMessage(Constants.MSG_CAUTION + Result.CODE_IS_EXISTED.getMessage());
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 			} else {
 				response.setData(0);
 				response.setCode(Constants.ERR_CODE_BAD_REQUEST);
@@ -240,9 +305,14 @@ public class OrderDetailResource {
 	 * delete by id
 	 */
 	@DeleteMapping(value = "/orderdetail-management/managed-orderdetail/delete/{id}", consumes = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<Integer> delete(@PathVariable("id") int id) {
+=======
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<Integer> delete(@PathVariable("id") int id) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<Integer> response = new ResponseData<>();
 
 		int result = orderDetailService.delete(id);
@@ -263,9 +333,14 @@ public class OrderDetailResource {
 	 * delete multiple
 	 */
 	@DeleteMapping(value = "/orderdetail-management/managed-orderdetail/delete-multiple/{entityids}", consumes = {
+<<<<<<< HEAD
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public @ResponseBody
 	ResponseData<Integer> deleteMultiple(@PathVariable("entityids") int[] entityIds) {
+=======
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<Integer> deleteMultiple(@PathVariable("entityids") int[] entityIds) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<Integer> response = new ResponseData<>();
 
 		List<OrderDetailEntity> orders = new ArrayList<OrderDetailEntity>();
@@ -286,6 +361,7 @@ public class OrderDetailResource {
 		return response;
 	}
 
+<<<<<<< HEAD
 
 
 	// tim kiem
@@ -294,6 +370,13 @@ public class OrderDetailResource {
 	public @ResponseBody
 	ResponseData<Page<OrderDetailEntity>> search(@RequestBody OrderDetailEntity product,
                                                Pageable pageable) {
+=======
+	// tim kiem
+	@PostMapping(value = "/orderdetail-management/managed-orderdetail/advance-search", consumes = {
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseData<Page<OrderDetailEntity>> search(@RequestBody OrderDetailEntity product,
+			Pageable pageable) {
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		ResponseData<Page<OrderDetailEntity>> response = new ResponseData<>();
 
 		Page<OrderDetailEntity> orders = null;

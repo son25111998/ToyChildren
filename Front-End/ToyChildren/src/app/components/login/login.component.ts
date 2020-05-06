@@ -5,6 +5,7 @@ import { CodeConstants } from 'src/app/shared/utils/code.constants';
 import { Constant } from 'src/app/shared/utils/constant';
 import { CustomerService } from 'src/app/shared/services/customer.service';
 import { UrlConstants } from 'src/app/shared/utils/url.constants';
+import { AccountInput } from 'src/app/models/account-input';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
 
   username: string;
   password: string;
+  public account: AccountInput;
   isError: boolean = false;
 
   constructor(
@@ -43,6 +45,17 @@ export class LoginComponent implements OnInit {
       error => {
         this.isError = true;
       })
+  }
+
+  inputChange(){
+
+  }
+
+  _register(){
+    // this.api._register(this.account).subscribe((data)=>{
+    //   console.log(data);
+    //   //if(data['code'] == 200) this.router.navigateByUrl('/trang-chu');
+    // });
   }
 
   getUserLogged() {

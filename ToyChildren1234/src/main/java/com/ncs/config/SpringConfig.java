@@ -31,9 +31,15 @@ import com.ncs.application.jwt.JwtRequestFilter;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringConfig extends WebSecurityConfigurerAdapter {
 
+<<<<<<< HEAD
 	 @SuppressWarnings("unused")
 	private int MAX_UPLOAD_SIZE = 5 * 1024 * 1024;
 	
+=======
+	@SuppressWarnings("unused")
+	private int MAX_UPLOAD_SIZE = 5 * 1024 * 1024;
+
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 	@Autowired
 	UserDetailsService userDetailService;
 	@Autowired
@@ -51,8 +57,13 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+<<<<<<< HEAD
 		http.csrf().disable().authorizeRequests().antMatchers("/api/auth/authenticate").permitAll().antMatchers("/api/public/**").permitAll().anyRequest().authenticated()
 				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+=======
+		http.csrf().disable().authorizeRequests().antMatchers("/api/auth/authenticate").permitAll().anyRequest()
+				.permitAll().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class).cors().and();
 	}
 
@@ -82,11 +93,19 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
+<<<<<<< HEAD
  
     @Bean
     public StandardServletMultipartResolver multipartResolver() {
         return new StandardServletMultipartResolver();
     }
+=======
+
+	@Bean
+	public StandardServletMultipartResolver multipartResolver() {
+		return new StandardServletMultipartResolver();
+	}
+>>>>>>> 83106c2f9b89b7686be50a4864a5bbcf1c34b2b1
 
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {
