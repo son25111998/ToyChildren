@@ -31,11 +31,10 @@ import org.springframework.util.StringUtils;
 import com.ncs.common.ResponseData;
 import com.ncs.common.constants.Constants;
 import com.ncs.common.util.Utils;
+import com.ncs.model.converter.OrderDetailConverter;
 import com.ncs.model.entity.Order;
 import com.ncs.model.entity.OrderDetail;
-import com.ncs.model.output.GetListOrderOutput;
 import com.ncs.model.output.OrderOutput;
-import com.ncs.model.output.Pagination;
 import com.ncs.repositoryclient.OrderClientRepository;
 import com.ncs.repositoryclient.OrderDetailClientRepository;
 
@@ -53,17 +52,11 @@ public class OrderService {
 	private static final String SUCCESS_FIELD = "Thành công";
 	private static final String FAIL_FIELD = "Thất bại";
 
-	public ResponseData<GetListOrderOutput> getListOrder(int page, int size, String date) {
+	public ResponseData<Page<Order>> getListOrder(int page, int size, String date) {
 		LOGGER.info(">>>>>>>>>>>getListOrder Start >>>>>>>>>>>>");
-		ResponseData<GetListOrderOutput> response = new ResponseData<GetListOrderOutput>();
+		ResponseData<Page<Order>> response = new ResponseData<>();
 		try {
-			GetListOrderOutput orderOutputs = new GetListOrderOutput();
-			List<OrderOutput> orders = new ArrayList<>();
-			Pagination pagination = new Pagination();
-
 			Page<Order> ordersPage;
-			OrderOutput orderOutput;
-			StringBuilder fullName;
 
 			if (page < 1)
 				page = 1;
@@ -79,38 +72,10 @@ public class OrderService {
 			}
 
 			for (Order order : ordersPage) {
-				orderOutput = new OrderOutput();
-				fullName = new StringBuilder();
-
-				fullName.append(order.getCustomer().getFirstName());
-				fullName.append(" ");
-				fullName.append(order.getCustomer().getMiddleName());
-				fullName.append(" ");
-				fullName.append(order.getCustomer().getLastName());
-
-				orderOutput.setOrderId(order.getId());
-				orderOutput.setCounpon(order.getCoupon());
-				orderOutput.setCreateDate(order.getCreateDate());
-				orderOutput.setCustomerName(fullName.toString());
-				orderOutput.setPayment(order.getPayment());
-				orderOutput.setPhone(order.getCustomer().getPhone());
-				orderOutput.setShipping(order.getShipping());
-				orderOutput.setStatus(order.getStatus());
-				orderOutput.setTax(order.getTax());
-				orderOutput.setOrderDetails(orderDetailRepository.findByOrder(order));
-
-				orders.add(orderOutput);
+				order.setOrderDetails(OrderDetailConverter.convertToListOrderDetailOutput(orderDetailRepository.findByOrder(order)));
 			}
 
-			// set value in pagination
-			pagination.setPage(page);
-			pagination.setSize(size);
-			pagination.setTotalRecord(ordersPage.getTotalElements());
-
-			orderOutputs.setOrders(orders);
-			orderOutputs.setPagination(pagination);
-
-			response.setData(orderOutputs);
+			response.setData(ordersPage);
 		} catch (Exception e) {
 			LOGGER.error("Api get order has exception : {}", e.getMessage());
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);
@@ -239,7 +204,7 @@ public class OrderService {
 					// set order detail
 					int count = 0;
 					for (OrderDetail item : order.getOrderDetails()) {
-						if(count > 0) {
+						if (count > 0) {
 							builder.append("\r\n");
 						}
 						builder.append(item.getProduct().getName());
@@ -280,19 +245,19 @@ public class OrderService {
 					cell = row.createCell(7);
 					cell.setCellValue(order.getTax().getId());
 					cell.setCellStyle(cellStyle);
-					
+
 					cell = row.createCell(8);
 					cell.setCellValue(order.getCounpon().getCode());
 					cell.setCellStyle(cellStyle);
-					
+
 					cell = row.createCell(9);
 					cell.setCellValue(order.getMoney());
 					cell.setCellStyle(cellStyle);
-					
+
 					cell = row.createCell(10);
-					if(order.getStatus() == 1) {
+					if (order.getStatus() == 1) {
 						cell.setCellValue(SUCCESS_FIELD);
-					}else {
+					} else {
 						cell.setCellValue(FAIL_FIELD);
 					}
 					cell.setCellStyle(cellStyle);
