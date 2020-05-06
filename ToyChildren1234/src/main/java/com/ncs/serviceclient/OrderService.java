@@ -237,11 +237,15 @@ public class OrderService {
 					StringBuilder builder = new StringBuilder();
 
 					// set order detail
+					int count = 0;
 					for (OrderDetail item : order.getOrderDetails()) {
+						if(count > 0) {
+							builder.append("\r\n");
+						}
 						builder.append(item.getProduct().getName());
 						builder.append(" - ");
 						builder.append(item.getQuantity());
-						builder.append("\n");
+						count++;
 					}
 
 					// write data in cell
@@ -286,12 +290,11 @@ public class OrderService {
 					cell.setCellStyle(cellStyle);
 					
 					cell = row.createCell(10);
-					if(order.getStatus() == 0) {
+					if(order.getStatus() == 1) {
 						cell.setCellValue(SUCCESS_FIELD);
 					}else {
 						cell.setCellValue(FAIL_FIELD);
 					}
-					
 					cell.setCellStyle(cellStyle);
 				}
 			}

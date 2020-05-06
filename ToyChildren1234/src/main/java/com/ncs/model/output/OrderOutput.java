@@ -26,13 +26,13 @@ public class OrderOutput {
 	private Tax tax;
 	private Coupon counpon;
 	private int status;
-	
+
 	@SuppressWarnings("unused")
 	private int money;
-	
 
 	public int getMoney() {
 		int sum = 0;
+		int result;
 		if (ObjectUtils.isEmpty(orderDetails))
 			return 0;
 
@@ -41,7 +41,12 @@ public class OrderOutput {
 					* orderDetail.getQuantity();
 		}
 
-		return (sum - counpon.getSale() - shipping.getCost() - Math.round(sum * tax.getPercentage()/100));
+		result = (sum - counpon.getSale() - shipping.getCost() - Math.round(sum * tax.getPercentage() / 100));
+
+		if (result < 0)
+			result = 0;
+		
+		return result;
 	}
 
 }
