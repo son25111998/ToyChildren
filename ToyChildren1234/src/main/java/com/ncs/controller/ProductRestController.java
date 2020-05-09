@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.ncs.common.ResponseData;
 import com.ncs.model.entity.Product;
+import com.ncs.model.input.ProductListInput;
 import com.ncs.model.output.GetListProductOutput;
 import com.ncs.serviceclient.ProductService;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping(value = "/product/", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -23,6 +24,11 @@ public class ProductRestController {
 	@Autowired
 	private ProductService productService;
 
+	@GetMapping("list2")
+	public ResponseData<GetListProductOutput> getListProducts(@ApiParam ProductListInput input) {
+		return productService.getListProducts(input);
+	}
+	
 	@GetMapping("list")
 	public ResponseData<GetListProductOutput> getListProduct(@RequestParam int page, @RequestParam int size,
 			@RequestParam(required = false) String search) {

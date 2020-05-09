@@ -56,12 +56,12 @@ export class ProductService {
 
   errorHandl(error: any) {
     let response = new DataResponse<Object>();
-    
+
     // client-side error
     if (error.error instanceof ErrorEvent) {
       response.code = error.error.code;
       response.massage = error.error.message;
-    } 
+    }
     // server-side error
     else {
       response.code = error.status;

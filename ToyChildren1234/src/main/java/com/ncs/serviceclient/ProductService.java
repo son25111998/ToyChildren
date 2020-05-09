@@ -16,9 +16,12 @@ import org.springframework.util.StringUtils;
 import com.ncs.common.ResponseData;
 import com.ncs.common.constants.Constants;
 import com.ncs.dao.ProductDao;
+import com.ncs.model.entity.Category;
 import com.ncs.model.entity.Product;
+import com.ncs.model.input.ProductListInput;
 import com.ncs.model.output.GetListProductOutput;
 import com.ncs.model.output.Pagination;
+import com.ncs.repositoryclient.CategoryClientRepository;
 import com.ncs.repositoryclient.ProductClientRepository;
 
 @Service
@@ -28,6 +31,9 @@ public class ProductService {
 
 	@Autowired
 	private ProductDao productDao;
+
+	@Autowired
+	private CategoryClientRepository categoryClientRepository;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 
@@ -74,7 +80,7 @@ public class ProductService {
 			// date now - 1 month
 			calendar.add(Calendar.MONTH, -1);
 
-			Pageable pageable = PageRequest.of(page-1, size, Sort.by("createTime").descending());
+			Pageable pageable = PageRequest.of(page - 1, size, Sort.by("createTime").descending());
 
 			Page<Product> products = productRepository.findByCreateTimeBetween(calendar.getTime(),
 					Calendar.getInstance().getTime(), pageable);
@@ -95,12 +101,12 @@ public class ProductService {
 		LOGGER.info(">>>>>>>>>>>getListProductsNew End >>>>>>>>>>>>");
 		return response;
 	}
-	
+
 	public ResponseData<List<Product>> getListProductsHot() {
 		LOGGER.info(">>>>>>>>>>>getListProductsHot Start >>>>>>>>>>>>");
 		ResponseData<List<Product>> response = new ResponseData<>();
 		try {
-			//TODO:{
+			// TODO:{
 //			Pagination pagination = new Pagination();
 		} catch (Exception e) {
 			LOGGER.error("Api get list product hot has exception : {}", e.getMessage());
@@ -123,6 +129,42 @@ public class ProductService {
 		}
 
 		LOGGER.info(">>>>>>>>>>>getProductInfo End >>>>>>>>>>>>");
+		return response;
+	}
+
+	public ResponseData<GetListProductOutput> getListProducts(ProductListInput input) {
+		LOGGER.info(">>>>>>>>>>>getListProducts Start >>>>>>>>>>>>");
+
+		ResponseData<GetListProductOutput> response = new ResponseData<>();
+		Category category = null;
+		Integer priceStart = null;
+		Integer priceEnd = null;
+		try {
+			if (StringUtils.isEmpty(input.getPage())) {
+				input.setPage(Constants.PAGE_DEFAULT);
+			}
+
+			if (StringUtils.isEmpty(input.getSize())) {
+				input.setSize(Constants.SIZE_DEFAULT);
+			}
+
+			if (input.getCategoryId() != null) {
+				category = (categoryClientRepository.findById(input.getCategoryId()).get());
+			}
+
+			if (input.getPriceStart() != null)
+				priceStart = input.getPriceStart();
+			if (input.getPriceEnd() != null)
+				priceEnd = input.getPriceEnd();
+
+			response.setData(productDao.getListProduct(input.getPage(), input.getSize(), input.getSearch(), category,
+					priceStart, priceEnd));
+		} catch (Exception e) {
+			LOGGER.error("Api get list product has exception : {}", e.getMessage());
+			response.setCode(Constants.UNKNOWN_ERROR_CODE);
+			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
+		}
+		LOGGER.info(">>>>>>>>>>>getListProducts End >>>>>>>>>>>>");
 		return response;
 	}
 }

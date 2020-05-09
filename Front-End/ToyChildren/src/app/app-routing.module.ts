@@ -8,11 +8,13 @@ import { PayComponent } from './components/pay/pay.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ExportComponent } from './components/export/export.component';
+import { RegisterComponent } from './components/register/register.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'trang-chu', pathMatch: 'full' },
   { path: 'trang-chu', component: HomeComponent },
   { path: 'dang-nhap', component: LoginComponent },
+  { path: 'dang-ky', component: RegisterComponent },
   { path: 'san-pham/:id', component: ProductDetailComponent },
   { path: 'gio-hang', component: CartComponent },
   { path: 'thanh-toan', component: PayComponent },

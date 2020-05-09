@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
@@ -25,6 +25,13 @@ import { MatSelectModule } from '@angular/material/select';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ExportComponent } from './components/export/export.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import {MatRadioModule} from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -48,10 +55,18 @@ import { ExportComponent } from './components/export/export.component';
     BrowserAnimationsModule,
     CustomMaterialModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes),
     MatSelectModule,
     TextFieldModule,
     MDBBootstrapModule.forRoot(),
+    MatCheckboxModule,
+    MatTabsModule,
+    MatInputModule,
+    MatIconModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [CategoryService, CartService, FormatMoneyPipe, ConfirmDialogComponent],
   bootstrap: [AppComponent],

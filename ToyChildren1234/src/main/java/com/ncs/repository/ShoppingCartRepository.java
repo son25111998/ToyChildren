@@ -19,7 +19,7 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCartDetail
 	@Query(value = "SELECT * FROM shopping_cart_detail WHERE statuss LIKE %:status%", nativeQuery = true)
     Page<ShoppingCartDetailEntity> findStatusShoppingCart(@Param("status") String status, Pageable pageable);
 
-	ShoppingCartDetailEntity findById(int shoppingCartId);
+	//ShoppingCartDetailEntity findById(int shoppingCartId);
 
    // Page<ShoppingCartEntity> findAll(Specification<CategoryEntity> advanceFilter,Pageable pagerable);
 }

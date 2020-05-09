@@ -63,7 +63,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 	public ShoppingCartDetailEntity findOne(int id) {
 		ShoppingCartDetailEntity shoppingCart = null;
 		try {
-			shoppingCart = shoppingCartRepository.findById(id);
+			//shoppingCart = shoppingCartRepository.findById(id);
 		} catch (Exception e) {
 		
 			log.error(e.getMessage());

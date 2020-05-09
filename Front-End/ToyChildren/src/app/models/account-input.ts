@@ -1,5 +1,5 @@
 export class AccountInput {
-    public sex: Number;
+  public sex: Number;
 	public firstName: string;
 	public middleName: string;
 	public lastName: string;
