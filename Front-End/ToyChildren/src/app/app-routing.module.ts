@@ -1,3 +1,4 @@
+import { RegisterComponent } from './components/register/register.component';
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from "@angular/router";
@@ -12,6 +13,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'trang-chu', pathMatch: 'full' },
   { path: 'trang-chu', component: HomeComponent },
   { path: 'dang-nhap', component: LoginComponent },
+  { path: 'dang-ky', component: RegisterComponent },
   { path: 'san-pham/:id', component: ProductDetailComponent },
   { path: 'gio-hang', component: CartComponent },
   { path: 'thanh-toan', component: PayComponent },

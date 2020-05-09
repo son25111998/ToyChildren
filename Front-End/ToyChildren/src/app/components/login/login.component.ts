@@ -5,7 +5,17 @@ import { CodeConstants } from 'src/app/shared/utils/code.constants';
 import { Constant } from 'src/app/shared/utils/constant';
 import { CustomerService } from 'src/app/shared/services/customer.service';
 import { UrlConstants } from 'src/app/shared/utils/url.constants';
-import { AccountInput } from 'src/app/models/account-input';
+import { AccountInput } from '../../models/account-input';
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
+
+/* Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-login',
@@ -14,10 +24,17 @@ import { AccountInput } from 'src/app/models/account-input';
   providers: [AccountService]
 })
 export class LoginComponent implements OnInit {
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
 
-  username: string;
-  password: string;
-  public account: AccountInput;
+  passwordFormControl = new FormControl('', [
+    Validators.required,
+  ]);
+
+  matcher = new MyErrorStateMatcher();
+  public account = new AccountInput();
   isError: boolean = false;
 
   constructor(
@@ -32,7 +49,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.accountService.login(this.username, this.password).subscribe(
+    this.accountService.login(this.account.username, this.account.password).subscribe(
       data => {
         if (data.code == CodeConstants.CODE_SUCCESS) {
           this.getUserLogged();
@@ -47,22 +64,10 @@ export class LoginComponent implements OnInit {
       })
   }
 
-  inputChange(){
-
-  }
-
-  _register(){
-    // this.api._register(this.account).subscribe((data)=>{
-    //   console.log(data);
-    //   //if(data['code'] == 200) this.router.navigateByUrl('/trang-chu');
-    // });
-  }
-
   getUserLogged() {
     this.customerService.getCustomer().subscribe(
       data => {
         console.log(data);
-        
         sessionStorage.setItem(Constant.USER_SESSION, JSON.stringify(data.data));
       },
       error => {

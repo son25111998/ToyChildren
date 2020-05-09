@@ -24,7 +24,7 @@ export class AccountService {
     const headers = new HttpHeaders({
       Authorization: 'Basic ' + btoa(username + ":" + password)
     })
-    
+
     sessionStorage.removeItem(Constant.HEADERS_SESSION);
     sessionStorage.setItem(Constant.HEADERS_SESSION,headers.get("Authorization"));
 
@@ -35,7 +35,7 @@ export class AccountService {
       )
   }
 
-  public register(account: Object): Observable<DataResponse<Customer>> {
+  public _register(account: Object): Observable<DataResponse<Customer>> {
     return this.http.post<DataResponse<Customer>>(UrlConstants.REGISTER_API_URL,JSON.stringify(account), this.httpOptions)
     .pipe(
       retry(1),

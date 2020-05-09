@@ -15,10 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import com.ncs.common.ResponseData;
 import com.ncs.common.constants.Constants;
+import com.ncs.common.util.Result;
 import com.ncs.model.entity.Account;
 import com.ncs.model.entity.Customer;
 import com.ncs.model.entity.Role;
@@ -41,7 +40,7 @@ public class AccountService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 
 	@Transactional(rollbackOn = Exception.class)
-	public ResponseData<Customer> register(@RequestBody AccountInput input) {
+	public ResponseData<Customer> register(AccountInput input) {
 		LOGGER.info(">>>>>>>>>>>register Start >>>>>>>>>>>>");
 		ResponseData<Customer> response = new ResponseData<Customer>();
 		try {
@@ -81,6 +80,8 @@ public class AccountService {
 			customer.setPhone(input.getPhone());
 
 			response.setData(customerRepository.save(customer));
+			response.setCode(Result.SUCCESS.getCode());
+			response.setMessage(Result.SUCCESS.getMessage());
 		} catch (Exception e) {
 			LOGGER.error("Api account register has exception : {}", e.getMessage());
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);

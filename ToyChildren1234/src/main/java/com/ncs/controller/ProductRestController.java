@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ncs.common.ResponseData;
 import com.ncs.model.entity.Product;
+import com.ncs.model.input.ProductListInput;
 import com.ncs.model.output.GetListProductOutput;
 import com.ncs.serviceclient.ProductService;
+
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping(value = "/product/", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -22,6 +25,11 @@ import com.ncs.serviceclient.ProductService;
 public class ProductRestController {
 	@Autowired
 	private ProductService productService;
+
+	@GetMapping("list2")
+	public ResponseData<GetListProductOutput> getListProducts(@ApiParam ProductListInput input) {
+		return productService.getListProducts(input);
+	}
 
 	@GetMapping("list")
 	public ResponseData<GetListProductOutput> getListProduct(@RequestParam int page, @RequestParam int size,
@@ -33,12 +41,12 @@ public class ProductRestController {
 	public ResponseData<Product> getListProduct(@PathVariable(name = "id") int productId) {
 		return productService.getProductInfo(productId);
 	}
-	
+
 	@GetMapping("new")
 	public ResponseData<GetListProductOutput> getListProductNew(@RequestParam int page, @RequestParam int size) {
 		return productService.getListProductsNew(page, size);
 	}
-	
+
 	@GetMapping("hot")
 	public ResponseData<List<Product>> getListProductHot() {
 		return productService.getListProductsHot();

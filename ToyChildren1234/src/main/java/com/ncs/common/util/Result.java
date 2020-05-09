@@ -8,7 +8,7 @@ package com.ncs.common.util;
  **/
 public enum Result {
 
-	SUCCESS(1, "Success"),
+	SUCCESS(200, "Success"),
 	UNAUTHORIZED(401, "Unauthorized"),
 	TOKEN_EXPIRE_TIME(401, "Token expire time"),
 	BAD_REQUEST(400, "Bad request"),

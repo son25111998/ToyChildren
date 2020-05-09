@@ -1,1 +1,92 @@
-<p>register works!</p>
+<mdb-card style="top: 50px;
+width: 40%;margin: auto;margin-bottom: 100px;">
+
+  <mdb-card-header class="info-color white-text text-center">
+
+    <mdb-card-title>
+      <h5 style="font-size: 20px;">
+        <strong>Thông tin đăng ký</strong>
+      </h5>
+    </mdb-card-title>
+
+  </mdb-card-header>
+
+  <mdb-card-body class="px-lg-5 pt-0">
+    <form class="text-center">
+        <mat-form-field class="example-full-width" style="padding-top: 20px;">
+          <mat-label>First Name *</mat-label>
+          <input matInput [formControl]="fistNameFormControl" [errorStateMatcher]="matcher"
+                 placeholder="First name" minlength="1" name="firstName" [(ngModel)]="account.firstName">
+          <mat-error *ngIf="fistNameFormControl.hasError('required')">
+            First name không được bỏ trống!
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Last Name *</mat-label>
+          <input matInput [formControl]="lastNameFormControl" [errorStateMatcher]="matcher"
+                 placeholder="Last name" minlength="1" name="lastName" [(ngModel)]="account.lastName">
+          <mat-error *ngIf="lastNameFormControl.hasError('required')">
+            Last name không được bỏ trống!
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Middle Name</mat-label>
+          <input matInput placeholder="Middle name" name="middleName" [(ngModel)]="account.middleName">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>User Name *</mat-label>
+          <input matInput placeholder="User name" minlength="3" [(ngModel)]="account.username"
+          [formControl]="userNameFormControl" name="username" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="userNameFormControl.hasError('required')">
+            User name tối thiểu 3 ký tự!
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>E-mail *</mat-label>
+          <input matInput [formControl]="emailFormControl" name="email" [errorStateMatcher]="matcher"
+                 placeholder="Your email" [(ngModel)]="account.email">
+          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            E-mail không đúng định dạng!
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            E-mail không được bỏ trống!
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Password *</mat-label>
+          <input matInput [formControl]="passwordFormControl" type='password' name="password" [errorStateMatcher]="matcher"
+                 placeholder="Your password" minlength="6" [(ngModel)]="account.password">
+          <mat-error *ngIf="passwordFormControl.hasError('required')">
+            Password tối thiểu 6 ký tự!
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Phone *</mat-label>
+          <input matInput [formControl]="phoneFormControl" type="tel" name="phone" [errorStateMatcher]="matcher"
+                 placeholder="Phone number" minlength="1" [(ngModel)]="account.phone">
+          <mat-error *ngIf="phoneFormControl.hasError('required')">
+            Password tối thiểu 6 ký tự!
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Ngày sinh</mat-label>
+          <input matInput [matDatepicker]="picker1" [formControl]="date">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+        <label style="float: left;padding-top: 5px;" id="example-radio-group-label">Giới tính: </label>
+        <mat-radio-group value="1" aria-labelledby="example-radio-group-label">
+          <mat-radio-button style="padding-right: 45px;padding-top: 5px;" value="1">Nam</mat-radio-button>
+          <mat-radio-button style="padding-right: 45px;padding-top: 5px;" value="2">Nữ</mat-radio-button>
+        </mat-radio-group>
+      <button mdbBtn (click)="_register()" color="info" rounded="true" block="true" class="my-4 waves-effect z-depth-0" mdbWavesEffect
+        type="submit" *ngIf="!passwordFormControl.hasError('required') && !emailFormControl.hasError('email') && !emailFormControl.hasError('required');else btnSubmit">Đăng Ký</button>
+      <ng-template #btnSubmit>
+        <button mdbBtn color="info" rounded="true" block="true" class="my-4 waves-effect z-depth-0" mdbWavesEffect
+        type="submit" >Đăng Ký</button>
+      </ng-template>
+    </form>
+
+  </mdb-card-body>
+
+</mdb-card>
