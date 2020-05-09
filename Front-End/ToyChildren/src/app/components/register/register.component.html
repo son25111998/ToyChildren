@@ -80,7 +80,7 @@ width: 40%;margin: auto;margin-bottom: 100px;">
           <mat-radio-button style="padding-right: 45px;padding-top: 5px;" value="2">Nữ</mat-radio-button>
         </mat-radio-group>
       <button mdbBtn (click)="_register()" color="info" rounded="true" block="true" class="my-4 waves-effect z-depth-0" mdbWavesEffect
-        type="submit" *ngIf="!passwordFormControl.hasError('required') && !emailFormControl.hasError('email') && !emailFormControl.hasError('required');else btnSubmit">Đăng Ký</button>
+        type="submit" *ngIf="!passwordFormControl.hasError('required') && !emailFormControl.hasError('email') && !emailFormControl.hasError('required') && !fistNameFormControl.hasError('required') &&  !lastNameFormControl.hasError('required') && !phoneFormControl.hasError('required') && !userNameFormControl.hasError('required');else btnSubmit">Đăng Ký</button>
       <ng-template #btnSubmit>
         <button mdbBtn color="info" rounded="true" block="true" class="my-4 waves-effect z-depth-0" mdbWavesEffect
         type="submit" >Đăng Ký</button>
