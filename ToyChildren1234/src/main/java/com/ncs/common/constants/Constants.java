@@ -47,6 +47,15 @@ public class Constants {
 	public static final int TAX_ID_DEFAULT = 1;
 	public static final String CART_SESSION = "cartSession";
 	
+	public static final int PAYMENT_1_CODE = 1;
+	public static final String PAYMENT_1_VALUE = "Thanh toán bằng thẻ tín dụng(OnePay)";
 	
+	public static final int PAYMENT_2_CODE = 2;
+	public static final String PAYMENT_2_VALUE = "Thanh toán bằng thẻ ATM(OnePay)";
 
+	public static final int PAYMENT_4_CODE = 4;
+	public static final String PAYMENT_4_VALUE = "Thu tiền tận nơi";
+	
+	public static final int PAYMENT_MOMO_CODE = 3;
+	public static final String PAYMENT_MOMO_VALUE = "Thanh toán Momo";
 }

@@ -48,6 +48,8 @@ public class PayService {
 	private CustomerRepository customerRepository;
 	@Autowired
 	private ProductClientRepository productRepository;
+	@Autowired
+	private MomoService momoService;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 	private static final String COUPON_FILED = "Mã giảm giá";
