@@ -1,28 +1,28 @@
 <div class="container-page">
-  <div class="mp-pusher" id="mp-pusher">
-      <div class="top-area">
-          <div class="grid_frame">
-              <div class="container_grid clearfix">
-                  <div class="grid_12">
-                      <h2 class="page-title">Hơn 500 sản phẩm luôn sẵn sàng phục vụ!</h2>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div id="sys_mod_filter" class="mod-filter">
-          <div class="grid_frame">
-              <div class="container_grid clearfix">
-                  <div class="grid_12">
-                      <div class="lbl-search grid_4">
-                          <form class="form-inline md-form form-sm active-purple-2" style="margin: 0px;">
-                              <input (input)="changeSearch($event.target.value)" class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Tên sản phẩm" aria-label="Search" mdbInput />
-                              <mdb-icon fas icon="search" aria-hidden="true" style="font-size: 17px;"></mdb-icon>
-                          </form>
-                      </div>
-                      <div class="select-cate grid_4">
-                          <mat-form-field style="width: 90%;">
-                              <mat-label>Danh mục</mat-label>
-                              <!-- <mat-select [(value)]="this.productListInput.categoryId" (selectionChange)="changeCategory($event.value)">
+    <div class="mp-pusher" id="mp-pusher">
+        <div class="top-area">
+            <div class="grid_frame">
+                <div class="container_grid clearfix">
+                    <div class="grid_12">
+                        <h2 class="page-title">Hơn 500 sản phẩm luôn sẵn sàng phục vụ!</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="sys_mod_filter" class="mod-filter">
+            <div class="grid_frame">
+                <div class="container_grid clearfix">
+                    <div class="grid_12">
+                        <div class="lbl-search grid_4">
+                            <form class="form-inline md-form form-sm active-purple-2" style="margin: 0px;">
+                                <input (input)="changeSearch($event.target.value)" class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Tên sản phẩm" aria-label="Search" mdbInput />
+                                <mdb-icon fas icon="search" aria-hidden="true" style="font-size: 17px;"></mdb-icon>
+                            </form>
+                        </div>
+                        <div class="select-cate grid_4">
+                            <mat-form-field style="width: 90%;">
+                                <mat-label>Danh mục</mat-label>
+                                <!-- <mat-select [(value)]="this.productListInput.categoryId" (selectionChange)="changeCategory($event.value)">
                                   <mat-option>
                                       Tất cả dang mục (Default)
                                   </mat-option>
@@ -30,176 +30,173 @@
                                       {{ item.name }}
                                   </mat-option>
                               </mat-select> -->
-                              <mat-select [(value)]="this.productListInput.categoryId" >
-                                <mat-option [routerLink]="['/danh-muc']">
-                                    Tất cả dang mục (Default)
-                                </mat-option>
-                                <mat-option *ngFor="let item of categories" [value]="item.id" [routerLink]="['/danh-muc', item.id]">
-                                    {{ item.name }}
-                                </mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                      </div>
-                      <!--end: .select-cate -->
-                      <div class="select-cate grid_4">
-                          <mat-form-field style="width: 90%;">
-                              <mat-label>Giá tiền</mat-label>
-                              <mat-select (selectionChange)="changePrice($event.value)">
-                                  <mat-option>
-                                      Tất cả (Default)
-                                  </mat-option>
-                                  <mat-option *ngFor="let item of prices;let i = index" [value]="i">
-                                      {{item}}
-                                  </mat-option>
-                              </mat-select>
-                          </mat-form-field>
-                      </div>
-                      <!--end: .select-cate -->
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!--end: .mod-filter -->
-      <div class="grid_frame page-content">
-          <div class="container_grid">
-              <div class="mod-grp-coupon block clearfix tabbable">
-                  <div class="block-content list-coupon clearfix">
-                      <div class="tab-content">
-                          <div class="tab-content-item active">
-                              <div class="product-not-found" *ngIf="products == null || products.length == 0">
-                                  <p>Không tìm thấy sản phẩm yêu cầu :(</p>
-                              </div>
-                              <div class="coupon-item grid_3" *ngFor="let item of products; let i = index">
-                                  <div class="coupon-content hoverable" style="border: 1px solid #ccc">
-                                      <div class="img-thumb-center">
-                                          <div class="wrap-img-thumb">
-                                              <span class="ver_hold"></span>
-                                              <a href="coupon-detail.html" class="ver_container"><img src="../../../assets/images/ex/01_02.jpg" alt="$COUPON_TITLE" /></a>
-                                          </div>
-                                      </div>
-                                      <div class="coupon-brand">{{ item.name }}</div>
-                                      <div class="coupon-price">${{ item.price }}</div>
-                                      <del>${{ item.price }}</del>
-                                      <div class="coupon-desc2">
-                                          <strong>Nhà sản xuất:</strong> {{ item.manufacturer.name }}
-                                      </div>
-                                      <div class="coupon-desc2">
-                                          <strong>Danh mục:</strong> {{ item.category.name }}
-                                      </div>
-                                      <div class="coupon-desc2">
-                                          <strong>Trạng thái:</strong><em *ngIf="item.status == 1;else productStatus"> Còn hàng</em><ng-template #productStatus><em> Hết hàng</em></ng-template>
+                                <mat-select [(value)]="this.productListInput.categoryId">
+                                    <mat-option [routerLink]="['/danh-muc']">
+                                        Tất cả dang mục (Default)
+                                    </mat-option>
+                                    <mat-option *ngFor="let item of categories" [value]="item.id" [routerLink]="['/danh-muc', item.id]">
+                                        {{ item.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <!--end: .select-cate -->
+                        <div class="select-cate grid_4">
+                            <mat-form-field style="width: 90%;">
+                                <mat-label>Giá tiền</mat-label>
+                                <mat-select (selectionChange)="changePrice($event.value)">
+                                    <mat-option>
+                                        Tất cả (Default)
+                                    </mat-option>
+                                    <mat-option *ngFor="let item of prices;let i = index" [value]="i">
+                                        {{item}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <!--end: .select-cate -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end: .mod-filter -->
+        <div class="grid_frame page-content">
+            <div class="container_grid">
+                <div class="mod-grp-coupon block clearfix tabbable">
+                    <div class="block-content list-coupon clearfix">
+                        <div class="tab-content">
+                            <div class="tab-content-item active">
+                                <div class="product-not-found" *ngIf="products == null || products.length == 0">
+                                    <p>Không tìm thấy sản phẩm yêu cầu :(</p>
+                                </div>
+                                <div class="coupon-item grid_3" *ngFor="let item of products; let i = index">
+                                    <div class="coupon-content hoverable" style="border: 1px solid #ccc">
+                                        <div class="img-thumb-center">
+                                            <div class="wrap-img-thumb">
+                                                <span class="ver_hold"></span>
+                                                <a href="coupon-detail.html" class="ver_container"><img src="../../../assets/images/ex/01_02.jpg" alt="$COUPON_TITLE" /></a>
+                                            </div>
+                                        </div>
+                                        <div class="coupon-brand">{{ item.name }}</div>
+                                        <div class="coupon-price">${{ item.price }}</div>
+                                        <del>${{ item.price }}</del>
+                                        <div class="coupon-desc2">
+                                            <strong>Nhà sản xuất:</strong> {{ item.manufacturer.name }}
+                                        </div>
+                                        <div class="coupon-desc2">
+                                            <strong>Danh mục:</strong> {{ item.category.name }}
+                                        </div>
+                                        <div class="coupon-desc2">
+                                            <strong>Trạng thái:</strong><em *ngIf="item.status == 1;else productStatus"> Còn hàng</em>
+                                            <ng-template #productStatus><em> Hết hàng</em></ng-template>
 
-                                      </div>
-                                      <div class="coupon-desc">{{ item.description }}</div>
-                                      <div class="customStar" title="Đánh giá của khách hàng">
-                                          <span class="fa fa-star checked" style="color: gold; padding: 1px;"></span>
-                                          <span class="fa fa-star checked" style="color: gold; padding: 1px;"></span>
-                                          <span class="fa fa-star checked" style="color: gold; padding: 1px;"></span>
-                                          <span [ngClass]="{
+                                        </div>
+                                        <div class="coupon-desc">{{ item.description }}</div>
+                                        <div class="customStar" title="Đánh giá của khách hàng">
+                                            <span class="fa fa-star checked" style="color: gold; padding: 1px;"></span>
+                                            <span class="fa fa-star checked" style="color: gold; padding: 1px;"></span>
+                                            <span class="fa fa-star checked" style="color: gold; padding: 1px;"></span>
+                                            <span [ngClass]="{
                           'fas fa-star-half-alt': i % 2 == 0,
                           'fa fa-star checked': i % 2 != 0,
                           'far fa-star': i % 3 == 0
                         }" style="color: gold; padding: 1px;"></span>
-                                          <span [ngClass]="{
+                                            <span [ngClass]="{
                           'far fa-star': i % 2 == 0,
                           'fas fa-star-half-alt': i % 2 != 0
                         }" style="color: gold; padding: 1px;"></span>
-                                      </div>
-                                      <button class="btn btn-blue btn-take-coupon" *ngIf="item.status == 1;else elseBlock" style="width: 100%;"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</button>
-                                      <ng-template #elseBlock><button class="btn btn-blue btn-take-coupon" style="width: 100%;" disabled='true'><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</button></ng-template>
-                  </div>
-                </div>
-                <!--end: .coupon-item -->
-              </div>
-            </div>
-          </div>
-          <div *ngIf="products != null">
-            <button mdbBtn
-              class="grid_6 btn btn-orange btn-load-more"
-              [disabled]="maxTotalRecord"
-              (click)="loadMoreProduct()"
-            >
+                                        </div>
+                                        <a class="btn btn-blue btn-take-coupon fly-cart" *ngIf="item.status == 1;else elseBlock" style="width: 100%;"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
+                                        <ng-template #elseBlock><button class="btn btn-blue btn-take-coupon" style="width: 100%;" disabled='true'><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</button></ng-template>
+                                    </div>
+                                </div>
+                                <!--end: .coupon-item -->
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="products != null">
+                        <button mdbBtn class="grid_6 btn btn-orange btn-load-more" [disabled]="maxTotalRecord" (click)="loadMoreProduct()">
               Xem thêm ({{ totalRecord }})
               <em class="fas fa-level-down-alt"></em>
             </button>
-          </div>
-        </div>
-        <!--end block: Featured Coupons-->
-          <div class="mod-brands block clearfix">
-            <div class="grid_12">
-                <h3 class="title-block has-link">
-                    ĐƠN VỊ SẢN XUẤT
-                </h3>
+                    </div>
+                </div>
+                <!--end block: Featured Coupons-->
+                <div class="mod-brands block clearfix">
+                    <div class="grid_12">
+                        <h3 class="title-block has-link">
+                            ĐƠN VỊ SẢN XUẤT
+                        </h3>
+                    </div>
+                    <div class="block-content list-brand clearfix">
+                        <div class="brand-item grid_4">
+                            <div class="brand-content">
+                                <div class="brand-logo">
+                                    <div class="wrap-img-logo">
+                                        <span class="ver_hold"></span>
+                                        <a class="ver_container"><img style="height: 110px;" src="../../../assets/images/samsung.png" alt="$BRAND_TITLE"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end: .brand-item -->
+                        <div class="brand-item grid_4">
+                            <div class="brand-content">
+                                <div class="brand-logo">
+                                    <div class="wrap-img-logo">
+                                        <span class="ver_hold"></span>
+                                        <a href="#" class="ver_container"><img style="height: 110px;" src="../../../assets/images/apple.png" alt="$BRAND_TITLE"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end: .brand-item -->
+                        <div class="brand-item grid_4">
+                            <div class="brand-content">
+                                <div class="brand-logo">
+                                    <div class="wrap-img-logo">
+                                        <span class="ver_hold"></span>
+                                        <a href="#" class="ver_container"><img style="height: 110px;" src="../../../assets/images/azus.png" alt="$BRAND_TITLE"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end: .brand-item -->
+                        <div class="brand-item grid_4">
+                            <div class="brand-content">
+                                <div class="brand-logo">
+                                    <div class="wrap-img-logo">
+                                        <span class="ver_hold"></span>
+                                        <a href="#" class="ver_container"><img style="height: 110px;" src="../../../assets/images/lamborghini.png" alt="$BRAND_TITLE"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end: .brand-item -->
+                        <div class="brand-item grid_4">
+                            <div class="brand-content">
+                                <div class="brand-logo">
+                                    <div class="wrap-img-logo">
+                                        <span class="ver_hold"></span>
+                                        <a href="#" class="ver_container"><img style="height: 110px;" src="../../../assets/images/xiaomi.png" alt="$BRAND_TITLE"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end: .brand-item -->
+                        <div class="brand-item grid_4">
+                            <div class="brand-content">
+                                <div class="brand-logo">
+                                    <div class="wrap-img-logo">
+                                        <span class="ver_hold"></span>
+                                        <a href="#" class="ver_container"><img style="height: 110px;" src="../../../assets/images/mercedes.png" alt="$BRAND_TITLE"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end: .brand-item -->
+                    </div>
+                </div>
             </div>
-            <div class="block-content list-brand clearfix">
-                <div class="brand-item grid_4">
-                    <div class="brand-content">
-                        <div class="brand-logo">
-                            <div class="wrap-img-logo">
-                                <span class="ver_hold"></span>
-                                <a class="ver_container"><img style="height: 110px;" src="../../../assets/images/samsung.png" alt="$BRAND_TITLE"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--end: .brand-item -->
-                <div class="brand-item grid_4">
-                    <div class="brand-content">
-                        <div class="brand-logo">
-                            <div class="wrap-img-logo">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img style="height: 110px;" src="../../../assets/images/apple.png" alt="$BRAND_TITLE"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--end: .brand-item -->
-                <div class="brand-item grid_4">
-                    <div class="brand-content">
-                        <div class="brand-logo">
-                            <div class="wrap-img-logo">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img style="height: 110px;" src="../../../assets/images/azus.png" alt="$BRAND_TITLE"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--end: .brand-item -->
-                <div class="brand-item grid_4">
-                    <div class="brand-content">
-                        <div class="brand-logo">
-                            <div class="wrap-img-logo">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img style="height: 110px;" src="../../../assets/images/lamborghini.png" alt="$BRAND_TITLE"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--end: .brand-item -->
-                <div class="brand-item grid_4">
-                    <div class="brand-content">
-                        <div class="brand-logo">
-                            <div class="wrap-img-logo">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img style="height: 110px;" src="../../../assets/images/xiaomi.png" alt="$BRAND_TITLE"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--end: .brand-item -->
-                <div class="brand-item grid_4">
-                    <div class="brand-content">
-                        <div class="brand-logo">
-                            <div class="wrap-img-logo">
-                                <span class="ver_hold"></span>
-                                <a href="#" class="ver_container"><img style="height: 110px;" src="../../../assets/images/mercedes.png" alt="$BRAND_TITLE"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--end: .brand-item -->
-            </div>
         </div>
-      </div>
-  </div>
-</div>
+    </div>

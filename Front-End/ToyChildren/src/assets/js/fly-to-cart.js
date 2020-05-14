@@ -2,6 +2,8 @@ $(document).ready(function() {
 
     $('body').on('click', 'a.fly-cart', function() {
         var cart = $('.fa-shopping-cart');
+        console.log(cart);
+
         var imgtodrag = $(this).parent('.coupon-content').find("img").eq(0);
 
         if (imgtodrag) {
