@@ -72,8 +72,6 @@ export class PayComponent implements OnInit {
           sessionStorage.removeItem(Constant.CART_SESSION);
           this.loadCarts();
           if(data.message === "Momo"){
-            // this.getMomoRequest(data.data.id.toString(),this.totalMoney.toString());
-            
             this.router.navigate(['/hoa-don'], {queryParams: {id: data.data.id}});
           }else{
             this.confirmDialog("BABY SHOP","Thanh toán thành công đơn hàng","Về trang chủ",null,UrlConstants.HOME_URL,null);
@@ -142,17 +140,6 @@ export class PayComponent implements OnInit {
     if (this.coupon != null) {
       this.totalMoney -= this.coupon.sale;
     }
-  }
-
-  getMomoRequest(orderId: string, sumMoney: string){
-    this.momoService.getMomoRequest(orderId, sumMoney).subscribe(
-      data => {
-        this.router.navigateByUrl(data.data);
-      },
-      error => {
-
-      }
-    )
   }
 
   getStrRequest(momoRequest: MomoRequest): string{
