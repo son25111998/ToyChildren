@@ -48,6 +48,10 @@ export class LoginComponent implements OnInit {
 
   }
 
+  ngAfterContentInit(): void {
+    window.scroll(0, 0);
+  }
+  
   login() {
     this.accountService.login(this.account.username, this.account.password).subscribe(
       data => {

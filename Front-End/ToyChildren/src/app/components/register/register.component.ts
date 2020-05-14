@@ -65,10 +65,14 @@ export class RegisterComponent implements OnInit {
 
   }
 
+  ngAfterContentInit(): void {
+    window.scroll(0, 0);
+  }
+
   _register(){
     this.accountService._register(this.account).subscribe((data)=>{
-      console.log(data);
       if(data['code'] == 200) this.router.navigateByUrl('/dang-nhap');
+      else window.scroll(0, 0);
     });
   }
 
