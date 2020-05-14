@@ -10,6 +10,10 @@ export class UrlConstants {
 	public static LOGOUT_API_URL = "/api/member/logout";
 	public static REGISTER_API_URL = "/api/account/register";
 	public static EXPORT_FILE_API_URL = "/api/order/export";
+	public static ORDER_API_URL = "/api/order/";
+	public static MOMO_REQUEST_API_URL = "/api/member/pay/momo/request";
+	public static MOMO_API_URL = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
+
 
 	public static CART_URL = "/gio-hang";
 	public static HOME_URL = "/trang-chu";

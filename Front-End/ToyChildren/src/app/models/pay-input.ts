@@ -1,6 +1,7 @@
 import { Cart } from './cart.model';
 
 export class PayInput {
+    sumMoney: number;
     couponId: number;
     taxId: number;
     shippingId: number;

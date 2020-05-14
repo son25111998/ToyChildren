@@ -1,27 +1,31 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { PayInput } from 'src/app/models/pay-input';
 import { DataResponse } from 'src/app/models/data-response';
-import { UrlConstants } from '../utils/url.constants';
 import { throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Order } from 'src/app/models/order';
+import { UrlConstants } from '../utils/url.constants';
+import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PayService {
+export class OrderService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {  }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+  public getOrderById(id: number){
+    return this.http.get<DataResponse<Order>>(UrlConstants.ORDER_API_URL + id)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl)
+      )
   }
-  
-  public pay(pay: PayInput){
-    return this.http.post<DataResponse<Order>>(UrlConstants.PAY_API_URL, JSON.stringify(pay), this.httpOptions)
+
+  public updateStatusOrder(id: number,status: number){
+    const params = new HttpParams().set('status', status.toString());
+    
+    return this.http.put<DataResponse<Object>>(UrlConstants.ORDER_API_URL + id + "/" + status,null)
       .pipe(
         retry(1),
         catchError(this.errorHandl)

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ncs.common.ResponseData;
+import com.ncs.model.entity.Order;
 import com.ncs.model.input.PayInput;
 import com.ncs.model.output.MomoQRResponse;
 import com.ncs.serviceclient.MomoService;
@@ -31,23 +32,28 @@ public class PayRestController {
 	private MomoService momoService;
 	
 	@PostMapping
-	public ResponseData<Object> pay(@RequestBody PayInput input, HttpServletRequest request) {
+	public ResponseData<Order> pay(@RequestBody PayInput input, HttpServletRequest request) {
 		return payService.pay(input, request);
 	}
 	
-	@PostMapping("/payments/momo")
-    public ResponseData<String> momoWatchNotification(@RequestBody String momoQRRequest) {
+	@GetMapping("/momo/request")
+	public ResponseData<String> getRequestMomo(@RequestParam String sumMoney, @RequestParam String orderId) {
+		return momoService.createRequest(orderId, sumMoney);
+	}
+	
+	@PostMapping("/momo")
+	public ResponseData<String> momoWatchNotification(@RequestBody String momoQRRequest) {
 		ResponseData<String> response = new ResponseData<>();
-        MomoQRResponse momoQRResponse = this.momoService.validateQRNotifyRequest(momoQRRequest);
-        response.setData(momoQRResponse.toString());
-        response.setCode(200);
-        return response;
-    }
+		MomoQRResponse momoQRResponse = this.momoService.validateQRNotifyRequest(momoQRRequest);
+		response.setData(momoQRResponse.toString());
+		response.setCode(200);
+		return response;
+	}
 
-    @GetMapping("/payments/momo/qrCode")
-    public ResponseEntity<byte[]> momoGetQrCode(@RequestParam("amount") Long amount) {
-        String uuid = UUID.randomUUID().toString();
-        byte[] data = this.momoService.createQrCode(amount, uuid);
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(data);
-    }
+	@GetMapping("/momo/qrCode")
+	public ResponseEntity<byte[]> momoGetQrCode(@RequestParam("amount") Long amount) {
+		String uuid = UUID.randomUUID().toString();
+		byte[] data = this.momoService.createQrCode(amount, uuid);
+		return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(data);
+	}
 }

@@ -41,11 +41,13 @@ public class Constants {
     public static final String REFERENCE_IP = "http://localhost:8081/";
 	public static final int PAGE_DEFAULT = 1;
 	public static final int SIZE_DEFAULT = 20;
-	public static final int STATUS_ACTIVE_VALUE = 1;
-	public static final int STATUS_INACTIVE_VALUE = 0;
+	
 	public static final int COUPON_ID_DEFAULT = 1;
 	public static final int TAX_ID_DEFAULT = 1;
 	public static final String CART_SESSION = "cartSession";
+	
+	public static final int STATUS_ACTIVE_VALUE = 1;
+	public static final int STATUS_INACTIVE_VALUE = 0;
 	
 	public static final int PAYMENT_1_CODE = 1;
 	public static final String PAYMENT_1_VALUE = "Thanh toán bằng thẻ tín dụng(OnePay)";
@@ -58,4 +60,6 @@ public class Constants {
 	
 	public static final int PAYMENT_MOMO_CODE = 3;
 	public static final String PAYMENT_MOMO_VALUE = "Thanh toán Momo";
+	
+	public static final String SUCCESS_MOMO_MSG = "Momo";
 }

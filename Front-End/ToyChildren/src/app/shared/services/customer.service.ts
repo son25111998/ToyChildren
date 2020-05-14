@@ -32,12 +32,12 @@ export class CustomerService {
     // client-side error
     if (error.error instanceof ErrorEvent) {
       response.code = error.error.code;
-      response.massage = error.error.message;
+      response.message = error.error.message;
     } 
     // server-side error
     else {
       response.code = error.status;
-      response.massage = error.message;
+      response.message = error.message;
     }
     response.data = null;
     return throwError(response);

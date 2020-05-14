@@ -24,7 +24,6 @@ import { CustomMaterialModule } from './shared/layout/confirm-dialog/custom-mate
 import { MatSelectModule } from '@angular/material/select';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { ExportComponent } from './components/export/export.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatInputModule} from '@angular/material/input';
@@ -32,6 +31,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatRadioModule} from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { BillComponent } from './components/bill/bill.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     CartComponent,
     ProductListComponent,
     ConfirmDialogComponent,
-    ExportComponent
+    BillComponent
   ],
   imports: [
     BrowserModule,

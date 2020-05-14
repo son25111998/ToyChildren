@@ -1,4 +1,4 @@
-import { ProductListInput } from './../../models/product-list-input';
+import { ProductListInput } from '../../models/product-list-input';
 import { CategoryService } from './../../shared/services/category.service';
 import { Category } from 'src/app/models/category';
 import { ProductListService } from './../../shared/services/product-list.service';

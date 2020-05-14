@@ -31,9 +31,14 @@ public class OrderRestController {
 		return orderService.getListOrder(page, size, date);
 	}
 
-	@PutMapping(value = "{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Order> updateStatusOrder(@PathVariable int orderId) {
-		return orderService.updateStatusOrder(orderId);
+	@GetMapping("{id}")
+	public ResponseData<Order> getOrderById(@PathVariable(name = "id") int id) {
+		return orderService.getOrderById(id);
+	}
+
+	@PutMapping(value = "{id}/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Order> updateStatusOrder(@PathVariable int id, @PathVariable int status) {
+		return orderService.updateStatusOrder(id, status);
 	}
 
 	@GetMapping(value = "export", produces = "application/vnd.ms-excel;charset=UTF-8")

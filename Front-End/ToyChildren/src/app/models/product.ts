@@ -1,5 +1,5 @@
-import { Manufacturer } from '../models/manufacturer';
-import { Category } from '../models/category';
+import { Manufacturer } from './manufacturer';
+import { Category } from './category';
 export class Product {
   id: number;
   name: string;
