@@ -3,6 +3,7 @@ package com.ncs.serviceclient;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
@@ -48,6 +49,8 @@ public class PayService {
 	private CustomerRepository customerRepository;
 	@Autowired
 	private ProductClientRepository productRepository;
+	@Autowired
+	private MomoService momoService;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 	private static final String COUPON_FILED = "Mã giảm giá";
@@ -55,9 +58,9 @@ public class PayService {
 	private static final String TAX_FILED = "Thuế";
 
 	@Transactional(rollbackOn = Exception.class)
-	public ResponseData<Object> pay(PayInput input, HttpServletRequest request) {
+	public ResponseData<Order> pay(PayInput input, HttpServletRequest request) {
 		LOGGER.info(">>>>>>>>>>>pay Start >>>>>>>>>>>>");
-		ResponseData<Object> response = new ResponseData<Object>();
+		ResponseData<Order> response = new ResponseData<>();
 		try {
 			List<CartDto> carts = new ArrayList<>();
 			Order order = new Order();
@@ -77,9 +80,10 @@ public class PayService {
 			int taxId = input.getTaxId();
 			int payment = input.getPayment();
 			carts = input.getCarts();
+			String uuid = UUID.randomUUID().toString();
 
 			// get data in db
-			shipping = shippingRepository.findById(shippingId).orElse(null);
+			shipping = shippingRepository.findById(shippingId).orElse(null);	
 			coupon = couponRepository.findById(couponId).orElse(null);
 			tax = taxRepository.findById(taxId).orElse(null);
 //			customer = customerRepository.findByAccount(account);
@@ -118,6 +122,11 @@ public class PayService {
 
 			// set data in order
 			order.setCreateDate(new Date());
+			
+			if(payment == Constants.PAYMENT_MOMO_CODE) {
+				order.setQrcode(momoService.createQrCode(input.getSumMoney(), uuid));
+			}
+			
 			order.setPayment(payment);
 			order.setStatus(Constants.STATUS_ACTIVE_VALUE);
 			order.setCoupon(coupon);
@@ -148,8 +157,15 @@ public class PayService {
 
 				LOGGER.info("Product update: {}", productRepository.save(product));
 			}
+			
+			response.setData(order);
 			response.setCode(Constants.SUCCESS_CODE);
-			response.setMessage(Constants.SUCCESS_MSG);
+			
+			if(payment == Constants.PAYMENT_MOMO_CODE) {
+				response.setMessage(Constants.SUCCESS_MOMO_MSG);
+			}else {
+				response.setMessage(Constants.SUCCESS_MSG);
+			}
 		} catch (Exception e) {
 			LOGGER.error("Api pay has exception : {}", e.getMessage());
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);

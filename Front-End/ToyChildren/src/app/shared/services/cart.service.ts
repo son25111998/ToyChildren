@@ -121,12 +121,12 @@ export class CartService {
 
   private setResponseError(response: DataResponse<any>, error: string){
     response.code = CodeConstants.CODE_UNKNOW;
-    response.massage = error;
+    response.message = error;
   }
 
   private setResponseSuccess(response: DataResponse<any>,data: any){
       response.data = data;
       response.code = CodeConstants.CODE_SUCCESS;
-      response.massage = MessageConstants.MESSAGE_SUCCESS;
+      response.message = MessageConstants.MESSAGE_SUCCESS;
   }
 }

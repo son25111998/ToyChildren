@@ -85,8 +85,35 @@ public class OrderService {
 		LOGGER.info(">>>>>>>>>>>getListOrder End >>>>>>>>>>>>");
 		return response;
 	}
+	
+	public ResponseData<Order> getOrderById(int orderId) {
+		LOGGER.info(">>>>>>>>>>>getOrderById Start >>>>>>>>>>>>");
+		ResponseData<Order> response = new ResponseData<Order>();
+		try {
+			// get data in db
+			Order order = orderRepository.findById(orderId);
 
-	public ResponseData<Order> updateStatusOrder(int orderId) {
+			// case order null or null empty
+			if (ObjectUtils.isEmpty(order)) {
+				LOGGER.error("{} {}", ORDER_FIELD, Constants.RECORD_DO_NOT_EXIST);
+				response.setCode(Constants.UNKNOWN_ERROR_CODE);
+				response.setMessage(ORDER_FIELD + " " + Constants.RECORD_DO_NOT_EXIST);
+			}
+			
+			order.setOrderDetails(OrderDetailConverter.convertToListOrderDetailOutput(orderDetailRepository.findByOrder(order)));
+			
+			response.setData(order);
+		} catch (Exception e) {
+			LOGGER.error("Api get order by id has exception : {}", e.getMessage());
+			response.setCode(Constants.UNKNOWN_ERROR_CODE);
+			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
+		}
+
+		LOGGER.info(">>>>>>>>>>>getOrderById End >>>>>>>>>>>>");
+		return response;
+	}
+
+	public ResponseData<Order> updateStatusOrder(int orderId,int status) {
 		LOGGER.info(">>>>>>>>>>>updateStatusOrder Start >>>>>>>>>>>>");
 		ResponseData<Order> response = new ResponseData<Order>();
 		try {
@@ -101,11 +128,7 @@ public class OrderService {
 			}
 
 			// update status order
-			if (order.getStatus() == Constants.STATUS_ACTIVE_VALUE) {
-				order.setStatus(Constants.STATUS_INACTIVE_VALUE);
-			} else {
-				order.setStatus(Constants.STATUS_ACTIVE_VALUE);
-			}
+			order.setStatus(status);
 
 			orderRepository.save(order);
 

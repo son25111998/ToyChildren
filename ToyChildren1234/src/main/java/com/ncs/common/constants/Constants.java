@@ -41,12 +41,25 @@ public class Constants {
     public static final String REFERENCE_IP = "http://localhost:8081/";
 	public static final int PAGE_DEFAULT = 1;
 	public static final int SIZE_DEFAULT = 20;
-	public static final int STATUS_ACTIVE_VALUE = 1;
-	public static final int STATUS_INACTIVE_VALUE = 0;
+	
 	public static final int COUPON_ID_DEFAULT = 1;
 	public static final int TAX_ID_DEFAULT = 1;
 	public static final String CART_SESSION = "cartSession";
 	
+	public static final int STATUS_ACTIVE_VALUE = 1;
+	public static final int STATUS_INACTIVE_VALUE = 0;
 	
+	public static final int PAYMENT_1_CODE = 1;
+	public static final String PAYMENT_1_VALUE = "Thanh toán bằng thẻ tín dụng(OnePay)";
+	
+	public static final int PAYMENT_2_CODE = 2;
+	public static final String PAYMENT_2_VALUE = "Thanh toán bằng thẻ ATM(OnePay)";
 
+	public static final int PAYMENT_4_CODE = 4;
+	public static final String PAYMENT_4_VALUE = "Thu tiền tận nơi";
+	
+	public static final int PAYMENT_MOMO_CODE = 3;
+	public static final String PAYMENT_MOMO_VALUE = "Thanh toán Momo";
+	
+	public static final String SUCCESS_MOMO_MSG = "Momo";
 }

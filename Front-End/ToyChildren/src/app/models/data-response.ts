@@ -1,5 +1,5 @@
 export class DataResponse<T> {
   code: number;
-  massage: string;
+  message: string;
   data: T;
 }

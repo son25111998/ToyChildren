@@ -14,4 +14,5 @@ public class PayInput {
 	private int shippingId;
 	private int payment;
 	private List<CartDto> carts;
+	private long sumMoney;
 }

@@ -1,9 +1,8 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PayService } from 'src/app/shared/services/pay.service';
 import { Router } from '@angular/router';
 import { Cart } from 'src/app/models/cart.model';
-import { CartService } from 'src/app/shared/services/cart.service';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { PayInput } from 'src/app/models/pay-input';
 import { Coupon } from 'src/app/models/coupon';
 import { CouponService } from 'src/app/shared/services/coupon.service';
@@ -17,6 +16,7 @@ import { Constant } from 'src/app/shared/utils/constant';
 import { SharingDataService } from 'src/app/shared/services/sharing-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogModel, ConfirmDialogComponent } from 'src/app/shared/layout/confirm-dialog/confirm-dialog.component';
+import { MomoRequest } from 'src/app/models/momo-request';
 
 @Component({
   selector: 'app-pay',
@@ -35,13 +35,12 @@ export class PayComponent implements OnInit {
   totalProductMoney: number;
   existCoupon: boolean = false;
   errCoupon: boolean = false;
-
+  momoRequest: MomoRequest;
 
   constructor(
     private router: Router,
     public dialog: MatDialog,
     private payService: PayService,
-    private cartService: CartService,
     private counponService: CouponService,
     private shippingService: ShippingService,
     private sharingDate: SharingDataService
@@ -59,6 +58,9 @@ export class PayComponent implements OnInit {
 
   onSubmit() {
     this.payInput.carts = this.carts;
+    this.payInput.sumMoney = this.totalMoney;
+    console.log(this.payInput);
+    
     this.payService.pay(this.payInput).subscribe(
       data => {
         window.scroll(0, 0);
@@ -69,7 +71,13 @@ export class PayComponent implements OnInit {
         if (data.code == CodeConstants.CODE_SUCCESS) {
           sessionStorage.removeItem(Constant.CART_SESSION);
           this.loadCarts();
-          this.confirmDialog("BABY SHOP","Thanh toán thành công đơn hàng","Về trang chủ",null,UrlConstants.HOME_URL,null);
+          if(data.message === "Momo"){
+            // this.getMomoRequest(data.data.id.toString(),this.totalMoney.toString());
+            
+            this.router.navigate(['/hoa-don'], {queryParams: {id: data.data.id}});
+          }else{
+            this.confirmDialog("BABY SHOP","Thanh toán thành công đơn hàng","Về trang chủ",null,UrlConstants.HOME_URL,null);
+          }
         }
       },
       error => {
@@ -134,6 +142,21 @@ export class PayComponent implements OnInit {
     if (this.coupon != null) {
       this.totalMoney -= this.coupon.sale;
     }
+  }
+
+  getMomoRequest(orderId: string, sumMoney: string){
+    this.momoService.getMomoRequest(orderId, sumMoney).subscribe(
+      data => {
+        this.router.navigateByUrl(data.data);
+      },
+      error => {
+
+      }
+    )
+  }
+
+  getStrRequest(momoRequest: MomoRequest): string{
+    return 
   }
 
   confirmDialog(title: string, message: string, textYes: string, textNo: string, urlYes: string, urlNo: string) {

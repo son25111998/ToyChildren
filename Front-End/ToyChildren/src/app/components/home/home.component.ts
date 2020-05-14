@@ -1,4 +1,4 @@
-import { Product } from './../../models/product';
+import { Product } from '../../models/product';
 import { Component, OnInit, NgZone, Output, EventEmitter } from '@angular/core';
 import { CartInput } from 'src/app/models/cart-input';
 import { CartService } from 'src/app/shared/services/cart.service';
