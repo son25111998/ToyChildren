@@ -5,6 +5,13 @@ import { ProductListService } from './../../shared/services/product-list.service
 import { Product } from 'src/app/models/product';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { SharingDataService } from 'src/app/shared/services/sharing-data.service';
+import { Constant } from 'src/app/shared/utils/constant';
+import { CodeConstants } from 'src/app/shared/utils/code.constants';
+import { CartService } from 'src/app/shared/services/cart.service';
+import { DataResponse } from 'src/app/models/data-response';
+import { Cart } from 'src/app/models/cart.model';
+import { CartInput } from 'src/app/models/cart-input';
 
 @Component({
   selector: 'app-product-list',
@@ -22,11 +29,14 @@ export class ProductListComponent implements OnInit {
   public productListInput = new ProductListInput();
   private productListInput2 = new ProductListInput();
   private check: boolean = true;
+  cartInput = new CartInput();
 
   constructor(
     private api: ProductListService,
     private route: ActivatedRoute,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private cartService: CartService,
+    private sharingDate: SharingDataService
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +64,10 @@ export class ProductListComponent implements OnInit {
     this.categoryService.getCategory().subscribe((data: {}) => {
       this.categories = data['data'];
     });
+  }
+
+  ngAfterContentInit(): void {
+    window.scroll(0, 0);
   }
 
   getProducts(input: ProductListInput) {
@@ -120,6 +134,25 @@ changeSearch(val: any){
   this.productListInput.size = 8;
   this.productListInput.search = val;
   this.getProducts(this.productListInput);
+}
+
+addToCart(product: Product) {
+  let response = new DataResponse<Cart>();
+
+  this.cartInput.product = product;
+  this.cartInput.quantity = 1;
+
+  response = this.cartService.addCart(this.cartInput);
+
+  if (response.code == CodeConstants.CODE_SUCCESS) {
+    this.loadCart();
+  } else {
+    alert("Thêm không thành công sản phẩm vào giỏ hàng");
+  }
+}
+
+loadCart() {
+  this.sharingDate.changeCarts(JSON.parse(sessionStorage.getItem(Constant.CART_SESSION)));
 }
 
   // changeCategory(categoryId: number) {

@@ -8,13 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.google.zxing.BarcodeFormat;
@@ -23,75 +20,24 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.mservice.shared.constants.Parameter;
 import com.mservice.shared.utils.Encoder;
-import com.ncs.common.ResponseData;
-import com.ncs.common.constants.Constants;
 import com.ncs.model.output.MomoConfim;
 import com.ncs.model.output.MomoQRResponse;
 
 @Service
 public class MomoService {
 
-	private final Logger LOGGER = LoggerFactory.getLogger(MomoService.class);
-
 	private final String STORESLUG = "MOMOKELI20200511-13021998";
 	private final String PARTNER_CODE = "MOMOKELI20200511";
-	private final String ACCESS_KEY = "M7QxWaSyPxYu3v33";
 	private final String SECRET_KEY = "yYwoBAVj831NjzZNzI6mirQDfQiOEn1Z";
 	private final String DOMAIN = "https://test-payment.momo.vn";
-	private final String NOTIFY_URL = "https://101.99.14.221:9000/api/v1/pay/momo";
-	private final String RETURN_URL = "https://101.99.14.221:9000/api/v1/pay/momo";
 	private final String pathCreateQr = "/pay/store/";
 	private final String pathConfim = "/pay/confirm";
-
-	public ResponseData<String> createRequest(String orderId, String sumMoney) {
-		LOGGER.info(">>>>>>>>>>>createRequest Start >>>>>>>>>>>>");
-		ResponseData<String> response = new ResponseData<>();
-		try {
-			StringBuilder url = new StringBuilder();
-			String uuid = UUID.randomUUID().toString();
-			
-			String signatureBuilder = new StringBuilder().append("partnerCode").append("=").append(PARTNER_CODE)
-					.append("&").append("accessKey").append("=").append(ACCESS_KEY).append("&").append("requestId")
-					.append("=").append(uuid).append("&").append("amount").append("=").append(sumMoney).append("&")
-					.append("orderId").append("=").append(orderId).append("&").append("orderInfo").append("=")
-					.append("Test thanh toan momo").append("&").append("returnUrl").append("=").append(RETURN_URL)
-					.append("notifyUrl").append("=").append(NOTIFY_URL).append("extraData").append("=").append("merchantName=BABYSHOP")
-					.toString();
-
-			String signature = Encoder.signHmacSHA256(signatureBuilder, SECRET_KEY);
-			
-			url.append("https://test-payment.momo.vn/gw_payment/payment/qr?");
-			url.append("partnerCode=");
-			url.append(PARTNER_CODE);
-			url.append("&accessKey=");
-			url.append(ACCESS_KEY);
-			url.append("&requestId=");
-			url.append(uuid);
-			url.append("&amount=");
-			url.append(sumMoney);
-			url.append("&orderId=");
-			url.append(orderId);
-			url.append("&signature=");
-			url.append(signature);
-			url.append("&requestType=captureMoMoWallet");
-			
-			response.setCode(Constants.SUCCESS_CODE);
-			response.setMessage(Constants.SUCCESS_MSG);
-			response.setData(url.toString());
-		} catch (Exception e) {
-			LOGGER.error("Api create request momo has exception : {}", e.getMessage());
-			response.setCode(Constants.UNKNOWN_ERROR_CODE);
-			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
-		}
-		LOGGER.info(">>>>>>>>>>>createRequest Start >>>>>>>>>>>>");
-		return response;
-	}
 
 	public String createUrlQrcode(Long amount, String billId) {
 		String urlQrCode = "";
 		try {
 			String signatureBuilder = new StringBuilder().append("storeSlug").append("=").append(STORESLUG).append("&")
-					.append(Parameter.AMOUNT).append("=").append(amount).append("&").append("billId").append("=")
+					.append("amount").append("=").append(amount).append("&").append("billId").append("=")
 					.append(billId).toString();
 
 			String signature = Encoder.signHmacSHA256(signatureBuilder, SECRET_KEY);
@@ -99,11 +45,9 @@ public class MomoService {
 			urlQrCode = new StringBuilder().append(DOMAIN + pathCreateQr).append(STORESLUG).append("?").append("a")
 					.append("=").append(amount).append("&").append("b").append("=").append(billId).append("&")
 					.append("s").append("=").append(signature).toString();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return urlQrCode;
 	}
 
@@ -114,7 +58,7 @@ public class MomoService {
 			QRCodeWriter qrCodeWriter = new QRCodeWriter();
 			BitMatrix matrix = qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, 200, 200);
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			MatrixToImageWriter.writeToStream(matrix, "JPG", outputStream);
+			MatrixToImageWriter.writeToStream(matrix, "PNG", outputStream);
 			jpgByteArray = outputStream.toByteArray();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,6 +66,7 @@ public class MomoService {
 		return jpgByteArray;
 	}
 
+	
 	public MomoQRResponse validateQRNotifyRequest(String momoQRRequest) {
 		String[] pairs = momoQRRequest.split("&");
 		Map<String, String> qrMomoReq = new HashMap<>();
@@ -174,7 +119,7 @@ public class MomoService {
 			httpPost.setEntity(entity);
 			httpPost.setHeader("Accept", "application/json");
 			httpPost.setHeader("Content-type", "application/json");
-			CloseableHttpResponse response = client.execute(httpPost);
+			client.execute(httpPost);
 			client.close();
 		} catch (IOException e) {
 			e.printStackTrace();

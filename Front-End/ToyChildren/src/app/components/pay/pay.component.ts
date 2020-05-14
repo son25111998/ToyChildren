@@ -69,10 +69,12 @@ export class PayComponent implements OnInit {
           this.router.navigateByUrl(UrlConstants.LOGIN_URL);
         }
         if (data.code == CodeConstants.CODE_SUCCESS) {
+          console.log(data);
+          
           sessionStorage.removeItem(Constant.CART_SESSION);
           this.loadCarts();
           if(data.message === "Momo"){
-            this.router.navigate(['/hoa-don'], {queryParams: {id: data.data.id}});
+            this.router.navigateByUrl('/hoa-don/'+ data.data.id);
           }else{
             this.confirmDialog("BABY SHOP","Thanh toán thành công đơn hàng","Về trang chủ",null,UrlConstants.HOME_URL,null);
           }

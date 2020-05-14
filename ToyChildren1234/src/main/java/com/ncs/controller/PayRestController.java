@@ -30,17 +30,12 @@ public class PayRestController {
 	private PayService payService;
 	@Autowired
 	private MomoService momoService;
-	
+
 	@PostMapping
 	public ResponseData<Order> pay(@RequestBody PayInput input, HttpServletRequest request) {
 		return payService.pay(input, request);
 	}
-	
-	@GetMapping("/momo/request")
-	public ResponseData<String> getRequestMomo(@RequestParam String sumMoney, @RequestParam String orderId) {
-		return momoService.createRequest(orderId, sumMoney);
-	}
-	
+
 	@PostMapping("/momo")
 	public ResponseData<String> momoWatchNotification(@RequestBody String momoQRRequest) {
 		ResponseData<String> response = new ResponseData<>();

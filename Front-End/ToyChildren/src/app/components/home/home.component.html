@@ -35,7 +35,7 @@
                                     <div class="wrap-img-thumb">
                                         <span class="ver_hold"></span>
                                         <a [routerLink]="['/san-pham',item.id]" routerLinkActive="router-link-active" class="ver_container">
-                                            <img src="../../../assets/images/ex/01_01.jpg" alt="$COUPON_TITLE">
+                                            <img src="../../../assets/images/ex/{{item.thumbai}}" alt="$COUPON_TITLE">
                                         </a>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@
                                 <div class="img-thumb-center">
                                     <div class="wrap-img-thumb">
                                         <span class="ver_hold"></span>
-                                        <a [routerLink]="['/san-pham',item.id]" class="ver_container"><img src="../../../assets/images/ex/01_02.jpg" alt="$COUPON_TITLE"></a>
+                                        <a [routerLink]="['/san-pham',item.id]" class="ver_container"><img src="../../../assets/images/ex/{{item.thumbai}}" alt="$COUPON_TITLE"></a>
                                     </div>
                                 </div>
                                 <div class="coupon-brand">{{item.name}}</div>

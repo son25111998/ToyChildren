@@ -74,7 +74,7 @@
                                         <div class="img-thumb-center">
                                             <div class="wrap-img-thumb">
                                                 <span class="ver_hold"></span>
-                                                <a href="coupon-detail.html" class="ver_container"><img src="../../../assets/images/ex/01_02.jpg" alt="$COUPON_TITLE" /></a>
+                                                <a [routerLink]="['/san-pham',item.id]" class="ver_container"><img src="../../../assets/images/ex/{{item.thumbai}}" alt="$COUPON_TITLE" /></a>
                                             </div>
                                         </div>
                                         <div class="coupon-brand">{{ item.name }}</div>
@@ -106,7 +106,7 @@
                           'fas fa-star-half-alt': i % 2 != 0
                         }" style="color: gold; padding: 1px;"></span>
                                         </div>
-                                        <a class="btn btn-blue btn-take-coupon fly-cart" *ngIf="item.status == 1;else elseBlock" style="width: 100%;"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
+                                        <a class="btn btn-blue btn-take-coupon fly-cart" *ngIf="item.status == 1;else elseBlock" style="width: 100%;" (click)="addToCart(item)"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
                                         <ng-template #elseBlock><button class="btn btn-blue btn-take-coupon" style="width: 100%;" disabled='true'><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</button></ng-template>
                                     </div>
                                 </div>
