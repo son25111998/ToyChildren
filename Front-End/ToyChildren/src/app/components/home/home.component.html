@@ -31,6 +31,8 @@
                     <div class="block-content list-coupon clearfix">
                         <div class="coupon-item grid_3" *ngFor="let item of productNews;let i = index ">
                             <div class="coupon-content hoverable" style="border: 1px solid #ccc">
+                              <em class="badge badge-primary" style="font-size: 13px;" *ngIf="item.discount == 0;else discount"> NEW </em>
+                              <ng-template #discount><em class="badge badge-primary" style="font-size: 13px;"> -{{item.discount}}% </em></ng-template>
                                 <div class="img-thumb-center">
                                     <div class="wrap-img-thumb">
                                         <span class="ver_hold"></span>
@@ -57,7 +59,6 @@
                                 <a mdbBtn (click)="addToCart(item)" class="btn btn-blue btn-take-coupon fly-cart" *ngIf="item.status == 1;else elseBlock" style="width: 100%;"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
                                 <ng-template #elseBlock><button class="btn btn-blue btn-take-coupon" style="width: 100%;" disabled='true'><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</button></ng-template>
                             </div>
-                            <em class="stick-lbl trust-brand-b"></em>
                         </div>
                     </div>
                     <!-- item product new end -->
@@ -83,6 +84,8 @@
                         <!-- item product featured start -->
                         <div class="coupon-item grid_3" *ngFor="let item of productFeatured;let i = index">
                             <div class="coupon-content hoverable" style="border: 1px solid #ccc">
+                              <em class="badge badge-danger" style="font-size: 13px;" *ngIf="item.discount == 0;else discount"> HOT </em>
+                              <ng-template #discount><em class="badge badge-danger" style="font-size: 13px;"> -{{item.discount}}% </em></ng-template>
                                 <div class="img-thumb-center">
                                     <div class="wrap-img-thumb">
                                         <span class="ver_hold"></span>
@@ -106,8 +109,9 @@
                                 </div>
                                 <a mdbBtn (click)="addToCart(item)" class="btn btn-blue btn-take-coupon fly-cart" *ngIf="item.status == 1;else elseBlock" style="width: 100%;"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
                                 <ng-template #elseBlock><button class="btn btn-blue btn-take-coupon" style="width: 100%;" disabled='true'><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</button></ng-template>
-                            </div>
-                            <em class="stick-lbl hot-sale"></em>
+
+                              </div>
+
                         </div>
                         <!-- item product featured end -->
                     </div>

@@ -1,5 +1,5 @@
     /* You can add global styles to this file, and also import other style files */
-    
+
     @import url('./assets/css/font.css');
     @import url('./assets/css/font-awesome.css');
     @import url('./assets/css/normalize.css');
@@ -17,25 +17,25 @@
         color: #000;
         text-decoration: none;
     }
-    
+
     body {
         font-family: 'Helvetica', 'Arial', Sans-Serif;
         font-size: 12px;
         line-height: 18px;
         color: #000;
     }
-    
+
     a.btn.btn-blue.btn-take-coupon {
         color: white;
         font-weight: bold;
     }
-    
+
     .btn-primary:not(:disabled):not(.disabled).active:focus,
     .btn-primary:not(:disabled):not(.disabled):active:focus,
     .show>.btn-primary.dropdown-toggle:focus {
         box-shadow: none !important;
     }
-    
+
     .btn-primary:not(:disabled):not(.disabled).active,
     .btn-primary:not(:disabled):not(.disabled):active,
     .show>.btn-primary.dropdown-toggle {
@@ -43,7 +43,7 @@
         background-color: none !important;
         border-color: none !important;
     }
-    
+
     .btn-primary:not(:disabled):not(.disabled).active,
     .btn-primary:not(:disabled):not(.disabled):active,
     .show>.btn-primary.dropdown-toggle {
@@ -51,7 +51,7 @@
         background-color: none !important;
         border-color: none !important;
     }
-    
+
     .btn-primary:not(:disabled):not(.disabled).active,
     .btn-primary:not(:disabled):not(.disabled):active,
     .show>.btn-primary.dropdown-toggle {
@@ -59,7 +59,7 @@
         background-color: none !important;
         border-color: none !important;
     }
-    
+
     .btn-primary:not(:disabled):not(.disabled).active,
     .btn-primary:not(:disabled):not(.disabled):active,
     .show>.btn-primary.dropdown-toggle {
@@ -67,7 +67,7 @@
         background-color: none !important;
         border-color: none !important;
     }
-    
+
     .btn-primary.focus,
     .btn-primary:focus {
         color: #fff;
@@ -75,7 +75,7 @@
         border-color: none !important;
         box-shadow: none !important;
     }
-    
+
     .btn-primary:not(:disabled):not(.disabled).active,
     .btn-primary:not(:disabled):not(.disabled):active,
     .show>.btn-primary.dropdown-toggle {
@@ -83,11 +83,11 @@
         border-color: none !important;
         box-shadow: none !important;
     }
-    
+
     .gray .coupon-item .coupon-price:hover {
         color: #ee3e80;
     }
-    
+
     .btn-secondary.focus,
     .btn-secondary:focus {
         color: #fff;
@@ -95,31 +95,31 @@
         border-color: #545b62;
         box-shadow: none !important;
     }
-    
+
     html,
     body {
         height: 100%;
     }
-    
+
     body {
         margin: 0;
         font-family: Roboto, "Helvetica Neue", sans-serif;
     }
-    
+
     .mat-dialog-container#mat-dialog-0 {
         width: 500px !important;
         height: 200px;
         padding: 0px;
         overflow: hidden;
     }
-    
+
     h1#mat-dialog-title-0 {
         border-bottom: 1px solid black;
         padding: 15px 20px;
         font-weight: bold;
         margin: 0;
     }
-    
+
     .mat-dialog-content {
         margin: 15px 0 0 0 !important;
         padding: 0px 15px !important;
@@ -129,11 +129,11 @@
         line-height: 70px;
         overflow: hidden !important;
     }
-    
+
     .mat-dialog-content p {
         margin: 0;
     }
-    
+
     .mat-dialog-actions {
         text-align: right !important;
         padding: 0 !important;
@@ -141,7 +141,7 @@
         min-height: auto !important;
         display: block !important;
     }
-    
+
     button.btn.ng-star-inserted {
         margin-right: 10px !important;
         display: inline-block;
@@ -153,7 +153,7 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-        border: 1px solid gray;
+        /* border: 1px solid gray; */
         padding: .375rem .75rem;
         font-size: 1rem;
         line-height: 1.5;

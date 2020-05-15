@@ -1126,10 +1126,10 @@ b {
 }
 
 .stick-lbl {
-    background: transparent url("../images/stick-lbl8d0a.png?v=0.1121989") no-repeat;
-    border: none;
+    /* background: transparent url("../images/stick-lbl8d0a.png?v=0.1121989") no-repeat; */
+    /* border: none;
     width: 83px;
-    height: 83px;
+    height: 83px; */
     display: inline-block;
     *display: inline;
     *zoom: 1;
