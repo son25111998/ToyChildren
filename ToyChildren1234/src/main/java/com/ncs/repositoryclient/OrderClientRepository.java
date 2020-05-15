@@ -19,4 +19,6 @@ public interface OrderClientRepository extends JpaRepository<Order, Integer> {
 	Page<Order> findByCreateDate(Pageable pageable, Date createDate);
 	
 	List<Order> findByCreateDate( Date createDate);
+	
+	List<Order> findByStatus(int status);
 }

@@ -32,6 +32,14 @@ export class OrderService {
       )
   }
 
+  public getMoneyByMonth(){
+    return this.http.get<DataResponse<string[]>>(UrlConstants.STATISTIC_API_URL)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl)
+      )
+  }
+
   errorHandl(error: any) {
     let response = new DataResponse<Object>();
     

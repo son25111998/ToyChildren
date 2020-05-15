@@ -1,5 +1,7 @@
 package com.ncs.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,12 @@ public class OrderRestController {
 			@RequestParam(required = false) String date) {
 		return orderService.getListOrder(page, size, date);
 	}
-
+	
+	@GetMapping("statistic/money")
+	public ResponseData<List<Long>> getListMoneyByMonth(){
+		return orderService.getListMoneyByMonth();
+	}
+	
 	@GetMapping("{id}")
 	public ResponseData<Order> getOrderById(@PathVariable(name = "id") int id) {
 		return orderService.getOrderById(id);

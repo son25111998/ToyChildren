@@ -9,6 +9,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { RegisterComponent } from './components/register/register.component';
 import { BillComponent } from './components/bill/bill.component';
+import { ChartComponent } from './components/chart/chart.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'trang-chu', pathMatch: 'full' },
@@ -20,7 +21,8 @@ export const routes: Routes = [
   { path: 'thanh-toan', component: PayComponent },
   { path: 'danh-muc', component: ProductListComponent},
   { path: 'danh-muc/:id', component: ProductListComponent},
-  { path: 'hoa-don/:id', component: BillComponent}
+  { path: 'hoa-don/:id', component: BillComponent},
+  { path: 'chart', component: ChartComponent}
 ];
 
 @NgModule({

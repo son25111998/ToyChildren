@@ -32,6 +32,8 @@ import {MatRadioModule} from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BillComponent } from './components/bill/bill.component';
+import { ChartsModule } from 'ng2-charts';
+import { ChartComponent } from './components/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { BillComponent } from './components/bill/bill.component';
     CartComponent,
     ProductListComponent,
     ConfirmDialogComponent,
-    BillComponent
+    BillComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,8 @@ import { BillComponent } from './components/bill/bill.component';
     MatIconModule,
     MatRadioModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    ChartsModule
   ],
   providers: [CategoryService, CartService, FormatMoneyPipe, ConfirmDialogComponent],
   bootstrap: [AppComponent],

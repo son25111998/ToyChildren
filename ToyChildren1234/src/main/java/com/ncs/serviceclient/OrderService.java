@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +35,7 @@ import com.ncs.common.util.Utils;
 import com.ncs.model.converter.OrderDetailConverter;
 import com.ncs.model.entity.Order;
 import com.ncs.model.entity.OrderDetail;
+import com.ncs.model.output.OrderDetailOutput;
 import com.ncs.model.output.OrderOutput;
 import com.ncs.repositoryclient.OrderClientRepository;
 import com.ncs.repositoryclient.OrderDetailClientRepository;
@@ -51,6 +53,7 @@ public class OrderService {
 	private static final int SIZE_DEFAULT = 10;
 	private static final String SUCCESS_FIELD = "Thành công";
 	private static final String FAIL_FIELD = "Thất bại";
+	private static final int STATUS_2 = 2;
 
 	public ResponseData<Page<Order>> getListOrder(int page, int size, String date) {
 		LOGGER.info(">>>>>>>>>>>getListOrder Start >>>>>>>>>>>>");
@@ -72,10 +75,13 @@ public class OrderService {
 			}
 
 			for (Order order : ordersPage) {
-				order.setOrderDetails(OrderDetailConverter.convertToListOrderDetailOutput(orderDetailRepository.findByOrder(order)));
+				order.setOrderDetails(
+						OrderDetailConverter.convertToListOrderDetailOutput(orderDetailRepository.findByOrder(order)));
 			}
 
 			response.setData(ordersPage);
+			response.setCode(Constants.SUCCESS_CODE);
+			response.setMessage(Constants.SUCCESS_MSG);
 		} catch (Exception e) {
 			LOGGER.error("Api get order has exception : {}", e.getMessage());
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);
@@ -85,7 +91,7 @@ public class OrderService {
 		LOGGER.info(">>>>>>>>>>>getListOrder End >>>>>>>>>>>>");
 		return response;
 	}
-	
+
 	public ResponseData<Order> getOrderById(int orderId) {
 		LOGGER.info(">>>>>>>>>>>getOrderById Start >>>>>>>>>>>>");
 		ResponseData<Order> response = new ResponseData<Order>();
@@ -99,9 +105,10 @@ public class OrderService {
 				response.setCode(Constants.UNKNOWN_ERROR_CODE);
 				response.setMessage(ORDER_FIELD + " " + Constants.RECORD_DO_NOT_EXIST);
 			}
-			
-			order.setOrderDetails(OrderDetailConverter.convertToListOrderDetailOutput(orderDetailRepository.findByOrder(order)));
-			
+
+			order.setOrderDetails(
+					OrderDetailConverter.convertToListOrderDetailOutput(orderDetailRepository.findByOrder(order)));
+
 			response.setData(order);
 		} catch (Exception e) {
 			LOGGER.error("Api get order by id has exception : {}", e.getMessage());
@@ -113,7 +120,7 @@ public class OrderService {
 		return response;
 	}
 
-	public ResponseData<Order> updateStatusOrder(int orderId,int status) {
+	public ResponseData<Order> updateStatusOrder(int orderId, int status) {
 		LOGGER.info(">>>>>>>>>>>updateStatusOrder Start >>>>>>>>>>>>");
 		ResponseData<Order> response = new ResponseData<Order>();
 		try {
@@ -187,6 +194,105 @@ public class OrderService {
 			LOGGER.error("Api export file excel has exception : {}", e.getMessage());
 		}
 		LOGGER.info(">>>>>>>>>>>exportFileExcel End >>>>>>>>>>>>");
+	}
+
+	@SuppressWarnings("static-access")
+	public ResponseData<List<Long>> getListMoneyByMonth() {
+		LOGGER.info(">>>>>>>>>>>getListMoneyByMonth Start >>>>>>>>>>>>");
+		ResponseData<List<Long>> response = new ResponseData<>();
+		try {
+			List<Long> result = new ArrayList<>();
+			Calendar calendar = Calendar.getInstance();
+			int month;
+			int money;
+			long sumMoney1 = 0, sumMoney2 = 0, sumMoney3 = 0, sumMoney4 = 0, sumMoney5 = 0, sumMoney6 = 0,
+					sumMoney7 = 0, sumMoney8 = 0, sumMoney9 = 0, sumMoney10 = 0, sumMoney11 = 0, sumMoney12 = 0;
+
+			List<Order> orders = orderRepository.findByStatus(STATUS_2);
+
+			orders.forEach(order -> {
+				order.setOrderDetails(
+						OrderDetailConverter.convertToListOrderDetailOutput(orderDetailRepository.findByOrder(order)));
+			});
+
+			for (Order order : orders) {
+				calendar.setTime(order.getCreateDate());
+				month = calendar.MONTH + 1;
+				money = 0;
+
+				// count money
+				for (OrderDetailOutput orderDetail : order.getOrderDetails()) {
+					money += orderDetail.getQuantity() * orderDetail.getProduct().getPrice()
+							* (1 - orderDetail.getProduct().getDiscount() / 100);
+				}
+				
+				money = money - order.getShipping().getCost() - order.getCoupon().getSale();
+
+				switch (month) {
+				case 1:
+					sumMoney1 += money;
+					break;
+				case 2:
+					sumMoney2 += money;
+					break;
+				case 3:
+					sumMoney3 += money;
+					break;
+				case 4:
+					sumMoney4 += money;
+					break;
+				case 5:
+					sumMoney5 += money;
+					break;
+				case 6:
+					sumMoney6 += money;
+					break;
+				case 7:
+					sumMoney7 += money;
+					break;
+				case 8:
+					sumMoney8 += money;
+					break;
+				case 9:
+					sumMoney9 += money;
+					break;
+				case 10:
+					sumMoney10 += money;
+					break;
+				case 11:
+					sumMoney11 += money;
+					break;
+				case 12:
+					sumMoney12 += money;
+					break;
+				default:
+					break;
+				}
+			}
+			
+			result.add(sumMoney1);
+			result.add(sumMoney2);
+			result.add(sumMoney3);
+			result.add(sumMoney4);
+			result.add(sumMoney5);
+			result.add(sumMoney6);
+			result.add(sumMoney7);
+			result.add(sumMoney8);
+			result.add(sumMoney9);
+			result.add(sumMoney10);
+			result.add(sumMoney11);
+			result.add(sumMoney12);
+			
+			response.setData(result);
+			response.setCode(Constants.SUCCESS_CODE);
+			response.setMessage(Constants.SUCCESS_MSG);
+		} catch (Exception e) {
+			LOGGER.error("getListMoneyByMonth has exception : {}", e);
+			response.setCode(Constants.UNKNOWN_ERROR_CODE);
+			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
+		}
+		LOGGER.info(">>>>>>>>>>>getListMoneyByMonth Start >>>>>>>>>>>>");
+		return response;
 	}
 
 	@SuppressWarnings("resource")
