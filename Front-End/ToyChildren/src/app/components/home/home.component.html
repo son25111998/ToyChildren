@@ -41,10 +41,10 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="coupon-brand">{{item.name}}</div>
+                                <div class="coupon-brand" title="{{item.name}}">{{item.name}}</div>
                                 <div class="coupon-price">{{item.price | FomatMoney}} </div><del>{{item.price | FomatMoney}}</del>
-                                <div class="coupon-desc2"><strong>Nhà sản xuất:</strong> {{item.manufacturer.name}}</div>
-                                <div class="coupon-desc2"><strong>Danh mục:</strong> {{item.category.name}}</div>
+                                <div class="coupon-desc2" title="{{item.manufacturer.name}}"><strong>Nhà sản xuất:</strong> {{item.manufacturer.name}}</div>
+                                <div class="coupon-desc2" title="{{item.category.name}}"><strong>Danh mục:</strong> {{item.category.name}}</div>
                                 <div class="coupon-desc2"><strong>Trạng thái:</strong><em *ngIf="item.status == 1;else productStatus"> Còn hàng</em>
                                     <ng-template #productStatus><em> Hết hàng</em></ng-template>
                                 </div>
@@ -92,10 +92,10 @@
                                         <a [routerLink]="['/san-pham',item.id]" class="ver_container"><img src="../../../assets/images/ex/{{item.thumbai}}" alt="$COUPON_TITLE"></a>
                                     </div>
                                 </div>
-                                <div class="coupon-brand">{{item.name}}</div>
+                                <div class="coupon-brand" title="{{item.name}}">{{item.name}}</div>
                                 <div class="coupon-price">{{item.price | FomatMoney}} </div><del>{{item.price | FomatMoney}}</del>
-                                <div class="coupon-desc2"><strong>Nhà sản xuất:</strong> {{item.manufacturer.name}}</div>
-                                <div class="coupon-desc2"><strong>Danh mục:</strong> {{item.category.name}}</div>
+                                <div class="coupon-desc2" title="{{item.manufacturer.name}}"><strong>Nhà sản xuất:</strong> {{item.manufacturer.name}}</div>
+                                <div class="coupon-desc2" title="{{item.category.name}}"><strong>Danh mục:</strong> {{item.category.name}}</div>
                                 <div class="coupon-desc2"><strong>Trạng thái:</strong><em *ngIf="item.status == 1;else productStatus"> Còn hàng</em>
                                     <ng-template #productStatus><em> Hết hàng</em></ng-template>
                                 </div>

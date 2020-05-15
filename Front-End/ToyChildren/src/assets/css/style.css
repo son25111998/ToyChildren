@@ -1426,6 +1426,9 @@ b {
     font-family: "Open Sans", sans-serif;
     line-height: 1.4em;
     color: #999999;
+    white-space: nowrap;
+    max-height: 20px;
+    text-overflow: ellipsis;
     overflow: hidden;
 }
 
