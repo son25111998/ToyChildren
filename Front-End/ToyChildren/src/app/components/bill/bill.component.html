@@ -37,7 +37,7 @@
                     <td>{{orderDetail.product.id}}</td>
                     <td>{{orderDetail.quantity}}</td>
                     <td>{{orderDetail.product.price | FomatMoney}}</td>
-                    <td>{{orderDetail.product.price * orderDetail.product.discount / 100 | FomatMoney}}</td>
+                    <td>{{orderDetail.product.price * orderDetail.quantity | FomatMoney}}</td>
                 </tr>
             </tbody>
         </table>

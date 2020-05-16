@@ -4,3 +4,8 @@
     font-size: 16px;
     text-align: center;
 }
+
+.ver_container {
+    display: block;
+    height: 160px !important;
+}

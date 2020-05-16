@@ -42,8 +42,8 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     // add item to select-box prices
     this.prices = [
-      '0 - 500',
-      '500 - 1 triệu',
+      '0 - 500 nghìn',
+      '500 nghìn - 1 triệu',
       '1 triệu - 2 triệu',
       '2 triệu - 3 triệu',
       'Trên 3 triệu',
@@ -103,9 +103,9 @@ export class ProductListComponent implements OnInit {
     this.priceIndex = priceIndex;
     if (this.priceIndex == 0) {
       this.productListInput.priceStart = 0;
-      this.productListInput.priceEnd = 500;
+      this.productListInput.priceEnd = 500000;
     } else if (this.priceIndex == 1) {
-      this.productListInput.priceStart = 500;
+      this.productListInput.priceStart = 500000;
       this.productListInput.priceEnd = 1000000;
     } else if (this.priceIndex == 2) {
       this.productListInput.priceStart = 1000000;

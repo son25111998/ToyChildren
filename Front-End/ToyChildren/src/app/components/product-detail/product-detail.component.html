@@ -19,7 +19,7 @@
                             <div class="left">
                                 <span class="demowrap">
                                     <img id="demo4"
-                                        src="https://pubcdn.ivymoda.com/files/product/thumab/1366/2020/04/24/7e298e443bb61a0ab56cde9cd784ce86.jpg">
+                                     src="../../../assets/images/ex/{{product.thumbai}}">
                                 </span>
                             </div>
                             <div class="mid">
@@ -148,36 +148,51 @@
                     </div>
                 </div>
             </div>
-            <div class="mod-grp-coupon block clearfix" style="margin-top: 50px;">
+            <div class="mod-grp-coupon block clearfix" style="margin-top: 50px;width: 100%;">
                 <div class="grid_12">
                     <h3 class="title-block"> Sản phẩm tương tự</h3>
                 </div>
                 <div class="block-content list-coupon clearfix">
-                    <div class="coupon-item grid_3" *ngFor="let item of products;let i = index ">
-                        <div class="coupon-content">
-                            <div class="img-thumb-center">
-                                <div class="wrap-img-thumb">
-                                    <span class="ver_hold"></span>
-                                    <p (click)="productDetail(item)" class="ver_container"><img src="../../../assets/images/ex/{{item.thumbai}}" alt="$COUPON_TITLE"></p>
+                        <div class="coupon-item grid_3" *ngFor="let item of products; let i = index">
+                            <div class="coupon-content hoverable" style="border: 1px solid #ccc">
+                                <div class="img-thumb-center">
+                                    <div class="wrap-img-thumb">
+                                        <span class="ver_hold"></span>
+                                        <a [routerLink]="['/san-pham',item.id]" class="ver_container"><img src="../../../assets/images/ex/{{item.thumbai}}" alt="$COUPON_TITLE" /></a>
+                                    </div>
                                 </div>
+                                <div class="coupon-brand">{{ item.name }}</div>
+                                <div class="coupon-price">{{ item.price*(1-item.discount/100) | FomatMoney }}</div>
+                                <del>{{ item.price | FomatMoney }}</del>
+                                <div class="coupon-desc2">
+                                    <strong>Nhà sản xuất:</strong> {{ item.manufacturer.name }}
+                                </div>
+                                <div class="coupon-desc2">
+                                    <strong>Danh mục:</strong> {{ item.category.name }}
+                                </div>
+                                <div class="coupon-desc2">
+                                    <strong>Trạng thái:</strong><em *ngIf="item.status == 1;else productStatus"> Còn hàng</em>
+                                    <ng-template #productStatus><em> Hết hàng</em></ng-template>
+
+                                </div>
+                                <div class="coupon-desc">{{ item.description }}</div>
+                                <div class="customStar" title="Đánh giá của khách hàng">
+                                    <span class="fa fa-star checked" style="color: gold; padding: 1px;"></span>
+                                    <span class="fa fa-star checked" style="color: gold; padding: 1px;"></span>
+                                    <span class="fa fa-star checked" style="color: gold; padding: 1px;"></span>
+                                    <span [ngClass]="{
+                  'fas fa-star-half-alt': i % 2 == 0,
+                  'fa fa-star checked': i % 2 != 0,
+                  'far fa-star': i % 3 == 0
+                }" style="color: gold; padding: 1px;"></span>
+                                    <span [ngClass]="{
+                  'far fa-star': i % 2 == 0,
+                  'fas fa-star-half-alt': i % 2 != 0
+                }" style="color: gold; padding: 1px;"></span>
+                                </div>
+                                <a class="btn btn-blue btn-take-coupon fly-cart" *ngIf="item.status == 1;else elseBlock" style="width: 100%;" (click)="addToCart(item)"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
+                                <ng-template #elseBlock><button class="btn btn-blue btn-take-coupon" style="width: 100%;" disabled='true'><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</button></ng-template>
                             </div>
-                            <div class="coupon-brand">{{item.name}}</div>
-                            <div class="coupon-price">{{item.price | FomatMoney}}</div><del>{{item.price | FomatMoney}}</del>
-                            <div class="coupon-desc2"><strong>Nhà sản xuất:</strong> {{item.manufacturer.name}}</div>
-                            <div class="coupon-desc2"><strong>Danh mục:</strong> {{item.category.name}}</div>
-                            <div class="coupon-desc2"><strong>Trạng thái:</strong> <em> Còn hàng</em></div>
-                            <div class="coupon-desc">{{item.description}}</div>
-                            <div class="customStar" title="Đánh giá của khách hàng">
-                                <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
-                                <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
-                                <span class="fa fa-star checked" style="color:gold; padding: 1px;"></span>
-                                <span [ngClass]="{'fas fa-star-half-alt': i%2==0, 'fa fa-star checked': i%2!=0,'far fa-star' : i%3==0}" style="color:gold; padding: 1px;"></span>
-                                <span [ngClass]="{'far fa-star' : i%2==0, 'fas fa-star-half-alt': i%2!=0}" style="color:gold; padding: 1px;"></span>
-                            </div>
-                            <a *ngIf="item.amount > 0" class="btn btn-blue btn-take-coupon fly-cart" style="cursor: pointer;" (click)="addToCart(item)"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
-                            <a *ngIf="1 > item.amount" class="btn btn-blue btn-take-coupon" style="cursor: pointer;"><i class="fas fa-shopping-basket" aria-hidden="true"></i> Hết hàng</a>
-                        </div>
-                        <em class="stick-lbl trust-brand-b"></em>
                     </div>
                 </div>
             </div>

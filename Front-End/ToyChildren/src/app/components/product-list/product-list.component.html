@@ -78,8 +78,8 @@
                                             </div>
                                         </div>
                                         <div class="coupon-brand">{{ item.name }}</div>
-                                        <div class="coupon-price">${{ item.price }}</div>
-                                        <del>${{ item.price }}</del>
+                                        <div class="coupon-price">{{ item.price*(1-item.discount/100) | FomatMoney }}</div>
+                                        <del>{{ item.price | FomatMoney }}</del>
                                         <div class="coupon-desc2">
                                             <strong>Nhà sản xuất:</strong> {{ item.manufacturer.name }}
                                         </div>

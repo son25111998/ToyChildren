@@ -2,6 +2,11 @@
     margin-bottom: 40px;
 }
 
+.ver_container {
+    display: block;
+    height: 160px !important;
+}
+
 .left {
     width: 35%;
     float: left;

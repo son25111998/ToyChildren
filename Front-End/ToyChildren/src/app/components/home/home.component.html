@@ -6,13 +6,13 @@
                 <div id="sys_head_slide" class="head-slide flexslider">
                     <ul class="slides">
                         <li>
-                            <img src="../../../assets/images/ex/01_banner.jpg" alt="" />
+                            <img src="../../../assets/images/ex/capanh.jpg" alt="" />
                         </li>
                         <li>
-                            <img src="../../../assets/images/ex/02_banner.jpg" alt="" />
+                            <img src="../../../assets/images/ex/capanh.jpg" alt="" />
                         </li>
                         <li>
-                            <img src="../../../assets/images/ex/03_banner.jpg" alt="" />
+                            <img src="../../../assets/images/ex/capanh3.jpg" alt="" />
                         </li>
                     </ul>
                 </div>
@@ -42,7 +42,7 @@
                                     </div>
                                 </div>
                                 <div class="coupon-brand" title="{{item.name}}">{{item.name}}</div>
-                                <div class="coupon-price">{{item.price | FomatMoney}} </div><del>{{item.price | FomatMoney}}</del>
+                                <div class="coupon-price">{{item.price*(1-item.discount/100) | FomatMoney}} </div><del>{{item.price| FomatMoney}}</del>
                                 <div class="coupon-desc2" title="{{item.manufacturer.name}}"><strong>Nhà sản xuất:</strong> {{item.manufacturer.name}}</div>
                                 <div class="coupon-desc2" title="{{item.category.name}}"><strong>Danh mục:</strong> {{item.category.name}}</div>
                                 <div class="coupon-desc2"><strong>Trạng thái:</strong><em *ngIf="item.status == 1;else productStatus"> Còn hàng</em>
