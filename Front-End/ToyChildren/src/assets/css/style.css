@@ -1352,6 +1352,7 @@ b {
 .coupon-item {
     position: relative;
     padding-bottom: 30px;
+    height: 544px;
 }
 
 .coupon-item .coupon-content {

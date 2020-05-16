@@ -101,7 +101,7 @@ export class ProductDetailComponent implements OnInit {
     response = this.cartService.addCart(this.cartInput);
     if (response.code == CodeConstants.CODE_SUCCESS) {
       this.loadCart();
-
+      alert('Thêm thành công vào giỏ hàng');
     } else {
     }
   }
@@ -130,6 +130,12 @@ export class ProductDetailComponent implements OnInit {
 
   loadCart() {
     this.sharingDate.changeCarts(JSON.parse(sessionStorage.getItem(Constant.CART_SESSION)));
+  }
+
+  choseProduct(product: Product){
+    window.scroll(0, 0);
+    this.product = product;
+    this.loadListProduct(this.product.category.id);
   }
 
   confirmDialog(title: string, message: string, textYes: string, textNo: string, urlYes: string, urlNo: string) {

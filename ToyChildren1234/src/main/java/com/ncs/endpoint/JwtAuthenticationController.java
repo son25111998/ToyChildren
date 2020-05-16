@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ncs.dto.JwtResponse;
 import com.ncs.application.jwt.JwtTokenUtil;
+import com.ncs.common.ResponseData;
+import com.ncs.common.constants.Constants;
 import com.ncs.entity.AccountEntity;
+import com.ncs.model.input.LoginInput;
 import com.ncs.service.UserDetailServices;
 
 @RestController
@@ -44,8 +47,26 @@ public class JwtAuthenticationController {
 			return null;
 		}
 	}
+	
+	@PostMapping("/auth/authenticate")
+	public ResponseData<JwtResponse> authenticationClient(@RequestBody LoginInput input) {
+		ResponseData<JwtResponse> response = new ResponseData<>();
+		try {
+			authenticate(input.getUserName(), input.getPassword());
+			AccountEntity userResult = userDetailService.loadByUsername(input.getUserName());
+			String token = jwtTokenUtil.generalToken(userResult);
+			JwtResponse jwtResponse = new JwtResponse("Bearer",token);
+			response.setData(jwtResponse);
+			response.setCode(Constants.SUCCESS_CODE);
+			response.setMessage(Constants.SUCCESS_MSG);
+		}catch(Exception e) {
+			response.setCode(Constants.UNKNOWN_ERROR_CODE);
+			response.setMessage("" + e);
+		}
+		return response;
+	}
 
-	public void authenticate(String username, String password) {
+	private void authenticate(String username, String password) {
 		try {
 			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 					username, password);

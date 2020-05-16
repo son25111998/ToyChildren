@@ -5,6 +5,10 @@
     text-align: center;
 }
 
+.badge-primary {
+    position: absolute;
+}
+
 .ver_container {
     display: block;
     height: 160px !important;

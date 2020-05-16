@@ -5,7 +5,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -196,13 +195,12 @@ public class OrderService {
 		LOGGER.info(">>>>>>>>>>>exportFileExcel End >>>>>>>>>>>>");
 	}
 
-	@SuppressWarnings("static-access")
+	@SuppressWarnings("deprecation")
 	public ResponseData<List<Long>> getListMoneyByMonth() {
 		LOGGER.info(">>>>>>>>>>>getListMoneyByMonth Start >>>>>>>>>>>>");
 		ResponseData<List<Long>> response = new ResponseData<>();
 		try {
 			List<Long> result = new ArrayList<>();
-			Calendar calendar = Calendar.getInstance();
 			int month;
 			int money;
 			long sumMoney1 = 0, sumMoney2 = 0, sumMoney3 = 0, sumMoney4 = 0, sumMoney5 = 0, sumMoney6 = 0,
@@ -216,8 +214,7 @@ public class OrderService {
 			});
 
 			for (Order order : orders) {
-				calendar.setTime(order.getCreateDate());
-				month = calendar.MONTH + 1;
+				month = order.getCreateDate().getMonth() + 1;
 				money = 0;
 
 				// count money
@@ -225,7 +222,7 @@ public class OrderService {
 					money += orderDetail.getQuantity() * orderDetail.getProduct().getPrice()
 							* (1 - orderDetail.getProduct().getDiscount() / 100);
 				}
-				
+
 				money = money - order.getShipping().getCost() - order.getCoupon().getSale();
 
 				switch (month) {
@@ -269,7 +266,7 @@ public class OrderService {
 					break;
 				}
 			}
-			
+
 			result.add(sumMoney1);
 			result.add(sumMoney2);
 			result.add(sumMoney3);
@@ -282,7 +279,7 @@ public class OrderService {
 			result.add(sumMoney10);
 			result.add(sumMoney11);
 			result.add(sumMoney12);
-			
+
 			response.setData(result);
 			response.setCode(Constants.SUCCESS_CODE);
 			response.setMessage(Constants.SUCCESS_MSG);

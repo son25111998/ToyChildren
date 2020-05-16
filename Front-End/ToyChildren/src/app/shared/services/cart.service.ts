@@ -53,7 +53,9 @@ export class CartService {
       }
 
       if (isExists) {
-        cart.quantity = cart.quantity + cartInput.quantity;
+        if(cart.quantity < cart.product.amount){
+          cart.quantity = cart.quantity + cartInput.quantity;
+        }
         carts.splice(index, 0, cart);
       } else {
         cart.product = cartInput.product;

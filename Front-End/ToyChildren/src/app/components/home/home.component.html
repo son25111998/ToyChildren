@@ -31,8 +31,8 @@
                     <div class="block-content list-coupon clearfix">
                         <div class="coupon-item grid_3" *ngFor="let item of productNews;let i = index ">
                             <div class="coupon-content hoverable" style="border: 1px solid #ccc">
-                              <em class="badge badge-primary" style="font-size: 13px;" *ngIf="item.discount == 0;else discount"> NEW </em>
-                              <ng-template #discount><em class="badge badge-primary" style="font-size: 13px;"> -{{item.discount}}% </em></ng-template>
+                                <em class="badge badge-primary" style="font-size: 13px;" *ngIf="item.discount == 0;else discount"> NEW </em>
+                                <ng-template #discount><em class="badge badge-primary" style="font-size: 13px;"> -{{item.discount}}% </em></ng-template>
                                 <div class="img-thumb-center">
                                     <div class="wrap-img-thumb">
                                         <span class="ver_hold"></span>
@@ -45,7 +45,7 @@
                                 <div class="coupon-price">{{item.price*(1-item.discount/100) | FomatMoney}} </div><del>{{item.price| FomatMoney}}</del>
                                 <div class="coupon-desc2" title="{{item.manufacturer.name}}"><strong>Nhà sản xuất:</strong> {{item.manufacturer.name}}</div>
                                 <div class="coupon-desc2" title="{{item.category.name}}"><strong>Danh mục:</strong> {{item.category.name}}</div>
-                                <div class="coupon-desc2"><strong>Trạng thái:</strong><em *ngIf="item.status == 1;else productStatus"> Còn hàng</em>
+                                <div class="coupon-desc2"><strong>Trạng thái:</strong><em *ngIf="item.status == 1 && item.amount > 0;else productStatus"> Còn hàng</em>
                                     <ng-template #productStatus><em> Hết hàng</em></ng-template>
                                 </div>
                                 <div class="coupon-desc">{{item.description}}</div>
@@ -56,8 +56,8 @@
                                     <span [ngClass]="{'fas fa-star-half-alt': i%2==0, 'fa fa-star checked': i%2!=0,'far fa-star' : i%3==0}" style="color:gold; padding: 1px;"></span>
                                     <span [ngClass]="{'far fa-star' : i%2==0, 'fas fa-star-half-alt': i%2!=0}" style="color:gold; padding: 1px;"></span>
                                 </div>
-                                <a mdbBtn (click)="addToCart(item)" class="btn btn-blue btn-take-coupon fly-cart" *ngIf="item.status == 1;else elseBlock" style="width: 100%;"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
-                                <ng-template #elseBlock><button class="btn btn-blue btn-take-coupon" style="width: 100%;" disabled='true'><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</button></ng-template>
+                                <a mdbBtn (click)="addToCart(item)" class="btn btn-blue btn-take-coupon fly-cart" *ngIf="item.status == 1 && item.amount > 0;else elseBlock" style="width: 100%;"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
+                                <ng-template #elseBlock><button class="btn btn-blue btn-take-coupon" style="width: 100%;color:red; font-weight: bold;" disabled='true'> Hết hàng</button></ng-template>
                             </div>
                         </div>
                     </div>
@@ -84,8 +84,8 @@
                         <!-- item product featured start -->
                         <div class="coupon-item grid_3" *ngFor="let item of productFeatured;let i = index">
                             <div class="coupon-content hoverable" style="border: 1px solid #ccc">
-                              <em class="badge badge-danger" style="font-size: 13px;" *ngIf="item.discount == 0;else discount"> HOT </em>
-                              <ng-template #discount><em class="badge badge-danger" style="font-size: 13px;"> -{{item.discount}}% </em></ng-template>
+                                <em class="badge badge-danger" style="font-size: 13px;" *ngIf="item.discount == 0;else discount"> HOT </em>
+                                <ng-template #discount><em class="badge badge-danger" style="font-size: 13px;"> -{{item.discount}}% </em></ng-template>
                                 <div class="img-thumb-center">
                                     <div class="wrap-img-thumb">
                                         <span class="ver_hold"></span>
@@ -93,10 +93,11 @@
                                     </div>
                                 </div>
                                 <div class="coupon-brand" title="{{item.name}}">{{item.name}}</div>
-                                <div class="coupon-price">{{item.price | FomatMoney}} </div><del>{{item.price | FomatMoney}}</del>
+                                <div class="coupon-price">{{item.price*(1-item.discount/100) | FomatMoney}} </div>
+                                <del>{{item.price | FomatMoney}}</del>
                                 <div class="coupon-desc2" title="{{item.manufacturer.name}}"><strong>Nhà sản xuất:</strong> {{item.manufacturer.name}}</div>
                                 <div class="coupon-desc2" title="{{item.category.name}}"><strong>Danh mục:</strong> {{item.category.name}}</div>
-                                <div class="coupon-desc2"><strong>Trạng thái:</strong><em *ngIf="item.status == 1;else productStatus"> Còn hàng</em>
+                                <div class="coupon-desc2"><strong>Trạng thái:</strong><em *ngIf="item.status == 1 && item.amount > 0;else productStatus"> Còn hàng</em>
                                     <ng-template #productStatus><em> Hết hàng</em></ng-template>
                                 </div>
                                 <div class="coupon-desc">{{item.description}}</div>
@@ -107,10 +108,10 @@
                                     <span [ngClass]="{'fas fa-star-half-alt': i%2==0, 'fa fa-star checked': i%2!=0,'far fa-star' : i%3==0}" style="color:gold; padding: 1px;"></span>
                                     <span [ngClass]="{'far fa-star' : i%2==0, 'fas fa-star-half-alt': i%2!=0}" style="color:gold; padding: 1px;"></span>
                                 </div>
-                                <a mdbBtn (click)="addToCart(item)" class="btn btn-blue btn-take-coupon fly-cart" *ngIf="item.status == 1;else elseBlock" style="width: 100%;"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
-                                <ng-template #elseBlock><button class="btn btn-blue btn-take-coupon" style="width: 100%;" disabled='true'><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</button></ng-template>
+                                <a mdbBtn (click)="addToCart(item)" class="btn btn-blue btn-take-coupon fly-cart" *ngIf="item.status == 1 && item.amount > 0;else elseBlock" style="width: 100%;"><span class="fas fa-cart-plus"></span> Thêm vào giỏ hàng</a>
+                                <ng-template #elseBlock><button class="btn btn-blue btn-take-coupon" style="width: 100%;color:red; font-weight: bold;" disabled='true'> Hết hàng</button></ng-template>
 
-                              </div>
+                            </div>
 
                         </div>
                         <!-- item product featured end -->

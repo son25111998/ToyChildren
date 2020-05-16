@@ -61,19 +61,8 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.accountService.logout().subscribe(
-      data => {
-        if (data.code == CodeConstants.CODE_SUCCESS) {
-          this.isLogged = false;
-          sessionStorage.removeItem(Constant.USER_SESSION);
-          sessionStorage.removeItem(Constant.HEADERS_SESSION);
-          this.router.navigateByUrl(UrlConstants.LOGIN_URL);
-        }
-      },
-      error => {
-        // handl error 
-      }
-    )
+    this.accountService.logout();
+    this.router.navigateByUrl(UrlConstants.LOGIN_URL);  
   }
 
   ngAfterViewInit(): void {

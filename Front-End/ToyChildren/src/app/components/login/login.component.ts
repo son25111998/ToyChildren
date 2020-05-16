@@ -8,6 +8,7 @@ import { UrlConstants } from 'src/app/shared/utils/url.constants';
 import { AccountInput } from '../../models/account-input';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import { LoginInput } from 'src/app/models/login-input';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -45,7 +46,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.accountService.logout();
   }
 
   ngAfterContentInit(): void {
@@ -53,11 +54,16 @@ export class LoginComponent implements OnInit {
   }
   
   login() {
-    this.accountService.login(this.account.username, this.account.password).subscribe(
+    let loginInput = new LoginInput(this.account.username, this.account.password);
+
+    console.log(loginInput);
+    
+    this.accountService.login(loginInput).subscribe(
       data => {
+        console.log(data);
+
         if (data.code == CodeConstants.CODE_SUCCESS) {
-          this.getUserLogged();
-          this.router.navigateByUrl(UrlConstants.HOME_URL);
+          
         }
         else {
           this.isError = true;
@@ -66,18 +72,5 @@ export class LoginComponent implements OnInit {
       error => {
         this.isError = true;
       })
-  }
-
-  getUserLogged() {
-    this.customerService.getCustomer().subscribe(
-      data => {
-        console.log(data);
-
-        sessionStorage.setItem(Constant.USER_SESSION, JSON.stringify(data.data));
-      },
-      error => {
-        // hanld error
-      }
-    )
   }
 }

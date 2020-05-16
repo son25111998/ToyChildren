@@ -13,6 +13,8 @@ export class UrlConstants {
 	public static ORDER_API_URL = "/api/order/";
 	public static MOMO_REQUEST_API_URL = "/api/member/pay/momo/request";
 	public static STATISTIC_API_URL = "/api/order/statistic/money";
+	public static AUTH_API_URL = "/api/auth/authenticate";
+
 
 	public static CART_URL = "/gio-hang";
 	public static HOME_URL = "/trang-chu";

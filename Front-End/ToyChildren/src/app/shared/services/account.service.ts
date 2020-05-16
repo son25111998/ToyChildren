@@ -6,6 +6,8 @@ import { retry, catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
 import { Constant } from '../utils/constant';
 import { Customer } from 'src/app/models/customer';
+import { LoginInput } from 'src/app/models/login-input';
+import { JwtResponse } from 'src/app/models/jwt-response';
 
 @Injectable({
   providedIn: 'root'
@@ -20,39 +22,24 @@ export class AccountService {
     })
   }
 
-  public login(username: String, password: String) {
-    const headers = new HttpHeaders({
-      Authorization: 'Basic ' + btoa(username + ":" + password)
-    })
-
-    sessionStorage.removeItem(Constant.HEADERS_SESSION);
-    sessionStorage.setItem(Constant.HEADERS_SESSION,headers.get("Authorization"));
-
-    return this.http.get<DataResponse<Object>>(UrlConstants.LOGIN_API_URL, { headers })
-      .pipe(
-        retry(1),
-        catchError(this.errorHandl)
-      )
-  }
-
-  public _register(account: Object): Observable<DataResponse<Customer>> {
-    return this.http.post<DataResponse<Customer>>(UrlConstants.REGISTER_API_URL,JSON.stringify(account), this.httpOptions)
+  login(loginInput: LoginInput) {
+    return this.http.post<DataResponse<JwtResponse>>(UrlConstants.AUTH_API_URL, JSON.stringify(loginInput), this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.errorHandl)
     )
   }
 
-  public logout() {
-    const headers = new HttpHeaders({
-      Authorization: sessionStorage.getItem(Constant.HEADERS_SESSION)
-    })
-
-    return this.http.get<DataResponse<Object>>(UrlConstants.LOGOUT_API_URL,{headers})
+  public _register(account: Object): Observable<DataResponse<Customer>> {
+    return this.http.post<DataResponse<Customer>>(UrlConstants.REGISTER_API_URL, JSON.stringify(account), this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.errorHandl)
       )
+  }
+
+  public logout() {
+    window.sessionStorage.clear();
   }
 
   errorHandl(error: any) {

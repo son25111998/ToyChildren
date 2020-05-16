@@ -7,6 +7,10 @@
     height: 160px !important;
 }
 
+.badge-primary {
+    position: absolute;
+}
+
 .left {
     width: 35%;
     float: left;
