@@ -31,9 +31,11 @@ import org.springframework.util.StringUtils;
 import com.ncs.common.ResponseData;
 import com.ncs.common.constants.Constants;
 import com.ncs.common.util.Utils;
+import com.ncs.dao.OderDao;
 import com.ncs.model.converter.OrderDetailConverter;
 import com.ncs.model.entity.Order;
 import com.ncs.model.entity.OrderDetail;
+import com.ncs.model.input.OderInput;
 import com.ncs.model.output.OrderDetailOutput;
 import com.ncs.model.output.OrderOutput;
 import com.ncs.repositoryclient.OrderClientRepository;
@@ -43,6 +45,10 @@ import com.ncs.repositoryclient.OrderDetailClientRepository;
 public class OrderService {
 	@Autowired
 	private OrderClientRepository orderRepository;
+
+	@Autowired
+	private OderDao oderDao;
+
 	@Autowired
 	private OrderDetailClientRepository orderDetailRepository;
 
@@ -54,33 +60,57 @@ public class OrderService {
 	private static final String FAIL_FIELD = "Thất bại";
 	private static final int STATUS_2 = 2;
 
-	public ResponseData<Page<Order>> getListOrder(int page, int size, String date) {
+//	public ResponseData<Page<Order>> getListOrder(int page, int size, String date) {
+//		LOGGER.info(">>>>>>>>>>>getListOrder Start >>>>>>>>>>>>");
+//		ResponseData<Page<Order>> response = new ResponseData<>();
+//		try {
+//			Page<Order> ordersPage;
+//
+//			if (page < 1)
+//				page = 1;
+//			if (size < 0)
+//				size = SIZE_DEFAULT;
+//
+//			Pageable pageable = PageRequest.of(page - 1, SIZE_DEFAULT, Sort.by("createDate").descending());
+//
+//			if (StringUtils.isEmpty(date)) {
+//				ordersPage = orderRepository.findAll(pageable);
+//			} else {
+//				ordersPage = orderRepository.findByCreateDate(pageable, Utils.convertStringToDate(date));
+//			}
+//
+//			for (Order order : ordersPage) {
+//				order.setOrderDetails(
+//						OrderDetailConverter.convertToListOrderDetailOutput(orderDetailRepository.findByOrder(order)));
+//			}
+//
+//			response.setData(ordersPage);
+//			response.setCode(Constants.SUCCESS_CODE);
+//			response.setMessage(Constants.SUCCESS_MSG);
+//		} catch (Exception e) {
+//			LOGGER.error("Api get order has exception : {}", e.getMessage());
+//			response.setCode(Constants.UNKNOWN_ERROR_CODE);
+//			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
+//		}
+//
+//		LOGGER.info(">>>>>>>>>>>getListOrder End >>>>>>>>>>>>");
+//		return response;
+//	}
+
+	public ResponseData<Page<Order>> getListOrder(OderInput input) {
 		LOGGER.info(">>>>>>>>>>>getListOrder Start >>>>>>>>>>>>");
 		ResponseData<Page<Order>> response = new ResponseData<>();
 		try {
 			Page<Order> ordersPage;
 
-			if (page < 1)
-				page = 1;
-			if (size < 0)
-				size = SIZE_DEFAULT;
+			if (StringUtils.isEmpty(input.getPage()) || input.getPage() < 1)
+				input.setPage(1);
+			if (StringUtils.isEmpty(input.getSize()) || input.getSize() < 0)
+				input.setSize(SIZE_DEFAULT);
 
-			Pageable pageable = PageRequest.of(page - 1, SIZE_DEFAULT, Sort.by("createDate").descending());
+			Pageable pageable = PageRequest.of(input.getPage() - 1, SIZE_DEFAULT, Sort.by("createDate").descending());
 
-			if (StringUtils.isEmpty(date)) {
-				ordersPage = orderRepository.findAll(pageable);
-			} else {
-				ordersPage = orderRepository.findByCreateDate(pageable, Utils.convertStringToDate(date));
-			}
-
-			for (Order order : ordersPage) {
-				order.setOrderDetails(
-						OrderDetailConverter.convertToListOrderDetailOutput(orderDetailRepository.findByOrder(order)));
-			}
-
-			response.setData(ordersPage);
-			response.setCode(Constants.SUCCESS_CODE);
-			response.setMessage(Constants.SUCCESS_MSG);
+			response = oderDao.getListOrder(input, pageable);
 		} catch (Exception e) {
 			LOGGER.error("Api get order has exception : {}", e.getMessage());
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);

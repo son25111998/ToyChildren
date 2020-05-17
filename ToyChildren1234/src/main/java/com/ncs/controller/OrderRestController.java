@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ncs.common.ResponseData;
 import com.ncs.model.entity.Order;
+import com.ncs.model.input.OderInput;
 import com.ncs.serviceclient.OrderService;
+
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping(value = "/order")
@@ -27,10 +30,15 @@ public class OrderRestController {
 	@Autowired
 	private OrderService orderService;
 
+//	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseData<Page<Order>> getListOrder(@RequestParam int page, @RequestParam int size,
+//			@RequestParam(required = false) String date) {
+//		return orderService.getListOrder(page, size, date);
+//	}
+	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Page<Order>> getListOrder(@RequestParam int page, @RequestParam int size,
-			@RequestParam(required = false) String date) {
-		return orderService.getListOrder(page, size, date);
+	public ResponseData<Page<Order>> getListOrder(@ApiParam OderInput input) {
+		return orderService.getListOrder(input);
 	}
 	
 	@GetMapping("statistic/money")
