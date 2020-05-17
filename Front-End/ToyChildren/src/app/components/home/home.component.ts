@@ -29,8 +29,6 @@ export class HomeComponent implements OnInit {
   constructor(
     private api: ProductService,
     private cartService: CartService,
-    private router: Router,
-    private ngZone: NgZone,
     private sharingDate: SharingDataService
   ) { }
 

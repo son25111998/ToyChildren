@@ -9,6 +9,8 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -16,13 +18,17 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import com.ncs.application.jwt.JwtTokenUtil;
 import com.ncs.common.ResponseData;
 import com.ncs.common.constants.Constants;
 import com.ncs.common.util.Result;
+import com.ncs.entity.AccountEntity;
 import com.ncs.model.entity.Account;
 import com.ncs.model.entity.Customer;
 import com.ncs.model.entity.Role;
 import com.ncs.model.input.AccountInput;
+import com.ncs.model.input.LoginInput;
+import com.ncs.repository.AccountRepository;
 import com.ncs.repositoryclient.AccountClientRepository;
 import com.ncs.repositoryclient.CustomerRepository;
 import com.ncs.repositoryclient.RoleRepository;
@@ -30,14 +36,19 @@ import com.ncs.repositoryclient.RoleRepository;
 @Service
 public class AccountService {
 	@Autowired
-	private AccountClientRepository accountRepository;
-
+	private AccountClientRepository accountClientRepository;
+	@Autowired
+	private AccountRepository accountRepository;
 	@Autowired
 	private CustomerRepository customerRepository;
-
 	@Autowired
 	private RoleRepository roleRepository;
-
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	@Autowired
+	private JwtTokenUtil jwtTokenUtil;
+	
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 
 	@Transactional(rollbackOn = Exception.class)
@@ -69,7 +80,7 @@ public class AccountService {
 			account.setLastAccess(date);
 			account.setRole(role);
 
-			account = accountRepository.save(account);
+			account = accountClientRepository.save(account);
 
 			// set data customer
 			customer.setAccount(account);
@@ -110,5 +121,24 @@ public class AccountService {
 
 		LOGGER.info(">>>>>>>>>>>logout End >>>>>>>>>>>>");
 		return data;
+	}
+
+	public ResponseData<String> generateToken(LoginInput input){
+		LOGGER.info(">>>>>>>>>>>generateToken End >>>>>>>>>>>>");
+		ResponseData<String> response = new ResponseData<>();
+		try {
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(input.getUserName(), input.getPassword()));
+			AccountEntity accountEntity = accountRepository.findByUsername(input.getUserName());
+			
+			response.setData(jwtTokenUtil.generalToken(accountEntity));
+			response.setCode(Result.SUCCESS.getCode());
+			response.setMessage(Result.SUCCESS.getMessage());
+		} catch (Exception e) {
+			LOGGER.error("generateToken has exception : {}", e);
+			response.setCode(Constants.UNKNOWN_ERROR_CODE);
+			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
+		}
+		LOGGER.info(">>>>>>>>>>>generateToken End >>>>>>>>>>>>");
+		return response;
 	}
 }

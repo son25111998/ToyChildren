@@ -11,12 +11,16 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import com.ncs.common.ResponseData;
 import com.ncs.common.constants.Constants;
 import com.ncs.model.dto.CartDto;
+import com.ncs.model.dto.CustomUserDetails;
+import com.ncs.model.entity.Account;
 import com.ncs.model.entity.Coupon;
 import com.ncs.model.entity.Customer;
 import com.ncs.model.entity.Order;
@@ -25,6 +29,7 @@ import com.ncs.model.entity.Product;
 import com.ncs.model.entity.Shipping;
 import com.ncs.model.entity.Tax;
 import com.ncs.model.input.PayInput;
+import com.ncs.repositoryclient.AccountClientRepository;
 import com.ncs.repositoryclient.CouponRepository;
 import com.ncs.repositoryclient.CustomerRepository;
 import com.ncs.repositoryclient.OrderClientRepository;
@@ -51,6 +56,8 @@ public class PayService {
 	private ProductClientRepository productRepository;
 	@Autowired
 	private MomoService momoService;
+	@Autowired
+	private AccountClientRepository accountRepository;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 	private static final String COUPON_FILED = "Mã giảm giá";
@@ -68,11 +75,22 @@ public class PayService {
 			Coupon coupon = new Coupon();
 			Tax tax = new Tax();
 			Customer customer = new Customer();
-//			Account account = new Account();
+			Account account = new Account();
+			String username = null;
 
-//			CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
-//					.getPrincipal();
-//			account = userDetails.getAccount();
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+			if (principal instanceof CustomUserDetails) {
+				username = principal.toString();
+			}
+
+			if (StringUtils.isEmpty(username)) {
+				response.setCode(Constants.UNKNOWN_ERROR_CODE);
+				response.setMessage("Vui long dang nhap");
+				return response;
+			}
+
+			account = accountRepository.findByUsername(username);
 
 			// get data input
 			int shippingId = input.getShippingId();
@@ -83,11 +101,10 @@ public class PayService {
 			String uuid = UUID.randomUUID().toString();
 
 			// get data in db
-			shipping = shippingRepository.findById(shippingId).orElse(null);	
+			shipping = shippingRepository.findById(shippingId).orElse(null);
 			coupon = couponRepository.findById(couponId).orElse(null);
 			tax = taxRepository.findById(taxId).orElse(null);
-//			customer = customerRepository.findByAccount(account);
-			customer = customerRepository.findById(1).get(); // TODO
+			customer = customerRepository.findByAccount(account);
 
 			// case carts null or empty
 			if (ObjectUtils.isEmpty(carts)) {
@@ -122,11 +139,11 @@ public class PayService {
 
 			// set data in order
 			order.setCreateDate(new Date());
-			
-			if(payment == Constants.PAYMENT_MOMO_CODE) {
+
+			if (payment == Constants.PAYMENT_MOMO_CODE) {
 				order.setQrcode(momoService.createQrCode(input.getSumMoney(), uuid));
 			}
-			
+
 			order.setPayment(payment);
 			order.setStatus(Constants.STATUS_ACTIVE_VALUE);
 			order.setCoupon(coupon);
@@ -157,13 +174,13 @@ public class PayService {
 
 				LOGGER.info("Product update: {}", productRepository.save(product));
 			}
-			
+
 			response.setData(order);
 			response.setCode(Constants.SUCCESS_CODE);
-			
-			if(payment == Constants.PAYMENT_MOMO_CODE) {
+
+			if (payment == Constants.PAYMENT_MOMO_CODE) {
 				response.setMessage(Constants.SUCCESS_MOMO_MSG);
-			}else {
+			} else {
 				response.setMessage(Constants.SUCCESS_MSG);
 			}
 		} catch (Exception e) {

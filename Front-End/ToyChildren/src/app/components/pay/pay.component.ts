@@ -16,7 +16,6 @@ import { Constant } from 'src/app/shared/utils/constant';
 import { SharingDataService } from 'src/app/shared/services/sharing-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogModel, ConfirmDialogComponent } from 'src/app/shared/layout/confirm-dialog/confirm-dialog.component';
-import { MomoRequest } from 'src/app/models/momo-request';
 
 @Component({
   selector: 'app-pay',
@@ -35,7 +34,6 @@ export class PayComponent implements OnInit {
   totalProductMoney: number;
   existCoupon: boolean = false;
   errCoupon: boolean = false;
-  momoRequest: MomoRequest;
 
   constructor(
     private router: Router,
@@ -47,6 +45,7 @@ export class PayComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.checkLogin();
     this.loadCarts();
     this.loadShipping();
     this.payInput = new PayInput(1, 1, 1, 1, this.carts);
@@ -54,6 +53,13 @@ export class PayComponent implements OnInit {
 
   ngAfterContentInit(): void {
     window.scroll(0, 0);
+  }
+
+  checkLogin(){
+    if(localStorage.getItem(Constant.TOKEN) == null){
+      window.scroll(0, 0);
+      this.confirmDialog("BABY SHOP",MessageConstants.NOT_LOGIN,"Đăng nhập",null,UrlConstants.LOGIN_URL,null);
+    }
   }
 
   onSubmit() {
@@ -142,10 +148,6 @@ export class PayComponent implements OnInit {
     if (this.coupon != null) {
       this.totalMoney -= this.coupon.sale;
     }
-  }
-
-  getStrRequest(momoRequest: MomoRequest): string{
-    return 
   }
 
   confirmDialog(title: string, message: string, textYes: string, textNo: string, urlYes: string, urlNo: string) {

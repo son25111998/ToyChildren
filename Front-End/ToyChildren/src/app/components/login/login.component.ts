@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AccountService } from 'src/app/shared/services/account.service';
 import { CodeConstants } from 'src/app/shared/utils/code.constants';
 import { Constant } from 'src/app/shared/utils/constant';
-import { CustomerService } from 'src/app/shared/services/customer.service';
 import { UrlConstants } from 'src/app/shared/utils/url.constants';
 import { AccountInput } from '../../models/account-input';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { LoginInput } from 'src/app/models/login-input';
+import { SharingDataService } from 'src/app/shared/services/sharing-data.service';
 
 /* Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -39,14 +39,14 @@ export class LoginComponent implements OnInit {
   isError: boolean = false;
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService,
-    private customerService: CustomerService
+    private sharingDate: SharingDataService
   ) { }
 
   ngOnInit(): void {
     this.accountService.logout();
+    this.sharingDate.changeLogged(null,null);
   }
 
   ngAfterContentInit(): void {
@@ -55,15 +55,13 @@ export class LoginComponent implements OnInit {
   
   login() {
     let loginInput = new LoginInput(this.account.username, this.account.password);
-
-    console.log(loginInput);
-    
     this.accountService.login(loginInput).subscribe(
       data => {
-        console.log(data);
-
         if (data.code == CodeConstants.CODE_SUCCESS) {
-          
+          localStorage.setItem(Constant.TOKEN,data.data);
+          localStorage.setItem(Constant.USER_NAME,loginInput.userName);
+          this.sharingDate.changeLogged(data.data,loginInput.userName);
+          this.router.navigateByUrl(UrlConstants.HOME_URL);
         }
         else {
           this.isError = true;

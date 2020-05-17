@@ -139,6 +139,8 @@ public class OrderService {
 			orderRepository.save(order);
 
 			response.setData(order);
+			response.setCode(Constants.SUCCESS_CODE);
+			response.setMessage(Constants.SUCCESS_MSG);
 		} catch (Exception e) {
 			LOGGER.error("Api update status order has exception : {}", e.getMessage());
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);

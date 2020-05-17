@@ -21,6 +21,8 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Integer>
     Page<AccountEntity> findStatusAccount(@Param("status") String status, Pageable pageable);
 
 	AccountEntity findById(int id);
-
+	
+	AccountEntity findByUsername(String username);
+	
     Page<AccountEntity> findAll(Specification<AccountEntity> advanceFilter,Pageable pagerable);
 }

@@ -7,7 +7,6 @@ import { throwError, Observable } from 'rxjs';
 import { Constant } from '../utils/constant';
 import { Customer } from 'src/app/models/customer';
 import { LoginInput } from 'src/app/models/login-input';
-import { JwtResponse } from 'src/app/models/jwt-response';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +22,7 @@ export class AccountService {
   }
 
   login(loginInput: LoginInput) {
-    return this.http.post<DataResponse<JwtResponse>>(UrlConstants.AUTH_API_URL, JSON.stringify(loginInput), this.httpOptions)
+    return this.http.post<DataResponse<string>>(UrlConstants.AUTH_API_URL, loginInput, this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.errorHandl)
@@ -39,7 +38,7 @@ export class AccountService {
   }
 
   public logout() {
-    window.sessionStorage.clear();
+    window.localStorage.clear();
   }
 
   errorHandl(error: any) {

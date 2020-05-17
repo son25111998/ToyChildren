@@ -20,7 +20,9 @@
                                 <a href="#" style="line-height: 35px;">Khuyến mại</a>
                             </li>
                             <li *ngIf="!isLogged" style="line-height: 35px;"><a [routerLink]="['/dang-nhap']" routerLinkActive="router-link-active" title="Đăng nhập"><i class="fa fa-user" aria-hidden="true" style="font-size: 18px;"></i></a></li>
-                            <li *ngIf="isLogged" style="line-height: 35px;"><a href="#" title="Cập nhật tài khoản {{customer.firstName}} {{customer.middleName}} {{customer.lastName}}">{{customer.firstName}} {{customer.lastName}}</a></li>
+                            <li *ngIf="isLogged" style="line-height: 35px;">
+                                <a href="#" title="Cập nhật tài khoản">{{username}}</a>
+                            </li>
                             <li *ngIf="isLogged" style="line-height: 35px;"><a title="Đăng xuất" (click)="logout()"><i class="fa fa-sign-out" style="font-size: 18px;"></i></a></li>
                             <li class="dropdown" style="line-height: 27px;">
                                 <a class="detail-cart" [routerLink]="['/gio-hang']">

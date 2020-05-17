@@ -4,6 +4,8 @@ export class Constant {
     public static HEADERS_SESSION = "HeadersSession";
     public static AUTHORIZATION = "Authorization";
     public static CONTENT_TYPE = "Content-Type";
+    public static TOKEN = "token";
+    public static USER_NAME = "username";
 
     public static APPLICATION_JSON_VALUE = "application/json";
     public static APPLICATION_JSON_UTF8_VALUE = "application/json;charset=UTF-8";

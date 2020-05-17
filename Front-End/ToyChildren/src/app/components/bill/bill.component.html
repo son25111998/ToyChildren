@@ -44,7 +44,8 @@
     </div>
     <div class="row" style="margin-bottom: 30px;">
         <div class="col text-center">
-            <button class="btn btn-primary" (click)="confirm()">Xác nhận thanh toán</button>
+            <button *ngIf="2 > order.status;else orderStatus" class="btn btn-primary" (click)="confirm()">Xác nhận thanh toán</button>
+            <ng-template #orderStatus><button class="btn btn-success">Đã thanh toán</button></ng-template>
         </div>
     </div>
 </div>
