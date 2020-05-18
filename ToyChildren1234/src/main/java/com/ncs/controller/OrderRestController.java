@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,17 +35,17 @@ public class OrderRestController {
 //			@RequestParam(required = false) String date) {
 //		return orderService.getListOrder(page, size, date);
 //	}
-	
+
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<OrderOutput2> getListOrder(@ApiParam OderInput input) {
 		return orderService.getListOrder(input);
 	}
-	
+
 	@GetMapping("statistic/money")
-	public ResponseData<List<Long>> getListMoneyByMonth(){
+	public ResponseData<List<Long>> getListMoneyByMonth() {
 		return orderService.getListMoneyByMonth();
 	}
-	
+
 	@GetMapping("{id}")
 	public ResponseData<Order> getOrderById(@PathVariable(name = "id") int id) {
 		return orderService.getOrderById(id);

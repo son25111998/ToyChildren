@@ -20,10 +20,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -102,16 +98,23 @@ public class OrderService {
 		LOGGER.info(">>>>>>>>>>>getListOrder Start >>>>>>>>>>>>");
 		ResponseData<OrderOutput2> response = new ResponseData<>();
 		try {
-			Page<Order> ordersPage;
+			OrderOutput2 orders = new OrderOutput2();
 
-			if (StringUtils.isEmpty(input.getPage()) || input.getPage() < 1)
-				input.setPage(1);
+			if (StringUtils.isEmpty(input.getPage()) || input.getPage() < 0)
+				input.setPage(0);
 			if (StringUtils.isEmpty(input.getSize()) || input.getSize() < 0)
 				input.setSize(SIZE_DEFAULT);
 
-			Pageable pageable = PageRequest.of(input.getPage() - 1, SIZE_DEFAULT, Sort.by("createDate").descending());
+			orders = oderDao.getListOrder(input);
 
-			response = oderDao.getListOrder(input, pageable);
+			for (Order order : orders.getOrdersPage()) {
+				order.setOrderDetails(
+						OrderDetailConverter.convertToListOrderDetailOutput(orderDetailRepository.findByOrder(order)));
+			}
+
+			response.setData(orders);
+			response.setCode(Constants.SUCCESS_CODE);
+			response.setMessage(Constants.SUCCESS_MSG);
 		} catch (Exception e) {
 			LOGGER.error("Api get order has exception : {}", e.getMessage());
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);
@@ -140,6 +143,8 @@ public class OrderService {
 					OrderDetailConverter.convertToListOrderDetailOutput(orderDetailRepository.findByOrder(order)));
 
 			response.setData(order);
+			response.setCode(Constants.SUCCESS_CODE);
+			response.setMessage(Constants.SUCCESS_MSG);
 		} catch (Exception e) {
 			LOGGER.error("Api get order by id has exception : {}", e.getMessage());
 			response.setCode(Constants.UNKNOWN_ERROR_CODE);
