@@ -31,8 +31,8 @@ public class Order implements Serializable {
 	@Column(name = "DATE_ORDER")
 	private Date createDate;
 	
-	@Column(name = "QRCODE")
-    private byte[] qrcode = new byte[0];
+//	@Column(name = "QRCODE")
+//    private byte[] qrcode = new byte[0];
 	
 	@Column(name = "PAYMENT_TYPE")
 	private int payment;

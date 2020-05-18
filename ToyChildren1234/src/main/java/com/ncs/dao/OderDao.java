@@ -1,5 +1,8 @@
 package com.ncs.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -19,14 +22,13 @@ public class OderDao {
 	@Autowired
 	private EntityManager entityManager;
 
-	public ResponseData<OrderOutput2> getListOrder(OderInput input, Pageable pageable) {
+	public List<Integer> getListOrder(OderInput input, Pageable pageable) {
 		StringBuffer sql = new StringBuffer();
-		ResponseData<OrderOutput2> response = new ResponseData<>();
-		OrderOutput2 output2 = new OrderOutput2();
+		List<Integer> output2 = new ArrayList<>(); 
 		try {
 			// create query DB
 			sql.append(
-					"select a.* from orderproduct a inner join order_detail b on b.ORDER_ID=a.id inner join product c on b.PRODUCT_ID=c.id ");
+					"select a.id from orderproduct a inner join order_detail b on b.ORDER_ID=a.id inner join product c on b.PRODUCT_ID=c.id ");
 			if (!StringUtils.isEmpty(input.getProductName())) {
 				sql.append(" WHERE c.name LIKE :productName ");
 			}
@@ -53,9 +55,6 @@ public class OderDao {
 				sql.append(" c.MANUFACTURER_ID = :manufacturerId ");
 			}
 
-			// sort by createDate
-			// sql.append(" ORDER BY orderproduct.DATE_ORDER desc");
-
 			Query query = entityManager.createNativeQuery(sql.toString()).setFirstResult((input.getPage() - 1) * input.getSize())
 					.setMaxResults((int) pageable.getOffset());
 
@@ -72,16 +71,11 @@ public class OderDao {
 			if (input.getManufacturerId() != null) {
 				query.setParameter("manufacturerId", input.getManufacturerId());
 			}
-			
-			output2.setOrders(query.getResultList());
-			output2.setPageable(pageable);
-			System.out.println("Data============ " + output2.getOrders());
-			response.setData(output2);
-			response.setCode(Constants.SUCCESS_CODE);
-			response.setMessage(Constants.SUCCESS_MSG);
+			output2 = query. getResultList();
+			System.out.println("Data============ " + output2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return response;
+		return output2;
 	}
 }
