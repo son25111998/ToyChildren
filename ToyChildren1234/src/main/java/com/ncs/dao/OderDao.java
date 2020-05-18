@@ -4,15 +4,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.ncs.common.ResponseData;
 import com.ncs.common.constants.Constants;
-import com.ncs.model.entity.Order;
 import com.ncs.model.input.OderInput;
+import com.ncs.model.output.OrderOutput2;
 
 @Repository
 public class OderDao {
@@ -20,14 +19,14 @@ public class OderDao {
 	@Autowired
 	private EntityManager entityManager;
 
-	public ResponseData<Page<Order>> getListOrder(OderInput input, Pageable pageable) {
+	public ResponseData<OrderOutput2> getListOrder(OderInput input, Pageable pageable) {
 		StringBuffer sql = new StringBuffer();
-		ResponseData<Page<Order>> response = new ResponseData<>();
-		Page<Order> ordersPage;
+		ResponseData<OrderOutput2> response = new ResponseData<>();
+		OrderOutput2 output2 = new OrderOutput2();
 		try {
 			// create query DB
 			sql.append(
-					"select * from orderproduct a inner join order_detail b on b.ORDER_ID=a.id inner join product c on b.PRODUCT_ID=c.id ");
+					"select a.* from orderproduct a inner join order_detail b on b.ORDER_ID=a.id inner join product c on b.PRODUCT_ID=c.id ");
 			if (!StringUtils.isEmpty(input.getProductName())) {
 				sql.append(" WHERE c.name LIKE :productName ");
 			}
@@ -73,11 +72,11 @@ public class OderDao {
 			if (input.getManufacturerId() != null) {
 				query.setParameter("manufacturerId", input.getManufacturerId());
 			}
-
-			System.out.println("Data============ " + query.getResultList());
-			ordersPage = (Page<Order>) query.getResultList();
-
-			response.setData(ordersPage);
+			
+			output2.setOrders(query.getResultList());
+			output2.setPageable(pageable);
+			System.out.println("Data============ " + output2.getOrders());
+			response.setData(output2);
 			response.setCode(Constants.SUCCESS_CODE);
 			response.setMessage(Constants.SUCCESS_MSG);
 		} catch (Exception e) {

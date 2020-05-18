@@ -38,6 +38,7 @@ import com.ncs.model.entity.OrderDetail;
 import com.ncs.model.input.OderInput;
 import com.ncs.model.output.OrderDetailOutput;
 import com.ncs.model.output.OrderOutput;
+import com.ncs.model.output.OrderOutput2;
 import com.ncs.repositoryclient.OrderClientRepository;
 import com.ncs.repositoryclient.OrderDetailClientRepository;
 
@@ -97,9 +98,9 @@ public class OrderService {
 //		return response;
 //	}
 
-	public ResponseData<Page<Order>> getListOrder(OderInput input) {
+	public ResponseData<OrderOutput2> getListOrder(OderInput input) {
 		LOGGER.info(">>>>>>>>>>>getListOrder Start >>>>>>>>>>>>");
-		ResponseData<Page<Order>> response = new ResponseData<>();
+		ResponseData<OrderOutput2> response = new ResponseData<>();
 		try {
 			Page<Order> ordersPage;
 

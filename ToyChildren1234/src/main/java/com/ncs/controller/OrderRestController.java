@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ncs.common.ResponseData;
 import com.ncs.model.entity.Order;
 import com.ncs.model.input.OderInput;
+import com.ncs.model.output.OrderOutput2;
 import com.ncs.serviceclient.OrderService;
 
 import io.swagger.annotations.ApiParam;
@@ -37,7 +38,7 @@ public class OrderRestController {
 //	}
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Page<Order>> getListOrder(@ApiParam OderInput input) {
+	public ResponseData<OrderOutput2> getListOrder(@ApiParam OderInput input) {
 		return orderService.getListOrder(input);
 	}
 	
