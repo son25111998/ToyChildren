@@ -56,7 +56,7 @@ public class OderDao {
 			// sort by createDate
 			// sql.append(" ORDER BY orderproduct.DATE_ORDER desc");
 
-			Query query = entityManager.createNativeQuery(sql.toString()).setFirstResult(1 * pageable.getPageSize())
+			Query query = entityManager.createNativeQuery(sql.toString()).setFirstResult((input.getPage() - 1) * input.getSize())
 					.setMaxResults((int) pageable.getOffset());
 
 			// set data to parameters of query
