@@ -11,10 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import com.ncs.common.ResponseData;
-import com.ncs.common.constants.Constants;
 import com.ncs.model.input.OderInput;
-import com.ncs.model.output.OrderOutput2;
 
 @Repository
 public class OderDao {
@@ -54,6 +51,14 @@ public class OderDao {
 				sql.append(" WHERE ");
 				sql.append(" c.MANUFACTURER_ID = :manufacturerId ");
 			}
+			if (!StringUtils.isEmpty(input.getDate())) {
+				if (!StringUtils.isEmpty(input.getProductName()) || input.getCategoryId() != null
+						|| input.getStatus() != null || !StringUtils.isEmpty(input.getManufacturerId())) {
+					sql.append(" AND ");
+				}
+				sql.append(" WHERE ");
+				sql.append(" a.DATE_ORDER = :date ");
+			}
 
 			Query query = entityManager.createNativeQuery(sql.toString()).setFirstResult((input.getPage() - 1) * input.getSize())
 					.setMaxResults((int) pageable.getOffset());
@@ -70,6 +75,9 @@ public class OderDao {
 			}
 			if (input.getManufacturerId() != null) {
 				query.setParameter("manufacturerId", input.getManufacturerId());
+			}
+			if (!StringUtils.isEmpty(input.getDate())) {
+				query.setParameter("date", input.getDate());
 			}
 			output2 = query. getResultList();
 			System.out.println("Data============ " + output2);

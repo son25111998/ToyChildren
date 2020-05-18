@@ -61,42 +61,42 @@ public class OrderService {
 	private static final String FAIL_FIELD = "Thất bại";
 	private static final int STATUS_2 = 2;
 
-//	public ResponseData<Page<Order>> getListOrder(int page, int size, String date) {
-//		LOGGER.info(">>>>>>>>>>>getListOrder Start >>>>>>>>>>>>");
-//		ResponseData<Page<Order>> response = new ResponseData<>();
-//		try {
-//			Page<Order> ordersPage;
-//
-//			if (page < 1)
-//				page = 1;
-//			if (size < 0)
-//				size = SIZE_DEFAULT;
-//
-//			Pageable pageable = PageRequest.of(page - 1, SIZE_DEFAULT, Sort.by("createDate").descending());
-//
-//			if (StringUtils.isEmpty(date)) {
-//				ordersPage = orderRepository.findAll(pageable);
-//			} else {
-//				ordersPage = orderRepository.findByCreateDate(pageable, Utils.convertStringToDate(date));
-//			}
-//
-//			for (Order order : ordersPage) {
-//				order.setOrderDetails(
-//						OrderDetailConverter.convertToListOrderDetailOutput(orderDetailRepository.findByOrder(order)));
-//			}
-//
-//			response.setData(ordersPage);
-//			response.setCode(Constants.SUCCESS_CODE);
-//			response.setMessage(Constants.SUCCESS_MSG);
-//		} catch (Exception e) {
-//			LOGGER.error("Api get order has exception : {}", e.getMessage());
-//			response.setCode(Constants.UNKNOWN_ERROR_CODE);
-//			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
-//		}
-//
-//		LOGGER.info(">>>>>>>>>>>getListOrder End >>>>>>>>>>>>");
-//		return response;
-//	}
+	public ResponseData<Page<Order>> getListOrder(int page, int size, String date) {
+		LOGGER.info(">>>>>>>>>>>getListOrder Start >>>>>>>>>>>>");
+		ResponseData<Page<Order>> response = new ResponseData<>();
+		try {
+			Page<Order> ordersPage;
+
+			if (page < 1)
+				page = 1;
+			if (size < 0)
+				size = SIZE_DEFAULT;
+
+			Pageable pageable = PageRequest.of(page - 1, SIZE_DEFAULT, Sort.by("createDate").descending());
+
+			if (StringUtils.isEmpty(date)) {
+				ordersPage = orderRepository.findAll(pageable);
+			} else {
+				ordersPage = orderRepository.findByCreateDate(pageable, Utils.convertStringToDate(date));
+			}
+
+			for (Order order : ordersPage) {
+				order.setOrderDetails(
+						OrderDetailConverter.convertToListOrderDetailOutput(orderDetailRepository.findByOrder(order)));
+			}
+
+			response.setData(ordersPage);
+			response.setCode(Constants.SUCCESS_CODE);
+			response.setMessage(Constants.SUCCESS_MSG);
+		} catch (Exception e) {
+			LOGGER.error("Api get order has exception : {}", e.getMessage());
+			response.setCode(Constants.UNKNOWN_ERROR_CODE);
+			response.setMessage(Constants.UNKNOWN_ERROR_MSG);
+		}
+
+		LOGGER.info(">>>>>>>>>>>getListOrder End >>>>>>>>>>>>");
+		return response;
+	}
 
 	public ResponseData<OrderOutput2> getListOrder(OderInput input) {
 		LOGGER.info(">>>>>>>>>>>getListOrder Start >>>>>>>>>>>>");
@@ -114,9 +114,13 @@ public class OrderService {
 			Pageable pageable = PageRequest.of(input.getPage() - 1, SIZE_DEFAULT, Sort.by("createDate").descending());
 
 			integer = oderDao.getListOrder(input, pageable);
-			if(integer.size() > 0) {
-				for (Integer order : integer) {
-					orders.add(orderRepository.findById(order).get());
+			if (integer.size() > 0) {
+				for (Integer i : integer) {
+					Order order = new Order();
+					order = orderRepository.findById(i).get();
+					order.setOrderDetails(OrderDetailConverter
+							.convertToListOrderDetailOutput(orderDetailRepository.findByOrder(order)));
+					orders.add(order);
 				}
 			}
 			orderOutput2.setOrders(orders);
