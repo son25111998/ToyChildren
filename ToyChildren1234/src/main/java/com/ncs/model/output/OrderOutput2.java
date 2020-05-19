@@ -8,8 +8,8 @@ import lombok.Data;
 
 @Data
 public class OrderOutput2 {
-	List<Order> ordersPage;
-	Pagination pageable;
+	private List<Order> ordersPage;
+	private Pageable pageable;
 	@SuppressWarnings("unused")
 	private int totalPages;
 	private Long totalElements;

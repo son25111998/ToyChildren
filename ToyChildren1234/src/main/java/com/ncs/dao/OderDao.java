@@ -13,7 +13,7 @@ import org.springframework.util.StringUtils;
 import com.ncs.model.entity.Order;
 import com.ncs.model.input.OderInput;
 import com.ncs.model.output.OrderOutput2;
-import com.ncs.model.output.Pagination;
+import com.ncs.model.output.Pageable;
 
 @Repository
 public class OderDao {
@@ -25,7 +25,7 @@ public class OderDao {
 	public OrderOutput2 getListOrder(OderInput input) {
 		StringBuffer sql = new StringBuffer();
 		OrderOutput2 result = new OrderOutput2();
-		Pagination pageable = new Pagination();
+		Pageable pageable = new Pageable();
 		List<Order> orders = new ArrayList<>();
 
 		try {
