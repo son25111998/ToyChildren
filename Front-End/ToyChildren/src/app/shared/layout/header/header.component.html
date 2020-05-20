@@ -16,8 +16,8 @@
                                     <li *ngFor="let item of category.childrens"><a [routerLink]="['/danh-muc', item.id ]">{{item.name}}</a></li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="#" style="line-height: 35px;">Khuyến mại</a>
+                            <li *ngIf="isLogged">
+                                <a [routerLink]="['/lich-su-mua-hang']" routerLinkActive="router-link-active" style="line-height: 35px;">Đơn mua</a>
                             </li>
                             <li *ngIf="!isLogged" style="line-height: 35px;"><a [routerLink]="['/dang-nhap']" routerLinkActive="router-link-active" title="Đăng nhập"><i class="fa fa-user" aria-hidden="true" style="font-size: 18px;"></i></a></li>
                             <li *ngIf="isLogged" style="line-height: 35px;">

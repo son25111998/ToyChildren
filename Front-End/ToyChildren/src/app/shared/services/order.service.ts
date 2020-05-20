@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { DataResponse } from 'src/app/models/data-response';
 import { throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Order } from 'src/app/models/order';
 import { UrlConstants } from '../utils/url.constants';
-import { stringify } from 'querystring';
+import { Constant } from '../utils/constant';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,21 @@ import { stringify } from 'querystring';
 export class OrderService {
 
   constructor(private http: HttpClient) {  }
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem(Constant.TOKEN)
+    })
+  }
+  
+  public getOrderByProfile(){
+    return this.http.get<DataResponse<Order[]>>(UrlConstants.ORDER_PROFILE_API_URL,this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl)
+      )
+  }
 
   public getOrderById(id: number){
     return this.http.get<DataResponse<Order>>(UrlConstants.ORDER_API_URL + id)

@@ -1,25 +1,25 @@
 package com.ncs.serviceclient;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ncs.common.ResponseData;
 import com.ncs.common.constants.Constants;
 import com.ncs.model.dto.CartDto;
-import com.ncs.model.dto.CustomUserDetails;
 import com.ncs.model.entity.Account;
 import com.ncs.model.entity.Coupon;
 import com.ncs.model.entity.Customer;
@@ -76,19 +76,16 @@ public class PayService {
 			Tax tax = new Tax();
 			Customer customer = new Customer();
 			Account account = new Account();
-			String username = null;
 
-			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-			if (principal instanceof CustomUserDetails) {
-				username = principal.toString();
-			}
-
-			if (StringUtils.isEmpty(username)) {
-				response.setCode(Constants.UNKNOWN_ERROR_CODE);
-				response.setMessage("Vui long dang nhap");
-				return response;
-			}
+			String jwtToken = request.getHeader("Authorization");;
+			
+			String[] split_string = jwtToken.split("\\.");
+	        String base64EncodedBody = split_string[1];
+	        Base64 base64Url = new Base64(true);
+	        
+	        JsonNode node = new ObjectMapper().readTree(base64Url.decode(base64EncodedBody));
+	        
+	        String username = node.path("username").asText();
 
 			account = accountRepository.findByUsername(username);
 
@@ -138,7 +135,7 @@ public class PayService {
 			}
 
 			// set data in order
-			order.setCreateDate(new Date());
+			order.setCreateDate(Calendar.getInstance().getTime());
 
 			if (payment == Constants.PAYMENT_MOMO_CODE) {
 				order.setQrcode(momoService.createQrCode(input.getSumMoney(), uuid));

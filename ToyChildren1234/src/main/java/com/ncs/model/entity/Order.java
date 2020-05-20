@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import com.ncs.model.output.OrderDetailOutput;
@@ -29,6 +31,7 @@ public class Order implements Serializable {
 	private int id;
 
 	@Column(name = "DATE_ORDER")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
 	
 	@Column(name = "QRCODE")
@@ -55,6 +58,9 @@ public class Order implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "TAX_ID")
 	private Tax tax;
+	
+	@Transient
+	private int sumMoney;
 
 	@Transient
 	private List<OrderDetailOutput> orderDetails;

@@ -6,6 +6,7 @@ import { UrlConstants } from '../utils/url.constants';
 import { throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Order } from 'src/app/models/order';
+import { Constant } from '../utils/constant';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class PayService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem(Constant.TOKEN)
     })
   }
   

@@ -34,6 +34,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { BillComponent } from './components/bill/bill.component';
 import { ChartsModule } from 'ng2-charts';
 import { ChartComponent } from './components/chart/chart.component';
+import { BillProfileComponent } from './components/bill-profile/bill-profile.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ChartComponent } from './components/chart/chart.component';
     ProductListComponent,
     ConfirmDialogComponent,
     BillComponent,
-    ChartComponent
+    ChartComponent,
+    BillProfileComponent
   ],
   imports: [
     BrowserModule,

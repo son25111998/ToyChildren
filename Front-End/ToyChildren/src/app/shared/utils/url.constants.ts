@@ -11,6 +11,7 @@ export class UrlConstants {
 	public static REGISTER_API_URL = "/api/account/register";
 	public static EXPORT_FILE_API_URL = "/api/order/export";
 	public static ORDER_API_URL = "/api/order/";
+	public static ORDER_PROFILE_API_URL = "/api/order/profile";
 	public static MOMO_REQUEST_API_URL = "/api/member/pay/momo/request";
 	public static STATISTIC_API_URL = "/api/order/statistic/money";
 	public static AUTH_API_URL = "/api/auth/authenticate";

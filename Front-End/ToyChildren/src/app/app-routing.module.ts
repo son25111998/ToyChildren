@@ -10,6 +10,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { RegisterComponent } from './components/register/register.component';
 import { BillComponent } from './components/bill/bill.component';
 import { ChartComponent } from './components/chart/chart.component';
+import { BillProfileComponent } from './components/bill-profile/bill-profile.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'trang-chu', pathMatch: 'full' },
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'danh-muc', component: ProductListComponent},
   { path: 'danh-muc/:id', component: ProductListComponent},
   { path: 'hoa-don/:id', component: BillComponent},
+  { path: 'lich-su-mua-hang', component: BillProfileComponent},
   { path: 'chart', component: ChartComponent}
 ];
 

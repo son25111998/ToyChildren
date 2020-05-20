@@ -2,6 +2,7 @@ package com.ncs.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,10 @@ public class OrderRestController {
 	@GetMapping(value = "export", produces = "application/vnd.ms-excel;charset=UTF-8")
 	public void exportFileExcel(HttpServletResponse response, @RequestParam(required = false) String date) {
 		orderService.exportFileExcel(response, date);
+	}
+	
+	@GetMapping(value = "profile", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<List<Order>> getOrderByProfile(HttpServletRequest request){
+		return orderService.getOrderByProfile(request);
 	}
 }

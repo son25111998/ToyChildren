@@ -1,0 +1,75 @@
+<div id="content" class="container-fluid">
+    <div id="infouser" class="row title_h3">
+        <div class="container">
+            <h3 style="padding: 20px;font-size: 30px;font-weight: bold;text-align: center;">Đơn hàng của tôi</h3>
+            <div class="row">
+                <div class="col-md-1 col-sm-2">
+                </div>
+                <div class="col-md-10 col-sm-9 col-xs-12 clearfix">
+                    <div class="purchase-list-page__checkout-card-wrapper" *ngFor="let item of orders">
+                        <div class="order-card__container">
+                            <div class="order-card__content-wrapper">
+                                <div class="order-card__content">
+                                    <div class="order-content__container">
+                                        <div class="order-content__header">
+                                            <p class="title-order">Mã đơn hàng: {{item.id}}</p>
+                                            <p class="title-order">
+                                                <b *ngIf="item.status == 0" style="font-size: 20px; color: red;">Đơn hàng bị huỷ</b>
+                                                <b *ngIf="item.status == 1" style="font-size: 20px; color:orange">Chưa thanh toán</b>
+                                                <b *ngIf="item.status == 2" style="font-size: 20px; color: green;">Đã thanh toán</b>
+                                            </p>
+                                        </div>
+                                        <div class="order-content__item-list">
+                                            <a *ngFor="let od of item.orderDetails" class="order-content__item-wrapper" [routerLink]="['/san-pham',od.product.id]" routerLinkActive="router-link-active">
+                                                <div class="order-content__item">
+                                                    <div class="order-content__item__col order-content__item__detail">
+                                                        <div class="order-content__item__product">
+                                                            <div class="order-content__item__image">
+                                                                <div class="shopee-image__wrapper">
+                                                                    <img alt="" style="width: 100px;;height: 100px;" src="../../../../assets/images/ex/{{od.product.thumbai}}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="order-content__item__detail-content">
+                                                                <div class="order-content__item__name">{{ od.product.name}}</div>
+                                                                <div class="order-content__item__quantity">x {{od.quantity}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="order-content__item__price order-content__item__col order-content__item__col--small order-content__item__col--last">
+                                                        <div class="order-content__item__price-text">
+                                                            <div *ngIf="od.product.discount > 0" class="shopee-price--original">{{od.product.price*(1-od.product.discount/100) | FomatMoney }} </div>
+                                                            <div class="shopee-price--primary">{{od.product.price | FomatMoney }} </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="shopee-border-bottom-dotted-circle__container">
+                                    <div class="shopee-border-bottom-dotted-circle__circle shopee-border-bottom-dotted-circle__circle--left">
+                                    </div>
+                                    <div class="shopee-border-bottom-dotted-circle__circle shopee-border-bottom-dotted-circle__circle--right">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-card__buttons-container">
+                                <div class="purchase-card-buttons__wrapper">
+                                    <div class="purchase-card-buttons__total-payment">
+                                        <span style="position: absolute;left: 4%;">Ngày đặt hàng: <b>{{item.createDate}}</b> </span>
+                                        <span class="purchase-card-buttons__label-price"> Tổng số tiền: </span>
+                                        <span class="purchase-card-buttons__total-price">{{item.sumMoney | FomatMoney}}</span>
+                                    </div>
+                                    <div class="purchase-card-buttons__container" *ngIf="item.status == 1">
+                                        <div class="purchase-card-buttons__text-info"></div>
+                                        <div class="purchase-card-buttons__show-button-wrapper"><button (click)="closeOrder(item.id)" class="shopee-button-solid shopee-button-solid--fill shopee-button-solid--primary "><span class="purchase-card-buttons__button-content"> Huỷ đơn hàng </span></button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
